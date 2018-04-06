@@ -112,15 +112,14 @@ function submittedPoints(e) {
 // enter lines as csv as well, with certain character for a new line???
 function submittedLines(e) {
   e.preventDefault();
-  const parsedInput = JSON.parse((this.querySelector('[name=item]')).value);
+  const rawInput = (this.querySelector('[name=item]')).value;
+  const splitDash = rawInput.split('-');
+  let splitNewline = splitDash.map(d => d.split('\n'));
+  splitNewline = splitNewline.map(d=> d.filter(Boolean));
 
-  // for (var key in lines) {
-  //     if (lines.hasOwnProperty(key)) {
-  //         console.log(lines[key][0]);
-  //     }
-  // }
-
-  drawLines(parsedInput);
+  console.log(d3.csvParse(splitNewline));
+  // splitNewline.forEach(d => console.log(d3.csvParse(d)) );
+  // drawLines(parsedInput);
 }
 
 function addVertexLabels(f) {
