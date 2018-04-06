@@ -1,0 +1,9 @@
+{
+	"kankerpoint":[
+		{
+			"sand":10,			
+			"silt":70,
+			"clay":20
+		}
+	]
+}

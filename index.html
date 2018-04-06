@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Ternary plot in D3.js</title>
+  	<link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+  <h1>Ternary diagram maker</h1>
+
+  <div class="wrapper">
+
+  	<div id="plot">
+
+  		<svg></svg>
+
+  	</div>
+
+	<div class="enter">
+    <h2>Points</h2>
+<!--     <p>
+Parameters
+- The first three columns must 
+- Shapes: Allowed shapes: circle (default), cross, diamond, triangle-down, triangle-up Default is circle
+- Color; hexadecimal color code or just text (note)
+- Title: displayed for hovering over the point with cursor
+-
+
+</p> -->
+    <form id="enterpoints" class="add-items">
+      <input type="file" accept=".csv">
+
+      <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="item" cols="40" rows="20" required>sand,silt,clay,shape&#13;0.3,0.3,0.4,square&#13;1,0,0,circle&#13;0,1,0,circle&#13;0,0,1,square</textarea>
+      <input type="submit" name="add" value="+ Add Item">
+      <input type="button" id="clearPoints" value="Clear">
+    </form>
+  </div>
+
+	<div class="enter">
+    <h2>Lines</h2>
+	  <form id="enterlines" class="add-items">
+	     <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="40" rows="20" required> {"limiting": [&#13;{&#13;"sand":70,&#13;"silt":0,&#13;"clay":30&#13;},&#13;{&#13;"silt":70,&#13;"sand":0,&#13;"clay":30&#13;}&#13;]}</textarea>
+	     <input type="submit" value="+ Add Item">
+       <input type="button"  id="clearLines" value="Clear">
+	   </form>
+  </div>
+
+  </div>
+
+  <input type="button"  id="clearLabels" value="Clear Labels">
+  <input type="button"  id="clearAll" value="Clear All">
+
+
+  <a class="bookmarklet ver2" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27https://nytimes.github.io/svg-crowbar/svg-crowbar-2.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
+
+  </body>
+  <script charset="UTF-8" src="d3/d3.min.js"></script>
+	<script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
+  <script type="text/javascript" src="ternary.v3.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+<!--   <script src="https://d3js.org/d3-queue.v3.min.js"></script>  
+ --></html>

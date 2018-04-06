@@ -1,0 +1,110 @@
+/* ------ Page ------ */
+body {
+  font-family: sans-serif;  
+}
+
+h1 {
+  text-align: center;
+}
+
+
+textarea {
+  border:1px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.enter {
+  max-width: 20rem;
+  padding-left: 1rem;
+}
+
+.add-items {
+  margin-top: 20px;
+}
+
+.add-items input {
+  padding:10px;
+  outline:0;
+  border:1px solid rgba(0,0,0,0.1);
+}
+
+input:hover {
+  background-color: #dcedff;
+  border: border:1px solid rgba(0,0,0,0.9);
+}
+
+input:active {
+  border:2px solid rgba(0,0,4,0.1);
+}
+
+svg {
+  margin: 0 auto;
+}
+
+.bookmarklet {
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 1em;
+    background: #666;
+    color: white;
+    background: #3FAA90;
+}
+/* ------ Ternary ------ */
+.ternary-circle{
+  stroke:#c00;
+  fill:#fff;
+}
+
+.ternary-line{
+  fill: rgba(255,255,255,0.0);
+  stroke:#c00;
+}
+
+.ternary-tick{
+  fill:none;
+  stroke:#aaa;
+}
+
+.minor{
+  stroke:#fefefe;	
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 210;
+}
+
+.tick text {
+  font-size: 0.8em;
+}
+
+path.domain {
+  display: none;
+}
+
+.graticule path {
+  stroke: #f8f8f8;
+}
+
+.graticule path.major ,.tick line {
+  stroke: #eee;
+  stroke-width: 2px;
+}
+
+.neatline {
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}
+
+.point {
+  z-index: 50;
+}
