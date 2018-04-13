@@ -1,5 +1,12 @@
 /* To do
 
+--------BUGS--------
+! Cant add lines when points are added first
+? Lines always close
+
+1. Column order agnostic
+2. 
+
 - cookie: First visit example data, afterwards keep entered text
 - On hover of point: highlight lines/values, voronoi option visualcinnamon
 - explain all options for csv
@@ -8,13 +15,11 @@
 - upload csv
 - validate input
 - error handling
-- hexbin option
-- contour option
 - keep track of order of columns beteen lines and points
 - heatmap option
 - option for radius/size of point
 - lines
-    - line style ( dotted, stripes, end style: arrow-end)
+    - end style: arrow-end)
     - fill color & border color
     - curved or straight
 - select points and lines
@@ -25,14 +30,19 @@
 - structure code better https://css-tricks.com/how-do-you-structure-javascript-the-module-pattern-edition/
     http://jstherightway.org/#js-code-style
     https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects
+
+--------Later Features--------
+- hexbin option
+- contour option
+
 * Download the chart with SVG crowbar
 * Hackertip: inspect an element in Chrome dev tool to alter its properties
 */
 
 let defaultPointColor = "black";
 let defaultShape = "circle";
-let defaultLinestyle = "1,1";
-let defaultLineColor = "black"
+let defaultLinestyle = "none";
+let defaultLineColor = "black";
 // const items = JSON.parse(localStorage.getItem('points')) || [];
 labelsAdded = false;
 
@@ -41,6 +51,8 @@ function capitalize(word) {
        return letter.toUpperCase();
   });
 }
+
+const reserved = ["colour", "color", "shape", "linestyle", "title"];
 
 const graticule = d3.ternary.graticule()
   .majorInterval(0.2)
@@ -75,24 +87,22 @@ function drawLines(d) {
       .attr("class", "ternary-line")
       .attr("d", function(line) {
         let drawArray = [];
-
         const myKeys = Object.keys(line[0]);
-
-        // console.log("line", line);
         // Loop over each point in line and add to drawarray because d3 path wants it that way
         for (i = 0; i <= (line.length - 1); i+=1) {
           // d3.ternary wants the values swapped ¯\_(ツ)_/¯
-          const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]];
+          const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]]; // Better find the index of the columns that aren't keywords
           drawArray.push(current);
           // maybe old method for non closed lines ?
         };
-
-        console.log("drawArray", drawArray);
+        // console.log("drawArray", drawArray);
 
         return ternary.path(drawArray);
       })
       .attr("stroke-dasharray", function(e) { return e[0].linestyle ?  e[0].linestyle : defaultLinestyle })
       .attr("stroke", function(e) { return e[0].color ? e[0].color : (e[0].colour ? e[0].colour : defaultLineColor)}) // both color and colour are valid   
+      .append("title")
+        .text( function(e) { return e[0].title ? e[0].title : undefined; }); //Object.values(e).slice(0,3).join(", ")
 
 }
 
@@ -100,29 +110,31 @@ function drawLines(d) {
 function drawPoints(d) {
   const values = d.slice([0, 3]);
   const symbol = d3.svg.symbol();
+  let myValues;
 
-  ternary.plot()
+  const points = ternary.plot()
     .selectAll(".point")
-    .data(values)
-    .enter().append("path")
+    .data(values);
+
+  points.enter().append("path")
       .attr("class", "point")
-      .attr("fill",function(e) { return e.color ? e.color : (e.colour ? e.colour : defaultPointColor)}) // both color and colour are valid
-      .attr("d", symbol.type(function(e) { return (e.shape) ? e.shape : defaultShape; }))
+      .attr("fill",function(point) { return point.color ? point.color : (point.colour ? point.colour : defaultPointColor)}) // both color and colour are valid
+      .attr("d", symbol.type(function(point) { return (point.shape) ? point.shape : defaultShape; }))
       .attr("transform", function(point) {
         const myKeys = Object.keys(point);
-        const myValues = [point[myKeys[0]], point[myKeys[2]], point[myKeys[1]]];
+        myValues = [point[myKeys[0]], point[myKeys[2]], point[myKeys[1]]];
 
         const plotCoords = ternary.point(myValues);
         return "translate(" + plotCoords[0] + "," + plotCoords[1] + ")";
       })
     .append("title")
-      .text( function(e) { return e.title ? e.title : JSON.stringify(e); }); //Object.values(e).slice(0,3).join(", ")
+      .text( function(point) { return point.title ? capitalize(point.title) : undefined; }); //Object.values(e).slice(0,3).join(", ")
 }
 
 // Make one function submitted check wether lines or points???
 function submittedPoints(e) {
   e.preventDefault();
-  const parsedInput = d3.csvParse((this.querySelector('[name=item]')).value);
+  const parsedInput = d3.csvParse((this.querySelector('[name=item]')).value.toLowerCase());
   if (!labelsAdded) { addVertexLabels(parsedInput); labelsAdded = true;}
   drawPoints(parsedInput);
 }
@@ -132,35 +144,31 @@ function submittedLines(e) {
   e.preventDefault();
 
   const rawInput = (this.querySelector("[name=item]")).value;
-  let splitNewlines = rawInput.split(/([-])+/).map(d => d.split("\n")); // Split by dashes for separate lines to draw, then split by newlines for separate points
+  let splitNewlines = rawInput.split(/([-])+/).map(d => d.split("\n")); // Split by dashes [separate lines to draw], then split by newlines [separate points in each line]
   
   const columnsString = splitNewlines[0].shift(); // Remove first entry (Columns)
   const columnsArray = columnsString.split(","); // Array with column names
 
-  splitNewlines = splitNewlines.map(arr => arr.filter(entry => String(entry) !== '')); // Filter out empty entries
-  // console.log("splitNewlines", splitNewlines);
-
+  splitNewlines = splitNewlines.map(arr => arr.filter(entry => String(entry) !== "")); // Filter out empty entries
   const lines = splitNewlines.map(point => point.map(value => value.split(",")) );
-  console.log("lines", lines);
+
+  // // console.log(columnsArray.indexOf("color"))
+  // let intersection = columnsArray.map(x => reserved.indexOf(x)).indexOf(-1);
+  // console.log(intersection);
 
   if (!labelsAdded) { addVertexLabels({columns: columnsArray}); labelsAdded = true;}
 
   // Its ugly but it works ¯\_(ツ)_/¯
-  // Values array van elke lijn pushen aan drawArray.
   const lineObjectsArray = lines.map(line => {
-
     const lineObjects = line.map(function(p) {
-
       const point = columnsArray.reduce(function(result, column, i) {
-        result[column] = p[i];
+        result[column.toLowerCase()] = p[i];
         return result;
-      }, {})
-
+      }, {});
       return point
-    })
-
+    });
     return lineObjects
-  })
+  });
   drawLines(lineObjectsArray);
 }
 

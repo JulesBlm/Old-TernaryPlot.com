@@ -1,33 +1,45 @@
 /* ------ Page ------ */
 body {
   font-family: sans-serif;
-  margin: 0px 40px;  
+  margin: 40px;  
 }
 
 nav {
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 1vw;
   grid-template-columns: [col] 70vw [col] 10vw [col] 10vw;
-  grid-template-rows: [row] 10vh;
+  grid-template-rows: [row] 10px;
   background-color: #fff;
   color: #444;
+  align-items: center;  
 }
 
 nav > a {
-  background-color: #444;  
+  background-color: #747d8c;  
   color: #fff;
   border-radius: 5px;
   padding: 20px;
   text-decoration: none;
 }
 
+a:hover {
+  background-color: #8f97a3;
+}
+
+nav:firstchild {
+  align-items: start;
+}
+
 textarea {
+  background-color: #f0f0f0;  
   border:1px solid rgba(0,0,0,0.3);
   border-radius: 5px;
   margin: 5px;
+  resize: vertical;
 }
 
 .wrapper {
+  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -45,19 +57,23 @@ textarea {
   padding:10px;
   outline:0;
   border:1px solid rgba(0,0,0,0.1);
+  border-radius: 1em;  
 }
 
 input:hover {
   background-color: #dcedff;
-  border: border:1px solid rgba(0,0,0,0.9);
 }
 
 input:active {
-  border:2px solid rgba(0,0,4,0.1);
+  background-color: #c6d5e5;
 }
 
 svg {
   margin: 0 auto;
+}
+
+.fa-info-circle {
+ color: #c5cdf4;
 }
 
 .bookmarklet {
@@ -80,6 +96,10 @@ svg {
   fill: rgba(255,255,255,0.0);
   stroke-width: 4px;
   border-style: dotted;
+}
+
+.ternary-line:hover {
+  opacity: 0.6
 }
 
 .ternary-tick{
@@ -121,4 +141,8 @@ path.domain {
 
 .point {
   z-index: 50;
+}
+
+.point:hover {
+  opacity: 0.6;
 }

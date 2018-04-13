@@ -1,18 +1,19 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <title>Ternary plot in D3.js</title>
-  	<link rel="stylesheet" href="style.css">
-  </head>
-  <body>
+<head>
+  <title>Ternary plot maker</title>
+	<link rel="stylesheet" href="style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+</head>
+<body>
 
 <header>
   <nav>
     <a href="index.html">Ternary diagram maker</a>
-
-    <a href="explain.html">Eplanation</a>
+    <a href="explain.html">Explanation</a>
     <a href="about.html">About</a>
   </nav>
+</header>
 
 <div class="wrapper">
 
@@ -21,18 +22,11 @@
 </div>
 
 <div class="enter">
-<h2>Points</h2>
-<!--     <p>
-Parameters
-- The first three columns must 
-- Shapes: Allowed shapes: circle (default), cross, diamond, triangle-down, triangle-up Default is circle
-- Color; hexadecimal color code or just text (note)
-- Title: displayed for hovering over the point with cursor
-</p> -->
+<h2>Points </h2><i class="fas fa-info-circle" id="infopoint"></i>
 
 <label>
 Default Color
-<select name="defaultColorPoints"> <!--Supplement an id here instead of using 'text'-->
+<select name="defaultColorPoints">
   <option value="black" selected>Black</option> 
   <option value="red">Red</option>
   <option value="yellow">Yellow</option>
@@ -43,68 +37,108 @@ Default Color
 <br>
 <label>
 Default Shape
-<select name="defaultShape"> <!--Supplement an id here instead of using 'text'-->
+<select name="defaultShape">
   <option value="circle" selected>Circle</option> 
   <option value="square">Square</option>
   <option value="diamond">Diamond</option>
-  <option value="arrow-up">Traingle up</option>
-  <option value="arrow-down">Triangle down</option>
+  <option value="cross">Cross</option>
+  <option value="triangle-up">Triangle up</option>
+  <option value="triangle-down">Triangle down</option>
 </select>
 </label>
 
-<form id="enterpoints" class="add-items">
+<!-- <form id="pointsfile" class="add-items">
   <input type="file" accept=".csv">
+  <button>Submit</button> 
+</form>
+ -->
+<form id="enterpoints" class="add-items">
 
-  <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="item" cols="40" rows="20" required>sand,silt,clay,shape&#13;0.3,0.3,0.4,square&#13;1,0,0,circle&#13;0,1,0,circle&#13;0,0,1,square</textarea>
-  <input type="submit" name="add" value="+ Add Item">
-  <input type="button" id="clearPoints" value="Clear">
+  <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="40" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4,square&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,</textarea>
+  <input type="submit" name="add" value="+ Add Points">
+  <input type="button" id="clearPoints" value="Clear Points">
 </form>
 </div>
 
 <div class="enter">
-<h2>Lines</h2>
-<label>
-Default Color
-<select name="defaultColorLines""> <!--Supplement an id here instead of using 'text'-->
-  <option value="black" selected>Black</option> 
-  <option value="red">Red</option>
-  <option value="yellow">Yellow</option>
-  <option value="green">Green</option>  
-</select>
-</label>
+<h2>Lines </h2>
+<i class="fas fa-info-circle" id="infolines"></i>
 
+<label>
+  Default Color
+  <select name="defaultColorLines""> 
+    <option value="black" selected>Black</option> 
+    <option value="red">Red</option>
+    <option value="yellow">Yellow</option>
+    <option value="green">Green</option>  
+  </select>
+</label>
 <br>
 <label>
-Default Linestyle
-<select name="defaultLineStyle"> <!--Supplement an id here instead of using 'text'-->
-  <option value="" selected></option> 
-  <option value="5,5">Dashed</option>
-  <option value="2,2">Dotted</option>
-  <option value="5,10,5">Dash-dot</option>
-</select>
+  Default Linestyle
+  <select name="defaultLineStyle"> 
+    <option value="none" selected>Solid</option> 
+    <option value="5,5">Dashed</option>
+    <option value="2,2">Dotted</option>
+    <option value="5,10,5">Dash-dot</option>
+  </select>
 </label>
 
-	  <form id="enterlines" class="add-items">
-       <input type="file" accept=".csv">
+<!-- <form id="pointsfile" class="add-items">
+  <input type="file" accept=".csv">
+  <button>Submit</button>  
+</form> -->
 
-	     <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="40" rows="20" required>sand,silt,clay,color&#13;0.2,0.8,0,red&#13;0.8,0,0.2,red&#13;-&#13;0.1,0.1,0.8,yellow&#13;0.4,0.1,0.5,yellow&#13;0,0,1,yellow</textarea>
-	     <input type="submit" value="+ Add Item">
-       <input type="button"  id="clearLines" value="Clear">
-	   </form>
-  </div>
+<form id="enterlines" class="add-items">
+  <textarea placeholder="column1,column2,column3,linestyle,color,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="40" rows="20" required>sand,silt,clay,color,linestyle&#13;0.2,0.8,0,red&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,yellow&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
+  <input type="submit" value="+ Add Lines">
+  <input type="button"  id="clearLines" value="Clear Lines">
+</form>
+</div>
 
-  </div>
+</div>
 
-  <input type="button"  id="clearLabels" value="Clear Labels">
-  <input type="button"  id="clearAll" value="Clear All">
+<input type="button"  id="clearLabels" value="Clear Labels">
+<input type="button"  id="clearAll" value="Clear All">
 
 
-  <a class="bookmarklet ver2" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27https://nytimes.github.io/svg-crowbar/svg-crowbar-2.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
+<a class="bookmarklet" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27https://nytimes.github.io/svg-crowbar/svg-crowbar-2.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
 
-  </body>
-  <script charset="UTF-8" src="d3/d3.min.js"></script>
-	<script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
-  <script type="text/javascript" src="ternary.v3.js"></script>
-  <script type="text/javascript" src="main.js"></script>
-<!--   <script src="https://d3js.org/d3-queue.v3.min.js"></script>  
- --></html>
+<div id="explainlines">
+<h2>Parameters</h2>
+The first three columns must be the names of the columns of your data! These will be entered as your vertex label in your ternary plot. If you have already entered lines, the order of the columns must be the same.
+
+For the values you can use either decimals (0.2, 0.3, 0.5) or percentages (20, 30, 50). Mixing is possible between rows.You can't mix 'm in one line though!
+
+color: hexadecimal color code like <em>#dcedff</em>, or just named colors text see <a href="https://htmlcolorcodes.com/color-names/" target="_blank">this page</a> for supported named colors. <br>
+
+<br>
+<strong>Line specific</strong> <br>
+<!-- This should be a pretty table -->
+Keywords for lines are: <br>
+shape: Allowed shapes: circle (default), cross, diamond, triangle-down, triangle-up Default is circle <br>
+Title: displayed for hovering over the point with cursor, only the first row of line needs a title<br>
+Color: Only the first row/point of a line needs a color.
+linestyle: svg dasharrays, use 'none' for a solid lide<br>
+<br>
+
+Lines are separated by a dash '-' or multiple dashes '-----'<br>
+<br>
+</div>
+
+<div id="explainpoints">
+<strong>Parameters Points</strong> <br>
+<!-- This should be a pretty table -->
+Keywords for points are: <br>
+shape: Allowed shapes: circle (default), cross, diamond, triangle-down, triangle-up <br>
+Title: displayed for hovering over the point with cursor.<br>
+<br>
+</div>
+
+
+<script charset="UTF-8" src="d3/d3.min.js"></script>
+<script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
+<script type="text/javascript" src="ternary.v3.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
