@@ -25,11 +25,10 @@
     if (!interpolator) {
       interpolator = 'linear';
     }
-    return path = d3.svg.line().x(function(d) {
-      return d[0];
-    }).y(function(d) {
-      return d[1];
-    }).interpolate(interpolator);
+    return path = d3.svg.line()
+      .x(function(d) { return d[0]; })
+      .y(function(d) { return d[1]; })
+      .interpolate(interpolator);
   };
 
   angles = [0, 120, 240];
@@ -421,9 +420,7 @@
       }
       _plotBounds.call(defs.node(), T);
       if (shouldClip) {
-        plot.attr({
-          'clip-path': "url(#axesClip)"
-        });
+        plot.attr({'clip-path': "url(#axesClip)"});
       }
       return events.resize();
     };
@@ -547,13 +544,10 @@
       // console.log("t.path _this", _this);
 
       return function(coordsList, accessor, interpolator) {
-        // console.log("coordsList",coordsList);
-
+        // console.log("d3-TERNARY: coordsList",coordsList);
         var positions;
         line(interpolator);
-        if (!accessor) {
-          accessor = function(d) { return d; };
-        }
+        if (!accessor) { accessor = function(d) { return d; }; }
 
         positions = coordsList.map(function(d) { return T.point(accessor(d)); });
         

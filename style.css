@@ -1,12 +1,25 @@
 /* ------ Page ------ */
 body {
-  font-family: sans-serif;  
+  font-family: sans-serif;
+  margin: 0px 40px;  
 }
 
-h1 {
-  text-align: center;
+nav {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: [col] 70vw [col] 10vw [col] 10vw;
+  grid-template-rows: [row] 10vh;
+  background-color: #fff;
+  color: #444;
 }
 
+nav > a {
+  background-color: #444;  
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  text-decoration: none;
+}
 
 textarea {
   border:1px solid rgba(0,0,0,0.3);
@@ -65,7 +78,8 @@ svg {
 
 .ternary-line{
   fill: rgba(255,255,255,0.0);
-  stroke:#c00;
+  stroke-width: 4px;
+  border-style: dotted;
 }
 
 .ternary-tick{
