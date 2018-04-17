@@ -1,0 +1,39 @@
+body {
+  font-family: sans-serif;
+}
+
+nav {
+  margin-top: 30px;
+  display: grid;
+  grid-gap: 1vw;
+  grid-template-columns: [col] 70vw [col] 10vw [col] 10vw;
+  grid-template-rows: [row] 10px;
+  background-color: #fff;
+  color: #444;
+  align-items: center;  
+}
+
+nav > a {
+  background-color: #747d8c;  
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: #8f97a3;
+}
+
+nav:firstchild {
+  align-items: start;
+}
+
+#right {
+  left:-5%;
+  float: right;
+  text-align: right;
+  z-index:-10;
+  width:50%;
+  height: 80%
+}

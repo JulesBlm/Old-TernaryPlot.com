@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">	
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> 	
+ 	<title>Ternary plot maker</title>
+  	<link rel="icon" type="image/png" href="favicon.png" />
+
+	<link rel="stylesheet" href="css/reveal.css"> 
+  	<link rel="stylesheet" href="css/style.css">	
+	<link rel="stylesheet" href="css/theme/white.css">	
+  	<link rel="stylesheet" href="css/ternary.css">
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html">Ternary diagram maker</a>
+    <a>Explanation</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<svg></svg>
+<div class="reveal" id="right">
+	<div class="slides">
+
+		<section id="nothing">
+			<h1>What is a ternary plot?</h1>
+		</section>
+
+		<section id="cleanTernaryPlot">
+			<p>
+  				A ternary plot is useful chart for vizualing three variables which sum to a constant. This constant is usually 1.0 or 100%.
+			</p>
+<!-- 			<span class="fragment"></span>
+ -->
+		</section>
+
+		<section id="addLabels">
+			<p>Let's add some labels to our axes! Suppose we have a soil sample that consists of three soil types: <span class="fragment">sand</span>, <span class="fragment">silt,</span> <span class="fragment">and clay</span>. These three together form 100% of our soil sample. <br>
+  			</p>
+		</section>
+<!--     // - thicken each axis omstebeurt + vertexLabel
+    // - Show arrow from corner to opposite side
+    // - or, even better, highlight each major axis and its percentages + ticks for each component sequentially.
+    // give <g> and id then select each major axis
+
+    // If our object consists 100% Sand then were all the way in the 'Sand' corner
+    // - plot point 100% sans
+    // Same goes for the other two components of course but lets focus on the sand corner for now
+
+    // Now what if we have 80% sand and 20%, well, something else.
+    // - move point to 80%, 20% clay
+
+    // See that the point has moved closer to the 'Clay' corner, and on the 'Clay axis'. Now lets add some silt in the mix
+    // - move point to 80%, 10% clay 10% silt
+    // - Show line to that clay and silt axes 10 % 
+
+    // Notice that we're still on the 80% Sand line
+    // - make 80% sand line red
+    // Everywhere on this red line our soil sample is 80% sand
+ -->
+		<section>
+			We have three axes, one for each component. In each 'corner' of the triangle we're at 100% of one of the elements.
+		</section>
+
+	</div>
+</div>
+
+<!-- </main>-->
+<script charset="UTF-8" src="d3/d3.min.js"></script>
+<script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
+<script type="text/javascript" src="ternary.v3.js"></script>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script src="js/reveal-to-d3-config.js"></script>
+<script src="js/reveal-to-d3.js"></script>
+
+<script type="text/javascript" src="explain.js"></script>
+
+<!-- REVEAL INIT -->
+<script>
+	// Full list of configuration options available at:
+	// https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: false,
+		center: true,
+		touch: true,
+
+		transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+		// More info https://github.com/hakimel/reveal.js#dependencies
+		dependencies: [
+			{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+			{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+			{ src: 'plugin/search/search.js', async: true },
+			{ src: 'plugin/zoom-js/zoom.js', async: true },
+			{ src: 'plugin/notes/notes.js', async: true }
+		]
+	});
+</script>
+
+
+</body>
+
+</html>

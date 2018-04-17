@@ -1,0 +1,122 @@
+/* ------ Page ------ */
+body {
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 25px 0;
+}
+
+h1 {
+  text-align: left;
+}
+
+nav {
+  max-height: 340px;
+  display: grid;
+  grid-template-columns: [col] 70vw [col] 15vw [col] 15vw;
+  grid-template-rows: [row] 10px;
+  background-color: #fff;
+  align-items: center;  
+}
+
+nav > a {
+  background-color: #e56565;  
+  color: #fff;
+  padding: 20px;
+  text-decoration: none;
+  transition-duration: 0.2s
+}
+
+
+a:hover {
+  background-color: #efa2a2;
+}
+
+nav > a:first-child {
+/*  background-color: black; 
+*/  font-size: 250%
+  align-items: start;
+}
+
+textarea {
+  background-color: #f0f0f0;  
+  border:1px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  margin: 5px;
+  resize: vertical;
+}
+
+select {
+  float: right;
+}
+
+.wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+main {
+  margin-top: 30px;
+}
+
+.enter {
+  max-width: 25vw;
+  padding-left: 1rem;
+/*  flex-grow: 2;  default 0   
+*/}
+
+.add-items {
+  margin-top: 20px;
+}
+
+input {
+  padding:10px;
+  outline:0;
+  border:1px solid rgba(0,0,0,0.1);
+  border-radius: 1em;
+  font-weight: bold;
+  transition-duration: 0.1s;
+}
+
+input:hover {
+  background-color: #f9e0e0;
+}
+
+input:active {
+  background-color: #c6d5e5;
+}
+
+svg {
+  margin: 0 auto;
+}
+
+.fa-info-circle {
+ color: #e56565;
+}
+
+.fa-info-circle:hover {
+ color: #efa2a2;
+}
+
+.bookmarklet {
+    padding:10px;
+    outline:0;
+    border:1px solid rgba(0,0,0,0.1);
+    border-radius: 1em;   
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 1em;
+    background: #666;
+    color: white;
+    background: #3FAA90;
+}
+
+#right {
+  left:-5%;
+  float: right;
+  text-align: right;
+  z-index:-10;
+  width:50%;
+  height: 80%
+}
