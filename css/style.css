@@ -1,5 +1,11 @@
 ::selection { background-color: #efa2a2; }
 
+#alpha {
+  font-size: 0.5em;
+  line-height: 0.5em;
+  color: gold;
+}
+
 body {
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,8 +33,8 @@ nav {
 nav > a {
   color: #fff;
   text-align: center;
-  font-weight: 1em;  
-  padding: 20px;
+/*  font-weight: 1em;  
+*/  padding: 20px;
   text-decoration: none;
   transition-duration: 0.2s
 }
