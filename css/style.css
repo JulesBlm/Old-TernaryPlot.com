@@ -205,6 +205,14 @@ hr {
   background-color: #fff3cc; 
 }
 
+footer {
+  box-shadow: 1px 0 15px 0 rgba(192,72,25,0.2);  
+  background-color: linen;
+  width: 100vw;
+  height: 5vh;
+  padding: 2vh 10vw; 
+}
+
 @media screen and (max-width: 700px) {
 header{
   height: 50px;
