@@ -5,16 +5,16 @@
 	<link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ternary.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
   <link rel="icon" type="image/png" href="favicon.png">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 <body>
 
-<div id="warning"></div>
-
 <header>
   <nav>
     <a>Ternary diagram maker</a>
+    <a></a>
     <a href="explain.html">Explanation</a>
     <a href="about.html">About</a>
   </nav>
@@ -22,43 +22,46 @@
 
 <main>
 
-<div class="wrapper">
+<div class="flex-wrapper">
 
-<div id="plot">
+<div class="flex-item">
   <svg></svg>
+  <input type="button" id="clearLabels" value="Clear Labels">
+  <input type="button" id="clearAll" value="Clear All">
+  <!-- <input type="button" id="download" value="Download">  seteventlistener to perform svg-crowbar.js sans popover-->
+  <a class="bookmarklet" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27https://nytimes.github.io/svg-crowbar/svg-crowbar-2.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
 </div>
 
-<div class="enter">
-<h2>Points <i class="fas fa-info-circle" id="infopoint"></i></h2>
+<div class="flex-item">
+  <h2>Points <i class="fas fa-info-circle" id="infopoint"></i></h2>
 
-<label>
-Default Color
-<select name="defaultColorPoints">
-  <option value="black" selected>Black</option> 
-  <option value="red">Red</option>
-  <option value="yellow">Yellow</option>
-  <option value="green">Green</option>  
-</select>
-</label>
-
-<br>
-<label>
-Default Shape
-<select name="defaultShape">
-  <option value="circle" selected>Circle</option> 
-  <option value="square">Square</option>
-  <option value="diamond">Diamond</option>
-  <option value="cross">Cross</option>
-  <option value="triangle-up">Triangle up</option>
-  <option value="triangle-down">Triangle down</option>
-</select>
-</label>
-
-<form id="enterpoints" class="add-items">
-  <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="40" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4,square&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,</textarea>
-  <input type="submit" name="add" value="+ Add Points">
-  <input type="button" id="clearPoints" value="Clear Points">
-</form>
+  <div class="labels">
+    <label>
+    Default Color
+    <select name="defaultColorPoints">
+      <option value="black" selected>Black</option> 
+      <option value="red">Red</option>
+      <option value="gold">Gold</option>
+      <option value="green">Green</option>  
+    </select>
+    </label>
+    <label>
+    Default Shape
+    <select name="defaultShape">
+      <option value="circle" selected>Circle</option> 
+      <option value="square">Square</option>
+      <option value="diamond">Diamond</option>
+      <option value="cross">Cross</option>
+      <option value="triangle-up">Triangle up</option>
+      <option value="triangle-down">Triangle down</option>
+    </select>
+    </label>
+  </div>
+  <form id="enterpoints" class="add-items">
+    <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4,square&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,</textarea>
+    <input type="submit" name="add" value="+ Add Points">
+    <input type="button" id="clearPoints" value="Clear Points">
+  </form>
 </div>
 <!-- <form id="pointsfile" class="add-items">
   <input type="file" accept=".csv">
@@ -66,7 +69,7 @@ Default Shape
 </form>
  -->
 
-<div class="enter">
+<div class="flex-item">
 <h2>Lines <i class="fas fa-info-circle" id="infolines"></i></h2>
 
 <label>
@@ -89,7 +92,7 @@ Default Shape
   </select>
 </label>
 <form id="enterlines" class="add-items">
-  <textarea placeholder="column1,column2,column3,linestyle,color,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="40" rows="20" required>sand,silt,clay,color,linestyle&#13;0.2,0.8,0,orangered&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
+  <textarea placeholder="column1,column2,column3,linestyle,color,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,linestyle,title&#13;0.2,0.8,0,orangered&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
   <input type="submit" value="+ Add Lines">
   <input type="button"  id="clearLines" value="Clear Lines">
 </form>
@@ -101,26 +104,45 @@ Default Shape
 
 </div>
 
-<input type="button"  id="clearLabels" value="Clear Labels">
-<input type="button"  id="clearAll" value="Clear All">
-
-
-<a class="bookmarklet" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27https://nytimes.github.io/svg-crowbar/svg-crowbar-2.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
-
-<div id="explainlines">
+<div class="margin-main">
   <h2>Parameters</h2>
-  The values in the text area should be separated by commas. The first row has to contain your column names.
-  The first three columns must be the names of the columns of your data! These will be entered as your vertex label in your ternary plot. You have to keep the order of the first three column names consistent between points and lines. <br>
-
-  For the values you can use either decimals <em>(0.2, 0.3, 0.5)</em> or percentages <em>(20, 30, 50)</em>. Mixing is possible between rows. You can't mix 'm in one line though! <br>
-  <br>
+  <p>
+  The values in the text area should be separated by commas. The first row has to contain your column names and these have the first three values. These will be entered as vertex labels in the ternary plot. The labels are placed: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points and lines.
+  </p>
+  <p>
+  For the values you can use either decimals <em>(0.2, 0.3, 0.5)</em> or percentages <em>(20, 30, 50)</em>. Mixing these formats between rows is possible. You can't mix 'm in one line though! </p>
   <h3>Optional Keywords</h3>
-  <ul>
-    <li><strong>Color (or colour):</strong> hexadecimal color code like <em>'#dcedff'</em>, or just named colors text. See <a href="https://htmlcolorcodes.com/color-names/" target="_blank">this page</a> for supported named colors.</li>
+
+  <table class="tg">
+    <tr>
+      <th class="tg-l711">Keyword</th>
+      <th class="tg-l711">Values</th>
+    </tr>
+    <tr>
+      <td class="tg-l711">Title</td>
+      <td class="tg-l711">Text (without commas)</td>
+    </tr>
+    <tr>
+      <td class="tg-yw4l">Color (or colour)</td>
+      <td class="tg-yw4l">A hexadecimal color value like <em>'#dcedff'</em>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank">named color</a> like <em>'blue'</em> or <em>'orangered'</em></td>
+    </tr>
+    <tr class="point-only">
+      <td class="tg-yw4l">Point only: Shape</td>
+      <td class="tg-yw4l">Circle, cross, diamond, triangle-down, or triangle-up</td>
+    </tr>
+    <tr class="line-only">
+      <td class="tg-yw4l">Line only: Linestyle</td>
+      <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. The values should be separated by spaces not commas! For example: <em>'5 15 3'</em>. Use <em>'none'</em> for a solid line.</td>
+    </tr>
+  </table>
+
+
+<!--   <ul>
+    <li><strong>Color (or colour):</strong> hexadecimal color code , or just named colors text. See 
     <li><strong>Title:</strong> displayed when hovering over the point with cursor, only the first row (point) of line needs a title</li>
   </ul>
   <h4>Line specific keywords</h4>
-  Only, the first point of a line needs a value for color or title. Lines are separated by a dash '-' or multiple dashes '-----', whichever you prefer.<br>
+  Only, the first point (row) of a line needs a value for color or title. Lines are separated by a dash '-' or multiple dashes '-----', whichever you prefer.<br>
 
   <ul>
     <li><strong>Linestyle:</strong> Enter an <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>surrounded by quotes; like <em>"5,5"</em>, use 'none' for a solid line.</li>
@@ -130,7 +152,7 @@ Default Shape
   <ul>
     <li><strong>Shape:</strong> circle (default), cross, diamond, triangle-down, triangle-up</li>
   <br>
-</div>
+ --></div>
 
 </main>
 

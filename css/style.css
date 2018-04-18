@@ -1,43 +1,64 @@
-/* ------ Page ------ */
+::selection { background-color: #efa2a2; }
+
 body {
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
-  margin: 25px 0;
+  margin: 0;
 }
 
 h1 {
   text-align: left;
 }
 
+header {
+  background-color: #e56565;  
+  height: 70px;
+  box-shadow: 0 1px 15px 0 rgba(192,72,25,0.32);
+  top: 0;  
+}
+
 nav {
-  max-height: 340px;
   display: grid;
-  grid-template-columns: [col] 70vw [col] 15vw [col] 15vw;
-  grid-template-rows: [row] 10px;
-  background-color: #fff;
-  align-items: center;  
+  grid-template-columns: [col] 20vw [col] 45vw [col] 15vw [col] 15vw;
+  grid-template-rows: [row] 70px;
+  align-items: center;
 }
 
 nav > a {
-  background-color: #e56565;  
   color: #fff;
+  text-align: center;
+  font-weight: 1em;  
   padding: 20px;
   text-decoration: none;
   transition-duration: 0.2s
 }
 
-
-a:hover {
+nav > a[href]:hover {
   background-color: #efa2a2;
+  color: black;
+  -webkit-box-shadow: 7px 7px 20px 0px rgba(0,0,0,0.57);
+  -moz-box-shadow: 7px 7px 20px 0px rgba(0,0,0,0.57);
+  box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.57); 
 }
 
 nav > a:first-child {
-/*  background-color: black; 
-*/  font-size: 250%
-  align-items: start;
+  text-align: left;
+  font-weight: bolder;
+}
+
+.flex-wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.labels {
+  display: grid;
+  grid-template-rows: repeat(2, 22px)
 }
 
 textarea {
+  width: inherit;
   background-color: #f0f0f0;  
   border:1px solid rgba(0,0,0,0.3);
   border-radius: 5px;
@@ -45,25 +66,23 @@ textarea {
   resize: vertical;
 }
 
+
+
 select {
+  width: 100px;
   float: right;
 }
 
-.wrapper {
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
+.flex-item {
+  max-width: 290px;
+  padding: 0 1rem;
+  margin: auto;  
 }
 
-main {
-  margin-top: 30px;
+.flex-item:first-child {
+  min-width: 500px;
+  text-align: center; 
 }
-
-.enter {
-  max-width: 25vw;
-  padding-left: 1rem;
-/*  flex-grow: 2;  default 0   
-*/}
 
 .add-items {
   margin-top: 20px;
@@ -86,8 +105,15 @@ input:active {
   background-color: #c6d5e5;
 }
 
-svg {
+/*svg {
   margin: 0 auto;
+}*/
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .fa-info-circle {
@@ -112,6 +138,19 @@ svg {
     background: #3FAA90;
 }
 
+.licence {
+  max-height: 200px;
+  overflow-y: scroll;
+  margin: 20;
+  border-style: solid;
+  border-color: rgba(0,0,0,0.3);
+  padding: .5em;
+}
+
+.margin-main {
+  margin: 5vh 10vw; 
+}
+
 #right {
   left:-5%;
   float: right;
@@ -119,4 +158,56 @@ svg {
   z-index:-10;
   width:50%;
   height: 80%
+}
+
+.tg  {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+.tg td{
+  font-family:Arial, sans-serif;
+  font-size:14px;
+  padding:10px 5px;
+  border-style:solid;
+  border-width:1px;
+  overflow:hidden;
+  word-break:normal;
+  border-color:black;
+}
+.tg th{
+  font-size:17px;
+  font-weight:bold;
+  padding:10px 5px;
+  border-style:solid;
+  border-width:1px;
+  overflow:hidden;
+  word-break:normal;
+  border-color:black;
+}
+.tg .tg-l711{
+  border-color:inherit
+}
+.tg .tg-yw4l{
+  vertical-align:top
+}
+
+.point-only {
+  background-color: #dae6f0; 
+}
+
+.line-only {
+  background-color: #fff3cc; 
+}
+
+@media screen and (max-width: 700px) {
+header{
+  height: 50px;
+}
+
+nav {
+  grid-template-columns: [col] 30vw [col] 10vw [col] 30vw [col] 30vw;
+  grid-template-rows: [row] 50px;
+  align-items: center;
+}
+
 }

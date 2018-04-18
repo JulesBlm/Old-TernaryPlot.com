@@ -17,17 +17,13 @@ pt.slideIdToFunctions = {
     },
     2: function() {
       pt.ternaryPlot.addLabels(['Sand', 'Silt', 'Clay']);
+    },
+    3: function() {
+      pt.ternaryPlot.addValueBox({'Sand': 0, 'Silt':0, 'Clay':0 });
+    },
+    4: function() {
+      pt.ternaryPlot.updateValueBox({'Sand': 0, 'Silt':0, 'Clay':0 });
     }    
-  },
-  'intro-shopperdna': {
-    'init': function() {
-      pt.ternaryPlot.init();
-    }
-  },
-  'shopperdna-color-intro': {
-    'init': function() {
-      pt.ternaryPlot.init();
-    }
   },
   'shopperdna-colors': {
     '-1': function() {
