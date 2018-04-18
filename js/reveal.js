@@ -647,7 +647,7 @@
 	 */
 	function setupPDF() {
 
-		var slideSize = getComputedSlideSize( window.innerWidth, window.innerHeight );
+		var slideSize = getComputedSlideSize( window.innerWidth /2, window.innerHeight );
 
 		// Dimensions of the PDF pages
 		var pageWidth = Math.floor( slideSize.width * ( 1 + config.margin ) ),
