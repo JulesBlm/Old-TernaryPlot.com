@@ -34,12 +34,8 @@ h1 {
   text-align: left;
 }
 
-.current {
+.underline {
   text-decoration: underline;
-}
-
-hr {
-  color: black;
 }
 
 header {
@@ -65,17 +61,17 @@ nav > a {
   transition-duration: 0.2s
 }
 
+nav > a:first-child {
+  text-align: left;
+  font-weight: bolder;
+}
+
 nav > a[href]:hover {
   background-color: #efa2a2;
   color: black;
   -webkit-box-shadow: 7px 7px 20px 0px rgba(0,0,0,0.57);
   -moz-box-shadow: 7px 7px 20px 0px rgba(0,0,0,0.57);
   box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.57); 
-}
-
-nav > a:first-child {
-  text-align: left;
-  font-weight: bolder;
 }
 
 .flex-wrapper {
@@ -90,7 +86,6 @@ nav > a:first-child {
 }
 
 textarea {
-  width: inherit;
   background-color: #f0f0f0;  
   border:1px solid rgba(0,0,0,0.3);
   border-radius: 5px;
@@ -165,7 +160,7 @@ hr {
 }
 
 .licence {
-  max-height: 200px;
+  max-height: 180px;
   overflow-y: scroll;
   margin: 20;
   border-style: solid;
@@ -177,15 +172,8 @@ hr {
   margin: 5vh 10vw; 
 }
 
-/*#right {
-  left:-5%;
-  float: right;
-  text-align: right;
-  z-index:-10;
-  width:50%;
-  height: 80%
-}*/
 
+/* -----Table----- */
 .tg  {
   border-collapse:collapse;
   border-spacing:0;
@@ -236,14 +224,13 @@ footer {
 }
 
 @media screen and (max-width: 700px) {
-header{
-  height: 50px;
-}
+  header{
+    height: 50px;
+  }
 
-nav {
-  grid-template-columns: [col] 30vw [col] 10vw [col] 30vw [col] 30vw;
-  grid-template-rows: [row] 50px;
-  align-items: center;
-}
-
+  nav {
+    grid-template-columns: [col] 30vw [col] 10vw [col] 30vw [col] 30vw;
+    grid-template-rows: [row] 50px;
+    align-items: center;
+  }
 }

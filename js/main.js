@@ -5,8 +5,6 @@
 2. Sweet alert
 3. Catch errores
 
-Nav current underlined
-
 0. Make animated explanation
 1. Fix reveal with d3.
 1. Column order agnostic
@@ -42,29 +40,10 @@ MAKE IT SLICK
 VORONOI [does litter in downloaded svg ??]
 make it optional
 
-var voronoi = d3.geom.voronoi()
-    .x(function(d) { return plotCoords[0]; })
-    .y(function(d) { return plotCoords[1]; })
-    .clipExtent([[0, 0], [width, height]]);
-
-svg.selectAll("path")
-    .data(voronoi(d)) //Use vononoi() with your dataset inside
-    .enter().append("path")
-    .attr("d", function(d, i) { return "M" + d.join("L") + "Z"; })
-    .datum(function(d, i) { return d.point; })
-    //Give each cell a unique class where the unique part corresponds
-    //to the circle classes
-    .attr("class", function(d,i) { return "voronoi " + d.CountryCode; })
-    //.style("stroke", "#2074A0") //If you want to look at the cells
-    .style("fill", "none")
-    .style("pointer-events", "all")
-    .on("mouseover", showTooltip)
-    .on("mouseout",  removeTooltip);
-
-
 
 --------Later Features--------
 - hexbin option
+- areas
 - heatmap & contour option
 
 * Download the chart with SVG crowbar
@@ -75,10 +54,10 @@ let defaultPointColor = "black";
 let defaultShape = "circle";
 let defaultLinestyle = "none";
 let defaultLineColor = "black";
-// const items = JSON.parse(localStorage.getItem('points')) || [];
+// const items = JSON.parse(localStorage.getItem("points")) || [];
 labelsAdded = false;
 
-let columns = [];
+let columns;
 
 function capitalize(word) {
   return  word.toLowerCase().replace(/\b[a-z]/g, function(letter) {
@@ -117,7 +96,7 @@ function drawLines(d) {
     .selectAll(".line")
     .data(d);
 
-  paths.enter().append('path')
+  paths.enter().append("path")
       .attr("class", "ternary-line")
       .attr("d", function(line) {
         let drawArray = [];
@@ -125,7 +104,7 @@ function drawLines(d) {
         // Loop over each point in line and add to drawarray because d3 path wants it that way
         for (i = 0; i <= (line.length - 1); i+=1) {
           // d3.ternary wants the values swapped ¯\_(ツ)_/¯
-          const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]]; // Better find the index of the columns that aren't keywords
+          const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]]; // Better find the index of the columns that aren"t keywords
           drawArray.push(current);
           // maybe old method for non closed lines ?
         };
@@ -169,8 +148,18 @@ function drawPoints(d) {
 // Make one function submitted check wether lines or points???
 function submittedPoints(e) {
   e.preventDefault();
-  const parsedInput = d3.csvParse((this.querySelector('[name=item]')).value.toLowerCase());
+  const parsedInput = d3.csvParse((this.querySelector("[name=item]")).value.toLowerCase());
 
+  parsedInput.columns = parsedInput.columns.map(col => col.trim());
+
+  if (!columns) {
+    columns = parsedInput.columns.slice(0,3).map(col => col.trim());
+  } else {
+    if (JSON.stringify(parsedInput.columns.slice(0,3)) !== JSON.stringify(columns)) {
+      swal("Your columns in Points and Lines don't seem to match", `Your columns for points are "${parsedInput.columns.slice(0,3)}" and for lines they are "${columns}". . The point will still be plotted, but they might appear the way you intended.`, "warning");
+      console.log(parsedInput.columns.slice(0,3), "en", columns);
+    }
+  }
 
   // parsedInput.columns.map(key => {
   //   reserved.forEach(res => {
@@ -193,7 +182,15 @@ function submittedLines(e) {
   let splitNewlines = rawInput.split(/([-])+/).map(d => d.split("\n")); // Split by dashes [separate lines to draw], then split by newlines [separate points in each line]
   
   const columnsString = splitNewlines[0].shift(); // Remove first entry (Columns)
-  const columnsArray = columnsString.split(","); // Array with column names
+  const columnsArray = columnsString.split(",").map(col => col.trim()); // Array with column names
+
+  if (!columns) {
+    columns = columnsArray.slice(0,3)
+  } else {
+    if (JSON.stringify(columnsArray.slice(0,3)) !== JSON.stringify(columns)) {
+      swal("Your columns in Points and Lines don't seem to match", `Your columns for points are "${columns}" and for lines they are "${columnsArray.slice(0,3)}". The lines will still be plotted, but they might not appear the way you intended.`, "warning");
+    }
+  }
 
   splitNewlines = splitNewlines.map(arr => arr.filter(entry => String(entry) !== "")); // Filter out empty entries
   const lines = splitNewlines.map(point => point.map(value => value.split(",")) );
@@ -235,6 +232,7 @@ function addVertexLabels(f) {
 function clearLabels() {
   d3.selectAll(".vertex-label").remove();
   labelsAdded = false;
+  columns = undefined;  
 }
 
 function clearPoints(e) {
@@ -246,29 +244,30 @@ function clearLines(e) {
 }
 
 function clearAll(e) {
+
   clearLines();
   clearPoints();
   clearLabels();
 }
 
 // Change to oneliners?
-const submitPoints = document.querySelector('#enterpoints');
-submitPoints.addEventListener('submit', submittedPoints);
+const submitPoints = document.querySelector("#enterpoints");
+submitPoints.addEventListener("submit", submittedPoints);
 
-const submitLines = document.querySelector('#enterlines');
-submitLines.addEventListener('submit', submittedLines);
+const submitLines = document.querySelector("#enterlines");
+submitLines.addEventListener("submit", submittedLines);
 
-const clearPointsButton = document.getElementById('clearPoints');
-clearPointsButton.addEventListener('click', clearPoints);
+const clearPointsButton = document.getElementById("clearPoints");
+clearPointsButton.addEventListener("click", clearPoints);
 
-const clearLinesButton = document.getElementById('clearLines');
-clearLinesButton.addEventListener('click', clearLines);
+const clearLinesButton = document.getElementById("clearLines");
+clearLinesButton.addEventListener("click", clearLines);
 
-const clearLabelsButton = document.getElementById('clearLabels');
-clearLabelsButton.addEventListener('click', clearLabels);
+const clearLabelsButton = document.getElementById("clearLabels");
+clearLabelsButton.addEventListener("click", clearLabels);
 
-const clearAllButton = document.getElementById('clearAll');
-clearAllButton.addEventListener('click', clearAll);
+const clearAllButton = document.getElementById("clearAll");
+clearAllButton.addEventListener("click", clearAll);
 
 document.querySelector(`select[name="defaultColorPoints"]`).onchange = pointColorSelect;
 document.querySelector(`select[name="defaultShape"]`).onchange = pointShapeSelect;
@@ -277,7 +276,7 @@ document.querySelector(`select[name="defaultColorLines"]`).onchange = lineColorS
 document.querySelector(`select[name="defaultLineStyle"]`).onchange = linestyleSelect;
 
 const infoPoints = document.getElementById("infopoint");
-// clearLinesButton.addEventListener('click', console.log("KKKKKKK"));
+// clearLinesButton.addEventListener("click", console.log("KKKKKKK"));
 
 
 

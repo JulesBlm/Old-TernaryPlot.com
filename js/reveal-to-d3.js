@@ -3,12 +3,12 @@
 var pt = pt || {};
 
 pt.handleEvent = function(isSlideEvent) {
-  'use strict';
+  "use strict";
 
   let currentSlideId = Reveal.getCurrentSlide().id;
   let currentFragment = Reveal.getIndices().f;
 
-  // Don't go any further if the slide has no ID (i.e. the string is empty).
+  // Don"t go any further if the slide has no ID (i.e. the string is empty).
   if (!currentSlideId) {
     return;
   }
@@ -16,7 +16,7 @@ pt.handleEvent = function(isSlideEvent) {
   //First remove any SVGs still present when changing a slide
   if (isSlideEvent) removeSVGs(); // ?????
 
-  // If there is no entry corresponding to the current slide in the map, don't go further.
+  // If there is no entry corresponding to the current slide in the map, don"t go further.
   let functions = pt.slideIdToFunctions[currentSlideId];
   if (functions == null) return;
 
@@ -25,7 +25,7 @@ pt.handleEvent = function(isSlideEvent) {
     let initFunction = functions.init;
     if (initFunction != null) {
       initFunction();
-      // Make sure we don't call the init function again.
+      // Make sure we don"t call the init function again.
       //functions.init = null;
     }//if
   }//if
@@ -35,19 +35,19 @@ pt.handleEvent = function(isSlideEvent) {
 };
 
 pt.handleSlideEvent = function() {
-  'use strict';
-  //Remove all the svg's drawn
+  "use strict";
+  //Remove all the svg"s drawn
   //pt.selectAll("svg").remove();
   pt.handleEvent(true);
 };
 
 pt.handleFragmentEvent = function() {
-  'use strict';
+  "use strict";
   pt.handleEvent(false);
 };
 
-Reveal.addEventListener('slidechanged', pt.handleSlideEvent);
+Reveal.addEventListener("slidechanged", pt.handleSlideEvent);
 
-Reveal.addEventListener('fragmentshown', pt.handleFragmentEvent);
+Reveal.addEventListener("fragmentshown", pt.handleFragmentEvent);
 
-Reveal.addEventListener('fragmenthidden', pt.handleFragmentEvent);
+Reveal.addEventListener("fragmenthidden", pt.handleFragmentEvent);
