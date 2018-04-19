@@ -1,11 +1,28 @@
 <!DOCTYPE HTML>
 <html>
 <head>
- 	<title>Ternary plot maker</title>
-	<link rel="stylesheet" href="css/style.css">
-  	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">	
- 	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
- 	<link rel="icon" type="image/png" href="favicon.png" />
+	<title>Ternary plot maker</title>
+	<meta charset="utf-8">  
+	<meta name="description" content="Easy online Ternary Plot maker! Quickly create an easily customizable SVG ternary plot.">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/style.css">	
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104492042-4"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-104492042-4');
+	</script>
+
 </head>
 <body>
 
@@ -14,7 +31,7 @@
     <a href="index.html">Ternary diagram maker<span id="alpha">ALPHA</span></a>
     <a></a>
     <a href="explain.html">Explanation</a>
-    <a>About</a>
+    <a class="current">About</a>
   </nav>
 </header>
 
@@ -83,5 +100,8 @@ SVG because its easily editable in your favorite vector graphics editor and supp
 </div>
 </div>
 </main>
+<footer>
+	Copyright 2018 Jules Blom <i class="far fa-copyright"></i>
+</footer>
 </body>
 </html>

@@ -4,21 +4,33 @@
   <title>Ternary plot maker</title>
   <meta charset="utf-8">  
   <meta name="description" content="Easy online Ternary Plot maker! Quickly create an easily customizable SVG ternary plot.">
-
-	<link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ternary.css">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
   <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
-  
+  <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104492042-4"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-104492042-4');
+  </script>
+
   <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 
 <header>
   <nav>
-    <a>Ternary diagram maker <span id="alpha">ALPHA</span></a>
+    <a><span class="current">Ternary plot maker</span> <span id="alpha">ALPHA</span></a>
     <a></a>
     <a href="explain.html">Explanation</a>
     <a href="about.html">About</a>
@@ -27,6 +39,8 @@
 
 <main>
 
+<div class="content">
+
 <div class="flex-wrapper">
 
 <div class="flex-item">
@@ -34,11 +48,11 @@
   <input type="button" id="clearLabels" value="Clear Labels">
   <input type="button" id="clearAll" value="Clear All">
   <!-- <input type="button" id="download" value="Download">  seteventlistener to perform svg-crowbar.js sans popover-->
-  <a class="bookmarklet" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27https://nytimes.github.io/svg-crowbar/svg-crowbar-2.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
+  <a class="bookmarklet" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27js/svg-crowbar.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
 </div>
 
 <div class="flex-item">
-  <h2>Points <i class="fas fa-info-circle" id="infopoint"></i></h2>
+  <h2 class="current">Points</h2><!--  <i class="fas fa-info-circle" id="infopoint"></i> -->
 
   <div class="labels">
     <label>
@@ -75,7 +89,7 @@
  -->
 
 <div class="flex-item">
-<h2>Lines <i class="fas fa-info-circle" id="infolines"></i></h2>
+<h2 class="current">Lines </h2> <!-- <i class="fas fa-info-circle" id="infolines"></i> -->
 
 <label>
   Default Color
@@ -141,25 +155,10 @@
     </tr>
   </table>
 
-
-<!--   <ul>
-    <li><strong>Color (or colour):</strong> hexadecimal color code , or just named colors text. See 
-    <li><strong>Title:</strong> displayed when hovering over the point with cursor, only the first row (point) of line needs a title</li>
-  </ul>
-  <h4>Line specific keywords</h4>
-  Only, the first point (row) of a line needs a value for color or title. Lines are separated by a dash '-' or multiple dashes '-----', whichever you prefer.<br>
-
-  <ul>
-    <li><strong>Linestyle:</strong> Enter an <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>surrounded by quotes; like <em>"5,5"</em>, use 'none' for a solid line.</li>
-  </ul>
-
-  <h4>Point Specific Keywords</h2>
-  <ul>
-    <li><strong>Shape:</strong> circle (default), cross, diamond, triangle-down, triangle-up</li>
-  <br>
- --></div>
+</div>
 
 </main>
+</div>
 
 <footer>
  Copyright 2018 Jules Blom <i class="far fa-copyright"></i>
@@ -168,7 +167,7 @@
 
 <script charset="UTF-8" src="d3/d3.min.js"></script>
 <script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
-<script type="text/javascript" src="ternary.v3.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="js/ternary.v3.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

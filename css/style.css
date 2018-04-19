@@ -4,7 +4,25 @@
   font-size: 0.5em;
   line-height: 0.5em;
   color: gold;
+  animation: pulse 5s infinite;  
 }
+
+@keyframes pulse {
+  0% {
+    font-size: 0.4em;
+  }
+  50% {
+    font-size: 0.7em;
+  }
+  100% {
+    font-size: 0.4em;
+  }
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
 
 body {
   font-family: 'Raleway', sans-serif;
@@ -14,6 +32,14 @@ body {
 
 h1 {
   text-align: left;
+}
+
+.current {
+  text-decoration: underline;
+}
+
+hr {
+  color: black;
 }
 
 header {
@@ -72,8 +98,6 @@ textarea {
   resize: vertical;
 }
 
-
-
 select {
   width: 100px;
   float: right;
@@ -110,10 +134,6 @@ input:hover {
 input:active {
   background-color: #c6d5e5;
 }
-
-/*svg {
-  margin: 0 auto;
-}*/
 
 hr {
   border: 0;
@@ -157,14 +177,14 @@ hr {
   margin: 5vh 10vw; 
 }
 
-#right {
+/*#right {
   left:-5%;
   float: right;
   text-align: right;
   z-index:-10;
   width:50%;
   height: 80%
-}
+}*/
 
 .tg  {
   border-collapse:collapse;
@@ -206,11 +226,13 @@ hr {
 }
 
 footer {
-  box-shadow: 1px 0 15px 0 rgba(192,72,25,0.2);  
+  box-shadow: 1px 0 15px 0 rgba(192,72,25,0.25);  
   background-color: linen;
-  width: 100vw;
   height: 5vh;
-  padding: 2vh 10vw; 
+  padding: 2vh 10vw;
+  bottom: 0;
+  flex-shrink: 0;
+  
 }
 
 @media screen and (max-width: 700px) {

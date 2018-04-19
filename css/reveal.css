@@ -5,6 +5,11 @@
  *
  * Copyright (C) 2017 Hakim El Hattab, http://hakim.se
  */
+
+.flex-item {
+  width: 50vw !important;
+}
+
 /*********************************************
  * RESET STYLES
  *********************************************/
@@ -21,11 +26,10 @@ html, body, .reveal div, .reveal span, .reveal applet, .reveal object, .reveal i
 .reveal figure, .reveal figcaption, .reveal footer, .reveal header, .reveal hgroup,
 .reveal menu, .reveal nav, .reveal output, .reveal ruby, .reveal section, .reveal summary,
 .reveal time, .reveal mark, .reveal audio, .reveal video {
-  margin: 0;
-  padding: 0;
+/*  margin: 0;
+*/  padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
   vertical-align: baseline; }
 
 .reveal article, .reveal aside, .reveal details, .reveal figcaption, .reveal figure,
@@ -39,10 +43,9 @@ html,
 body {
   width: 100%;
   height: 100%;
-  overflow: hidden; }
+  overflow: visible; }
 
 body {
-  position: relative;
   line-height: 1;
   background-color: #fff;
   color: #000; }
@@ -467,9 +470,10 @@ body {
  * SLIDES
  *********************************************/
 .reveal {
-  position: relative;
+/*  position: relative;
   width: 100%;
-  height: 100%;
+ height: 100%;*/ 
+ width: 50vw;
   overflow: hidden;
   -ms-touch-action: none;
       touch-action: none; }
@@ -480,14 +484,14 @@ body {
 
 .reveal .slides {
   position: absolute;
-  width: 100%;
+/*  width: 100%;
   height: 100%;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  margin: auto;
-  pointer-events: none;
+  left: 0;*/
+/*  margin: auto;
+*/  pointer-events: none;
   overflow: visible;
   z-index: 1;
   text-align: center;
@@ -502,9 +506,9 @@ body {
 .reveal .slides > section,
 .reveal .slides > section > section {
   display: none;
-  position: absolute;
-  width: 100%;
-  padding: 20px 0px;
+/*  position: absolute;
+*//*  width: 100%;
+*/  padding: 20px 0px;
   pointer-events: auto;
   z-index: 10;
   -webkit-transform-style: flat;
@@ -754,84 +758,7 @@ body {
   -webkit-transform: translate(0, 150%);
           transform: translate(0, 150%); }
 
-/*********************************************
- * CUBE TRANSITION
- *
- * WARNING:
- * this is deprecated and will be removed in a
- * future version.
- *********************************************/
-.reveal.cube .slides {
-  -webkit-perspective: 1300px;
-          perspective: 1300px; }
 
-.reveal.cube .slides section {
-  padding: 30px;
-  min-height: 700px;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  box-sizing: border-box;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d; }
-
-.reveal.center.cube .slides section {
-  min-height: 0; }
-
-.reveal.cube .slides section:not(.stack):before {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  -webkit-transform: translateZ(-20px);
-          transform: translateZ(-20px); }
-
-.reveal.cube .slides section:not(.stack):after {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 90%;
-  height: 30px;
-  left: 5%;
-  bottom: 0;
-  background: none;
-  z-index: 1;
-  border-radius: 4px;
-  box-shadow: 0px 95px 25px rgba(0, 0, 0, 0.2);
-  -webkit-transform: translateZ(-90px) rotateX(65deg);
-          transform: translateZ(-90px) rotateX(65deg); }
-
-.reveal.cube .slides > section.stack {
-  padding: 0;
-  background: none; }
-
-.reveal.cube .slides > section.past {
-  -webkit-transform-origin: 100% 0%;
-          transform-origin: 100% 0%;
-  -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg);
-          transform: translate3d(-100%, 0, 0) rotateY(-90deg); }
-
-.reveal.cube .slides > section.future {
-  -webkit-transform-origin: 0% 0%;
-          transform-origin: 0% 0%;
-  -webkit-transform: translate3d(100%, 0, 0) rotateY(90deg);
-          transform: translate3d(100%, 0, 0) rotateY(90deg); }
-
-.reveal.cube .slides > section > section.past {
-  -webkit-transform-origin: 0% 100%;
-          transform-origin: 0% 100%;
-  -webkit-transform: translate3d(0, -100%, 0) rotateX(90deg);
-          transform: translate3d(0, -100%, 0) rotateX(90deg); }
-
-.reveal.cube .slides > section > section.future {
-  -webkit-transform-origin: 0% 0%;
-          transform-origin: 0% 0%;
-  -webkit-transform: translate3d(0, 100%, 0) rotateX(-90deg);
-          transform: translate3d(0, 100%, 0) rotateX(-90deg); }
 
 /*********************************************
  * PAGE TRANSITION
@@ -994,9 +921,9 @@ body {
  * PER-SLIDE BACKGROUNDS
  *********************************************/
 .reveal .backgrounds {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+/*  position: absolute;
+*//*  width: 100%;
+*/  height: 100%;
   top: 0;
   left: 0;
   -webkit-perspective: 600px;
@@ -1005,8 +932,8 @@ body {
 .reveal .slide-background {
   display: none;
   position: absolute;
-  width: 100%;
-  height: 100%;
+/*  width: 100%;
+*/  height: 100%;
   opacity: 0;
   visibility: hidden;
   overflow: hidden;
@@ -1277,8 +1204,8 @@ body {
   visibility: visible; }
 
 .reveal .overlay .spinner {
-  position: absolute;
-  display: block;
+/*  position: absolute;
+*/  display: block;
   top: 50%;
   left: 50%;
   width: 32px;

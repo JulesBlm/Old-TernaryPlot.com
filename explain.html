@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+ 	<title>Ternary plot maker</title>	
 	<meta charset="utf-8">
+	<meta name="description" content="Easy online Ternary Plot maker! Quickly create an easily customizable SVG ternary plot.">	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
- 	<title>Ternary plot maker</title>
-  	<link rel="icon" type="image/png" href="favicon.png" />
+  	<link rel="icon" type="image/png" href="favicon.png">
   	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">  	
 
   	<link rel="stylesheet" href="css/style.css">
@@ -14,22 +15,36 @@
 	<link rel="stylesheet" href="css/theme/white.css">	
   	<link rel="stylesheet" href="css/ternary.css">
 	<!--[if lt IE 9]>
-	<script src="lib/js/html5shiv.js"></script>
-	<![endif]-->
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104492042-4"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-104492042-4');
+	</script>
 </head>
 <body>
 
 <header>
   <nav>
-    <a href="index.html">Ternary diagram maker<span id="alpha">ALPHA</span></a>
+    <a href="index.html">Ternary plot maker<span id="alpha">ALPHA</span></a>
     <a></a>
-    <a>Explanation</a>
+    <a class="current">Explanation</a>
     <a href="about.html">About</a>
   </nav>
 </header>
 
-<svg></svg>
-<div class="reveal" id="right">
+<div class="flex-wrapper">
+<div class="flex-item">
+<svg height="500px"></svg>
+</div>
+
+<div class="flex-item">
+<div class="reveal">
 	<div class="slides">
 
 		<section id="nothing">
@@ -45,7 +60,7 @@
 		</section>
 
 		<section id="addLabels">
-			<p>Let's add some labels to our axes! Suppose we have a soil sample that consists of three soil types: <span class="fragment">sand,</span> <span class="fragment">silt,</span> <span class="fragment">and clay.</span> <span class="fragment">These three together form 100% of our soil sample.</span> <span class="fragment">
+			<p>Let's add some labels to our axes! Suppose we have a soil sample that consists of three soil types: <span class="fragment">sand,</span> <span class="fragment">silt,</span> <span class="fragment">and clay.</span> <span class="fragment">These three together form 100% of our soil sample.</span> 
   			</p>
 		</section>
 <!--     // - thicken each axis omstebeurt + vertexLabel
@@ -74,7 +89,11 @@
 
 	</div>
 </div>
-
+</div>
+</div>
+<footer>
+ Copyright 2018 Jules Blom <i class="far fa-copyright"></i>
+</footer>
 <!-- </main>-->
 <script charset="UTF-8" src="d3/d3.min.js"></script>
 <script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
@@ -85,7 +104,7 @@
 <script src="js/reveal-to-d3-config.js"></script>
 <script src="js/reveal-to-d3.js"></script>
 
-<script type="text/javascript" src="explain.js"></script>
+<script type="text/javascript" src="js/explain.js"></script>
 
 <!-- REVEAL INIT -->
 <script>
@@ -95,7 +114,7 @@
 		controls: true,
 		progress: true,
 		history: false,
-		center: true,
+		center: false,
 		touch: true,
 
 		transition: 'fade', // none/fade/slide/convex/concave/zoom
