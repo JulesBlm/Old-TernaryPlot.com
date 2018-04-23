@@ -7,7 +7,7 @@
 </head>
 <body>
   <script src="../d3/d3.js"></script>
-  <script type="text/javascript" src="../ternary.v3.js"></script>  
+  <script type="text/javascript" src="../js/ternary.v3.js"></script>
   <script>
 
 const svg = d3.select("body").append("svg");
@@ -34,15 +34,14 @@ function addLabels(labels){
 }
 
 function drawLines(d) {
-  console.log("Draw", d)
   const paths = ternary.plot()
     .selectAll(".line")
     .data([d]);
 
   paths.enter().append("path")
       .attr("class", "axis")
-      .attr("d", function(d) { return ternary.path(d); })
-      .attr("stroke", "crimson")
+      .attr("d", function(d) { return ternary.path(d.values); })
+      .attr("stroke", function(d) { return d.color; })
       .attr("stroke-linecap", "round")
       .attr("opacity", 0.6)
       .attr("stroke-width", "10")
@@ -54,24 +53,25 @@ function drawPoint(d) {
     .data([d])
     .enter().append('circle')
       .attr("r", 9)
-      .attr("cx", function(d) { console.log(ternary.point(d)[0]); return ternary.point(d)[0];}) 
-      .attr("cy", function(d) { console.log(ternary.point(d)[1]); return ternary.point(d)[1];}) 
+      .attr("cx", function(d) { return ternary.point(d)[0];}) 
+      .attr("cy", function(d) { return ternary.point(d)[1];}) 
 }
 
 //https://gcalmettes.github.io/reveal.js-d3/demo/#/1
 var _transitions = [
+
   {
-    transitionForward: () => drawLines([[1, 0, 0], [0, 0, 1]]),
+    transitionForward: () => drawLines({values: [[1, 0, 0], [0, 0, 1]], color: "crimson"}),
     transitionBackward: () => console.log("ypu"),
     index: 0
   },
   {
-    transitionForward: () => drawLines([[0, 0.2, 0.8], [0.2, 0, 0.8]]),  //[silt, clay, sand]
+    transitionForward: () => {drawLines({values: [[0, 0.2, 0.8], [0.2, 0, 0.8]], color: "plum"})},  //d3.select("#silt").style("text-decoration, underline")
     transitionBackward: () => console.log("ypu"),
     index: 1
   },
   {
-    transitionForward: () => drawLines([[0.2, 0.8, 0], [0.2, 0, 0.8]]),
+    transitionForward: () => drawLines({values: [[0.2, 0.8, 0], [0.2, 0, 0.8]], color: "deepskyblue"}),
     transitionBackward: () => console.log("ypu"),
     index: 2
   },

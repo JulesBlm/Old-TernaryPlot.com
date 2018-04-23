@@ -7,7 +7,7 @@
 </head>
 <body>
   <script src="../d3/d3.js"></script>
-  <script type="text/javascript" src="../ternary.v3.js"></script>  
+  <script type="text/javascript" src="../js/ternary.v3.js"></script>  
   <script>
 
 const svg = d3.select("body").append("svg");
@@ -34,7 +34,6 @@ function addLabels(labels){
 }
 
 function drawLines(d) {
-  console.log("Draw", d)
   const paths = ternary.plot()
     .selectAll(".line")
     .data([d]);
@@ -62,22 +61,22 @@ function drawPoint(d) {
 var _transitions = [
   {
     transitionForward: () => drawLines([[0, 0.3, 0.7], [0.7, 0.3, 0]]),
-    transitionBackward: () => console.log("ypu"),
+    transitionBackward: () => console.log("back"),
     index: 0
   },
   {
     transitionForward: () => drawLines([[0.6, 0, 0.4], [0, 0.6, 0.4]]),
-    transitionBackward: () => console.log("ypu"),
+    transitionBackward: () => console.log("back"),
     index: 1
   },
   {
     transitionForward: () => drawLines([[0.3, 0, 0.7], [0.3, 0.7, 0]]),
-    transitionBackward: () => console.log("ypu"),
+    transitionBackward: () => console.log("back"),
     index: 2
   },
   {
     transitionForward: () => drawPoint([0.3, 0.3, 0.4]),
-    transitionBackward: () => console.log("ypu"),
+    transitionBackward: () => console.log("back"),
     index: 3
   },  
 ]

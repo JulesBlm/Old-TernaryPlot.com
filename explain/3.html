@@ -7,7 +7,7 @@
 </head>
 <body>
   <script src="../d3/d3.js"></script>
-  <script type="text/javascript" src="../ternary.v3.js"></script>  
+  <script type="text/javascript" src="../js/ternary.v3.js"></script>
   <script>
 
 const svg = d3.select("body").append("svg");
@@ -34,15 +34,14 @@ function addLabels(labels){
 }
 
 function drawLines(d) {
-  console.log("Draw", d)
   const paths = ternary.plot()
     .selectAll(".line")
-    .data([d]);
+    .data(d);
 
   paths.enter().append("path")
       .attr("class", "axis")
-      .attr("d", function(d) { return ternary.path(d); })
-      .attr("stroke", "crimson")
+      .attr("d", function(d) { return ternary.path(d.values); })
+      .attr("stroke", function(d) { return d.color; })
       .attr("stroke-linecap", "round")
       .attr("opacity", 0.6)
       .attr("stroke-width", "10")
@@ -50,19 +49,20 @@ function drawLines(d) {
 
 //https://gcalmettes.github.io/reveal.js-d3/demo/#/1
 var _transitions = [
+
   {
-    transitionForward: () => drawLines([[0, 1, 0], [1, 0, 0]]),
-    transitionBackward: () => console.log("ypu"),
+    transitionForward: () => drawLines({values: [[0, 1, 0], [1, 0, 0]], color: "crimson"}),
+    transitionBackward: () => console.log(""),
     index: 0
   },
   {
-    transitionForward: () => drawLines([[1, 0, 0], [0, 0, 1]]),
-    transitionBackward: () => console.log("ypu"),
+    transitionForward: () => drawLines({values: [[1, 0, 0], [0, 0, 1]], color: "plum"}),
+    transitionBackward: () => console.log(""),
     index: 1
   },
   {
-    transitionForward: () => drawLines([[0, 0, 1], [0, 1, 0]]),
-    transitionBackward: () => console.log("ypu"),
+    transitionForward: () => drawLines({values: [[0, 0, 1], [0, 1, 0]], color: "deepskyblue"}),
+    transitionBackward: () => console.log(""),
     index: 2
   },
 ]
