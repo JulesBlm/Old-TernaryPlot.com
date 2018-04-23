@@ -49,83 +49,85 @@
 
 <div class="flex-wrapper">
 
-<div class="flex-item">
-  <svg></svg>
-  <input type="button" id="clearLabels" value="Clear Labels">
-  <input type="button" id="clearAll" value="Clear All">
-  <!-- <input type="button" id="download" value="Download">  seteventlistener to perform svg-crowbar.js sans popover-->
-  <a class="bookmarklet" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27js/svg-crowbar.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
-</div>
+  <div class="flex-item" >
+    <svg></svg>
+    <div class="buttons">
+      <input type="button" id="clearLabels" value="Clear Labels">
+      <input type="button" id="clearAll" value="Clear All">
+      <!-- <input type="button" id="download" value="Download">  seteventlistener to perform svg-crowbar.js sans popover-->
+      <a id="download" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27js/svg-crowbar.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
+    </div>
+  </div>
 
-<div class="flex-item">
-  <h2 class="underline">Points</h2><!--  <i class="fas fa-info-circle" id="infopoint"></i> -->
+  <div class="flex-item">
+    <h2 class="underline">Points</h2><!--  <i class="fas fa-info-circle" id="infopoint"></i> -->
 
-  <div class="labels">
-    <label>
+    <div class="labels">
+      <label>
+      Default Color
+      <select name="defaultColorPoints">
+        <option value="black" selected>Black</option> 
+        <option value="red">Red</option>
+        <option value="gold">Gold</option>
+        <option value="green">Green</option>  
+      </select>
+      </label>
+      <label>
+      Default Shape
+      <select name="defaultShape">
+        <option value="circle" selected>Circle</option> 
+        <option value="square">Square</option>
+        <option value="diamond">Diamond</option>
+        <option value="cross">Cross</option>
+        <option value="triangle-up">Triangle up</option>
+        <option value="triangle-down">Triangle down</option>
+      </select>
+      </label>
+    </div>
+    <form id="enterpoints" class="add-items">
+      <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4,square&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,</textarea>
+      <input type="submit" name="add" value="+ Add Points">
+      <input type="button" id="clearPoints" value="Clear Points">
+    </form>
+  </div>
+  <!-- <form id="pointsfile" class="add-items">
+    <input type="file" accept=".csv">
+    <button>Submit</button> 
+  </form>
+   -->
+
+  <div class="flex-item">
+  <h2 class="underline">Lines </h2> <!-- <i class="fas fa-info-circle" id="infolines"></i> -->
+
+  <label>
     Default Color
-    <select name="defaultColorPoints">
+    <select name="defaultColorLines""> 
       <option value="black" selected>Black</option> 
       <option value="red">Red</option>
       <option value="gold">Gold</option>
       <option value="green">Green</option>  
     </select>
-    </label>
-    <label>
-    Default Shape
-    <select name="defaultShape">
-      <option value="circle" selected>Circle</option> 
-      <option value="square">Square</option>
-      <option value="diamond">Diamond</option>
-      <option value="cross">Cross</option>
-      <option value="triangle-up">Triangle up</option>
-      <option value="triangle-down">Triangle down</option>
+  </label>
+  <br>
+  <label>
+    Default Linestyle
+    <select name="defaultLineStyle"> 
+      <option value="none" selected>Solid</option> 
+      <option value="5,5">Dashed</option>
+      <option value="2,2">Dotted</option>
+      <option value="5,10,5">Dash-dot</option>
     </select>
-    </label>
-  </div>
-  <form id="enterpoints" class="add-items">
-    <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4,square&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,</textarea>
-    <input type="submit" name="add" value="+ Add Points">
-    <input type="button" id="clearPoints" value="Clear Points">
+  </label>
+  <form id="enterlines" class="add-items">
+    <textarea placeholder="column1,column2,column3,linestyle,color,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,linestyle,title&#13;0.2,0.8,0,orangered&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
+    <input type="submit" value="+ Add Lines">
+    <input type="button"  id="clearLines" value="Clear Lines">
   </form>
-</div>
-<!-- <form id="pointsfile" class="add-items">
-  <input type="file" accept=".csv">
-  <button>Submit</button> 
-</form>
- -->
-
-<div class="flex-item">
-<h2 class="underline">Lines </h2> <!-- <i class="fas fa-info-circle" id="infolines"></i> -->
-
-<label>
-  Default Color
-  <select name="defaultColorLines""> 
-    <option value="black" selected>Black</option> 
-    <option value="red">Red</option>
-    <option value="gold">Gold</option>
-    <option value="green">Green</option>  
-  </select>
-</label>
-<br>
-<label>
-  Default Linestyle
-  <select name="defaultLineStyle"> 
-    <option value="none" selected>Solid</option> 
-    <option value="5,5">Dashed</option>
-    <option value="2,2">Dotted</option>
-    <option value="5,10,5">Dash-dot</option>
-  </select>
-</label>
-<form id="enterlines" class="add-items">
-  <textarea placeholder="column1,column2,column3,linestyle,color,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,linestyle,title&#13;0.2,0.8,0,orangered&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
-  <input type="submit" value="+ Add Lines">
-  <input type="button"  id="clearLines" value="Clear Lines">
-</form>
-<!-- <form id="pointsfile" class="add-items">
-  <input type="file" accept=".csv">
-  <button>Submit</button>  
-</form> -->
-</div>
+  <!-- <form id="pointsfile" class="add-items">
+    <input type="file" accept=".csv">
+    <button>Submit</button>  
+  </form> -->
+  </div>
 
 </div>
 

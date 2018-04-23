@@ -85,6 +85,12 @@ nav > a[href]:hover {
   grid-template-rows: repeat(2, 22px)
 }
 
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 textarea {
   background-color: #f0f0f0;  
   border:1px solid rgba(0,0,0,0.3);
@@ -145,7 +151,7 @@ hr {
  color: #efa2a2;
 }
 
-.bookmarklet {
+#download {
     padding:10px;
     outline:0;
     border:1px solid rgba(0,0,0,0.1);
@@ -157,6 +163,14 @@ hr {
     background: #666;
     color: white;
     background: #3FAA90;
+}
+
+#download:hover {
+  background: #ABCDEF; 
+}
+
+#download:active {
+  background: #778fa7;
 }
 
 .licence {
@@ -224,6 +238,10 @@ footer {
 }
 
 @media screen and (max-width: 700px) {
+  .flex-item:first-child {
+    min-width: 350px;
+  }
+
   header{
     height: 50px;
   }

@@ -73,8 +73,8 @@ const graticule = d3.ternary.graticule()
   .minorInterval(0.05);
 
 function resize(t) {
-  if (window.innerWidth > 600) t.fit(500, 500);
-  else t.fit(window.innerWidth,window.innerHeight);
+  if ( window.innerWidth > 600) { t.fit(500, 500); }
+  else { t.fit(window.innerWidth, window.innerHeight); }
 };
 
 var ternary = d3.ternary.plot()
