@@ -1,8 +1,8 @@
-pt.ternaryPlot = pt.ternaryPlot || {}
+ternaryPlot = {}
 
 let ternary;
 
-pt.ternaryPlot.init = function(graph) {
+ternaryPlot.init = function(graph) {
   graticule = d3.ternary.graticule()
     .majorInterval(0.2)
     .minorInterval(0.05);
@@ -18,14 +18,13 @@ pt.ternaryPlot.init = function(graph) {
     .call(graticule);
 
   d3.select("svg").call(ternary);
-    // move point around with mouse?
 };
 
-pt.ternaryPlot.addLabels = function(e) {
+ternaryPlot.addLabels = function(e) {
   ternary.call(d3.ternary.vertexLabels(e)); // transition??
 };
 
-pt.ternaryPlot.addValueBox = function(e) {
+ternaryPlot.addValueBox = function(e) {
 
   const keys = Object.keys(e);
   const values = Object.values(e);
@@ -56,7 +55,7 @@ pt.ternaryPlot.addValueBox = function(e) {
   //   .attr("y", 40)
 } 
 
-pt.ternaryPlot.markAxes = function(lines) {
+ternaryPlot.markAxes = function(lines) {
     console.log("markAxes")
     
     let d = [0,0,1];

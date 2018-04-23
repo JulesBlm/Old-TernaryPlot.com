@@ -7,9 +7,11 @@
 <body>
   <script src="../d3/d3.js"></script>
   <script type="text/javascript" src="../ternary.v3.js"></script>
+  <script type="text/javascript" src="js/explain.js"></script>
+
   <script>
 
-const margin = 5;
+// const margin = 5;
 
 const svg = d3.select("body").append("svg");
 
@@ -28,6 +30,8 @@ ternary = d3.ternary.plot()
   .call(graticule);
 
 d3.select("svg").call(ternary);
+
+//ternaryPlot.init()
 
 </script>
 

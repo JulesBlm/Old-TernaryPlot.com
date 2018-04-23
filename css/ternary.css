@@ -58,3 +58,7 @@ path.domain {
 .point:hover {
   opacity: 0.6;
 }
+
+tspan {
+  font-weight: bold;
+}

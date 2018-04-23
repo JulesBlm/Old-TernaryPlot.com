@@ -117,7 +117,7 @@ function drawLines(d) {
       .attr("fill", function(e) { return e[0].fillcolor ? (e[0].fillcolor).trim() : undefined})
       // .attr("fill-opacity", 0.5)
       .append("title")
-        .text( function(e) { return e[0].title ? (e[0].title).trim() : undefined; }); //Object.values(e).slice(0,3).join(", ")
+        .text( function(e) { return e[0].title ? capitalize((e[0].title).trim()) : undefined; }); //Object.values(e).slice(0,3).join(", ")
 
 }
 
@@ -143,7 +143,11 @@ function drawPoints(d) {
         return "translate(" + plotCoords[0] + "," + plotCoords[1] + ")";
       })
     .append("title")
-      .text( function(point) { return point.title ? capitalize(point.title) : undefined; }); //Object.values(e).slice(0,3).join(", ")
+      .text( function(point) { 
+        const myKeys = Object.keys(point);
+        const valuesString = `${capitalize(myKeys[0])}: ${point[myKeys[0]]}, ${capitalize(myKeys[2])}: ${point[myKeys[2]]}, ${capitalize(myKeys[1])}: ${point[myKeys[1]]}`;
+        return point.title ? `${capitalize(point.title.trim())}; ${valuesString}` : valuesString;
+      });
 }
 
 // Make one function submitted check wether lines or points???

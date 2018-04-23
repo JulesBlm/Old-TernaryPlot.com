@@ -270,7 +270,7 @@
         .attr("dy", ".35em")
         .attr("text-anchor", "middle")
         .attr("class", "vertex-label")
-        .attr("id", function(d) { console.log("ternary", d.label); return d.label;} );
+        .attr("id", function(d) { return d.label;} );
 
       draw = function() {
         return sel.attr({
