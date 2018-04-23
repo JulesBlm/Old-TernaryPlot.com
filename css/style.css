@@ -160,7 +160,7 @@ hr {
 }
 
 .licence {
-  max-height: 180px;
+  max-height: 160px;
   overflow-y: scroll;
   margin: 20;
   border-style: solid;
@@ -233,4 +233,9 @@ footer {
     grid-template-rows: [row] 50px;
     align-items: center;
   }
-}
+
+/*  svg {
+    width: 250px;
+    height: 250px;
+  }
+*/}

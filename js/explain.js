@@ -22,7 +22,6 @@ pt.ternaryPlot.init = function(graph) {
 };
 
 pt.ternaryPlot.addLabels = function(e) {
-
   ternary.call(d3.ternary.vertexLabels(e)); // transition??
 };
 
@@ -45,24 +44,20 @@ pt.ternaryPlot.addValueBox = function(e) {
         .text(function(d) { console.log("batsegeziech", d); })
         .attr("y", function(d, i) { 20 * i})
 
-  valueGroup.append("text")
-    .text(`${keys[0]}: 0`)
+  // valueGroup.append("text")
+  //   .text(`${keys[0]}: 0`)
 
-  valueGroup.append("text")
-    .text(`${keys[1]}: 0`)
-    .attr("y", 20)
+  // valueGroup.append("text")
+  //   .text(`${keys[1]}: 0`)
+  //   .attr("y", 20)
 
-  valueGroup.append("text")      
-    .text(`${keys[2]}: 0`)
-    .attr("y", 40)
+  // valueGroup.append("text")      
+  //   .text(`${keys[2]}: 0`)
+  //   .attr("y", 40)
 } 
 
-pt.ternaryPlot.updateValueBox = function(e) {
-  console.log("update")
-  console.log(valueGroup)
-}
-
 pt.ternaryPlot.markAxes = function(lines) {
+    console.log("markAxes")
     
     let d = [0,0,1];
 

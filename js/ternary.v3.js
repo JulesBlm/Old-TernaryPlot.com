@@ -266,13 +266,11 @@
         };
       });
       sel = plot.axes().selectAll(".vertex-label").data(data);
-      sel.enter().append("text").text(function(d) {
-        return d.label;
-      }).attr({
-        dy: ".35em",
-        "text-anchor": "middle",
-        "class": "vertex-label"
-      });
+      sel.enter().append("text").text(function(d) { return d.label;})
+        .attr("dy", ".35em")
+        .attr("text-anchor", "middle")
+        .attr("class", "vertex-label")
+        .attr("id", function(d) { console.log("ternary", d.label); return d.label;} );
 
       draw = function() {
         return sel.attr({

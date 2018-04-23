@@ -3,10 +3,11 @@
 --------BUGS--------
 ? Lines always close
 2. Sweet alert
-3. Catch errores
+3. Catch errors
 
 0. Make animated explanation
-1. Fix reveal with d3.
+1. Fix reveal.js with d3.
+2. On resize mobile
 1. Column order agnostic
     Check column index between lines and point [global variable?]
     Look for words in columns that are not keywords and make those the vertexlabels
@@ -15,13 +16,13 @@
     keyword2Index: 1
     keyword3Index: 2
 3. Update to d3 v5
-4. svg crowbar
 5. Upload and submit csv
 
-- cookie: First visit example data, afterwards keep entered text
+- cookie: First visit example data, afterwards keep entered text, LocalStorage
 - On hover of point: highlight lines/values, ? voronoi option visualcinnamon
 
 MAKE IT SLICK
+- check against reserved columns
 - validate input
 - error handling
 - option for radius/size of point
@@ -31,7 +32,6 @@ MAKE IT SLICK
     - curved or straight
 - select points and lines
 - make animated explanation page
-- ??? maybe use something other than textarea
 - structure code better https://css-tricks.com/how-do-you-structure-javascript-the-module-pattern-edition/
     http://jstherightway.org/#js-code-style
     https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects
@@ -48,6 +48,7 @@ make it optional
 
 * Download the chart with SVG crowbar
 * Hackertip: inspect an element in Chrome dev tool to alter its properties
+
 */
 
 let defaultPointColor = "black";
@@ -72,12 +73,12 @@ const graticule = d3.ternary.graticule()
   .minorInterval(0.05);
 
 function resize(t) {
-  t.fit(500, 500);
-  // t.fit(window.innerWidth,window.innerHeight);
-}
+  if (window.innerWidth > 600) t.fit(500, 500);
+  else t.fit(window.innerWidth,window.innerHeight);
+};
 
 var ternary = d3.ternary.plot()
-  .call(resize)
+  .call(resize, [500, 500])
   .call(d3.ternary.scalebars())
   .call(d3.ternary.neatline())
   .call(graticule);
@@ -108,13 +109,13 @@ function drawLines(d) {
           drawArray.push(current);
           // maybe old method for non closed lines ?
         };
-        // console.log("drawArray", drawArray);
+        console.log("drawArray", drawArray);
         return ternary.path(drawArray);
       })
       .attr("stroke-dasharray", function(e) { return e[0].linestyle ?  e[0].linestyle.trim().replace("/([\s])+/", ",") : defaultLinestyle })
       .attr("stroke", function(e) { return e[0].color ? (e[0].color).trim() : (e[0].colour ? (e[0].colour).trim() : defaultLineColor)}) // both color and colour are valid   
       .attr("fill", function(e) { return e[0].fillcolor ? (e[0].fillcolor).trim() : undefined})
-      .attr("fill-opacity", 0.5)
+      // .attr("fill-opacity", 0.5)
       .append("title")
         .text( function(e) { return e[0].title ? (e[0].title).trim() : undefined; }); //Object.values(e).slice(0,3).join(", ")
 
@@ -155,11 +156,10 @@ function submittedPoints(e) {
   if (!columns) {
     columns = parsedInput.columns.slice(0,3).map(col => col.trim());
   } else {
-    if (JSON.stringify(parsedInput.columns.slice(0,3)) !== JSON.stringify(columns)) {
-      swal("Your columns in Points and Lines don't seem to match", `Your columns for points are "${parsedInput.columns.slice(0,3)}" and for lines they are "${columns}". . The point will still be plotted, but they might appear the way you intended.`, "warning");
-      console.log(parsedInput.columns.slice(0,3), "en", columns);
-    }
+    if (JSON.stringify(parsedInput.columns.slice(0,3)) !== JSON.stringify(columns)) swal("Your columns in Points and Lines don't seem to match", `Your columns for points are "${parsedInput.columns.slice(0,3)}" and for lines they are "${columns}". . The point will still be plotted, but they might appear the way you intended.`, "warning");
   }
+
+  columns.some(v => { if (reserved.includes(v)) { swal("Reserved column name", `You can't use any of the following names as your columns names: ${reserved.join(', ')}`, "error") }; return }) 
 
   // parsedInput.columns.map(key => {
   //   reserved.forEach(res => {
@@ -184,6 +184,7 @@ function submittedLines(e) {
   const columnsString = splitNewlines[0].shift(); // Remove first entry (Columns)
   const columnsArray = columnsString.split(",").map(col => col.trim()); // Array with column names
 
+
   if (!columns) {
     columns = columnsArray.slice(0,3)
   } else {
@@ -192,12 +193,12 @@ function submittedLines(e) {
     }
   }
 
-  splitNewlines = splitNewlines.map(arr => arr.filter(entry => String(entry) !== "")); // Filter out empty entries
-  const lines = splitNewlines.map(point => point.map(value => value.split(",")) );
+  columns.some(v => { if (reserved.includes(v)) { swal("Reserved column name", `You can't use any of the following names as your columns names: ${reserved.join(', ')}`, "error") }; return }) 
 
-  // // console.log(columnsArray.indexOf("color"))
-  // let intersection = columnsArray.map(x => reserved.indexOf(x)).indexOf(-1);
-  // console.log(intersection);
+  splitNewlines = splitNewlines.map(arr => arr.filter(entry => String(entry) !== "")); // Filter out empty entries
+  // splitNewlines = splitNewlines.map(arr => arr.filter(entry => entry !== /([-])+/)); // Filter out dashed
+
+  const lines = splitNewlines.map(point => point.map(value => value.split(",")) );
 
   if (!labelsAdded) { addVertexLabels({columns: columnsArray}); labelsAdded = true;}
 
@@ -213,14 +214,6 @@ function submittedLines(e) {
     return lineObjects
   });
   drawLines(lineObjectsArray);
-}
-
-function warning(warnString) {
-  console.log(warnString);
-
-  const div = d3.select("#warning");
-
-  // div.innerHTML(warnString);
 }
 
 function addVertexLabels(f) {
@@ -244,11 +237,12 @@ function clearLines(e) {
 }
 
 function clearAll(e) {
-
   clearLines();
   clearPoints();
   clearLabels();
 }
+
+/* event listeners */
 
 // Change to oneliners?
 const submitPoints = document.querySelector("#enterpoints");
@@ -275,11 +269,6 @@ document.querySelector(`select[name="defaultShape"]`).onchange = pointShapeSelec
 document.querySelector(`select[name="defaultColorLines"]`).onchange = lineColorSelect;
 document.querySelector(`select[name="defaultLineStyle"]`).onchange = linestyleSelect;
 
-const infoPoints = document.getElementById("infopoint");
-// clearLinesButton.addEventListener("click", console.log("KKKKKKK"));
-
-
-
 function pointColorSelect(event) {
   defaultPointColor = event.target.value;
 }
@@ -296,4 +285,4 @@ function linestyleSelect(event) {
   defaultLinestyle = event.target.value;
 }
 
-
+window.addEventListener("resize",  resize(ternary))

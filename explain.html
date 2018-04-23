@@ -10,10 +10,10 @@
   	<link rel="icon" type="image/png" href="favicon.png">
   	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">  	
 
-  	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/reveal.css"> 
-	<link rel="stylesheet" href="css/theme/white.css">	
-  	<link rel="stylesheet" href="css/ternary.css">
+	<link rel="stylesheet" href="css/reveal.css">
+  	<link rel="stylesheet" href="css/style.css">	
+	<link rel="stylesheet" href="css/theme/white.css">
+    <link rel="stylesheet" href="css/custom-gc.css">	
 	<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
@@ -22,9 +22,9 @@
 	<script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+	  gtag("js", new Date());
 
-	  gtag('config', 'UA-104492042-4');
+	  gtag("config", "UA-104492042-4");
 	</script>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
@@ -45,102 +45,118 @@
   </nav>
 </header>
 
-<div class="flex-wrapper">
-<div class="flex-item">
-	<svg height="500px"></svg>
-</div>
-
-<div class="flex-item">
 <div class="reveal">
 	<div class="slides">
 
-		<section id="nothing">
-			<h1>What is a ternary plot?</h1>
-		</section>
-
-		<section id="cleanTernaryPlot">
-			<p>
-  				A ternary plot is useful chart for vizualing three variables which sum to a constant. This constant is usually 1.0 or 100%.
-			</p>
-<!-- 			<span class="fragment"></span>
- -->
-		</section>
-
-		<section id="addLabels">
-			<p>Let's add some labels to our axes! Suppose we have a soil sample that consists of three soil types: <span class="fragment">sand,</span> <span class="fragment">silt,</span> <span class="fragment">and clay.</span> <span class="fragment">These three together form 100% of our soil sample.</span> 
-  			</p>
-		</section>
-
-<!--     // - thicken each axis omstebeurt + vertexLabel
-    // - Show arrow from corner to opposite side
-    // - or, even better, highlight each major axis and its percentages + ticks for each component sequentially.
-    // give <g> and id then select each major axis
-
-    // If our object consists 100% Sand then were all the way in the 'Sand' corner
-    // - plot point 100% sans
-    // Same goes for the other two components of course but lets focus on the sand corner for now
-
-    // Now what if we have 80% sand and 20%, well, something else.
-    // - move point to 80%, 20% clay
-
-    // See that the point has moved closer to the 'Clay' corner, and on the 'Clay axis'. Now lets add some silt in the mix
-    // - move point to 80%, 10% clay 10% silt
-    // - Show line to that clay and silt axes 10 % 
-
-    // Notice that we're still on the 80% Sand line
-    // - make 80% sand line red
-    // Everywhere on this red line our soil sample is 80% sand
- 
-
-Now click download to download an easily editable SVG of your ternary plot!
- -->
 		<section>
-			We have three axes, one for each component. In each 'corner' of the triangle we're at 100% of one of the elements.
+		    <h3>What is a ternary plot?</h3>
+		    <div class="row no-margin-top">
+		        <div class="col-40">
+		            <p>A ternary plot is useful chart for vizualing three variables which sum to a constant. This constant is usually 1.0 or 100%.</p>
+		            <p class="small">(Press right arrow or space bar to navigate to next slide)</p>
+		        </div>
+		        <div class="col-60 fig-container no-margin-top" data-file="explain/1.html">
+		    </div>
+		  </div>
 		</section>
 
-	</div>
+		<section>
+			<div class="row no-margin-top">
+				<div class="col-40">
+					<p>Let's add some labels to our axes! Suppose we have a soil sample that consists of three soil types: <span class="fragment">sand,</span> <span class="fragment">silt,</span> <span class="fragment">and clay.</span> <span class="fragment">These three together form 100% of our soil sample.</span></p>
+				</div>
+			    <div class="col-60 fig-container no-margin-top" data-file="explain/2.html">
+		    </div>
+		</section>
+  
+		<section>
+			<div class="row no-margin-top">
+				<div class="col-40">
+					<p>We have three axes, one for each component. In each "corner" of the triangle we're at 100% of one of the elements. On the axis opposite to the corner, the element is at 0%.</p><p> <span class="fragment"> On this line, silt is 0%. Then our soil sample consists <em>only</em> of clay and sand.</span> <span class="fragment"> On this line clay is 0%</span>. <span class="fragment"> And on this line sand is 0%</span></p>
+				</div>
+			    <div class="col-60 fig-container no-margin-top" data-file="explain/3.html">				
+			</div>
+		</section>
+
+		<section>
+			<div class="row no-margin-top">
+				<div class="col-40">
+					<p>Now suppose a soil sample consists of 20% sand and 80% silt, and consequently; 0% clay. <span class="fragment">The point must be located on the axis opposite to clay, because there is <em>no clay in this sample</em></span>.</p><p> <span class="fragment">This is the 80% silt line</span> <span class="fragment">and this is the 20% sand line.</span> <span class="fragment">The point is at the intersection of these lines.</span></p> 
+				</div>
+			    <div class="col-60 fig-container no-margin-top" data-file="explain/4.html">
+			</div>
+		</section>
+
+		<section>
+			<div class="row no-margin-top">
+				<div class="col-40">
+					<p>Let's do one more, this time with all three! This sample consists of 30% clay, 40% silt and 30% sand</span>.</p><p> <span class="fragment">This is the 30% clay line,</span> <span class="fragment"> this is the 40% silt line,</span> <span class="fragment"> and this here is the 30% clay line.</span></p><p> <span class="fragment">Once again the point follows from the intersection of the lines. But note that really only two lines are necessary to find the point.</span></p> 
+				</div>
+				<div class="col-60 fig-container no-margin-top" data-file="explain/5.html">
+			</div>
+		</section>
+
+		<section>
+			<div class="row no-margin-top">
+				<p>I hope you understand how a ternary plot works now! Now go ahead and make a bunch of ternary plots and let your collegues/friends know about this site.<!--  If you have found this site to be valuable, please consider donating. --></p> 
+			</div>
+		</section>
+
 </div>
 </div>
 </div>
-<footer>
- Copyright 2018 Jules Blom <i class="far fa-copyright"></i>
-</footer>
+
 <!-- </main>-->
-<script charset="UTF-8" src="d3/d3.min.js"></script>
-<script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
-<script type="text/javascript" src="ternary.v3.js"></script>
 <script src="lib/js/head.min.js"></script>
 <script src="js/reveal.js"></script>
 
-<script src="js/reveal-to-d3-config.js"></script>
-<script src="js/reveal-to-d3.js"></script>
-
-<script type="text/javascript" src="js/explain.js"></script>
-
+<!-- <script type="text/javascript" src="js/explain.js"></script>
+ -->
 <!-- REVEAL INIT -->
 <script>
-	// Full list of configuration options available at:
-	// https://github.com/hakimel/reveal.js#configuration
-	Reveal.initialize({
-		controls: true,
-		progress: true,
-		history: false,
-		center: false,
-		touch: true,
+Reveal.initialize({
+    controls: false,
+    progress: true,
+    history: false,
+    center: false,
+    transition: 'fade',
 
-		transition: 'fade', // none/fade/slide/convex/concave/zoom
+    // // optional configurations for reveald3
+    reveald3: {
 
-		// More info https://github.com/hakimel/reveal.js#dependencies
-		dependencies: [
-			{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-			{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-			{ src: 'plugin/search/search.js', async: true },
-			{ src: 'plugin/zoom-js/zoom.js', async: true },
-			{ src: 'plugin/notes/notes.js', async: true }
-		]
-	});
+         // If the previous slide is a slide further in the deck (i.e. we come back to
+         // slide from the next slide), by default the last fragment transition will be
+         // triggered to to get the last state of the visualization and simulate the
+         // the state the simulation was in when we left the slide. This can be
+         // discarded.
+         runLastState: true, //default true
+
+         // Specifies if iframes (that host the visualization) have to be kept
+         // on the slide once the slide is not active anymore (e.g.: navigating
+         // to next slide). If true, the current visualization will be kept
+         // active so that its state will be the one displayed if we navigate
+         // back to the slide. This is false by default, as it can be the source
+         // of performance issues if complex visualizations (e.g. force layout)
+         // are displayed and kept in the background.
+         // Also, see the runLastState option as a simpler less
+         // resource-demanding alternative.
+         keepIframe: false, // default: false
+
+
+         // This will prefix the path attributes of the source html paths with the given path.
+         // (by default "src" if set to true or with the specified path if string)
+         mapPath: false, // default: false
+
+         // If true, will try to locate the file at a fallback url without the mapPath prefix in case no file is found
+         // at the stipulated url with mapPath
+         tryFallbackURL: false, //default false
+    },
+
+    // Reveal.js plugins
+    dependencies: [ { src: 'plugin/reveald3.js' }]
+});
+
+
 </script>
 
 

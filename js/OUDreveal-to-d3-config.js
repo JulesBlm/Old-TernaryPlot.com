@@ -24,6 +24,11 @@ pt.slideIdToFunctions = {
     4: function() {
       pt.ternaryPlot.updateValueBox({'Sand': 0, 'Silt':0, 'Clay':0 });
     }    
+  },
+  'axes': {
+    0: function() {
+      pt.ternaryPlot.markAxes();
+    }
   }
 };
 
