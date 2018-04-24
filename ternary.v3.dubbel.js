@@ -37,7 +37,7 @@
   d3.ternary.graticule = function() {
     var graticule, majorInterval, majorTicks, minorInterval, minorTicks;
     
-    majorInterval = 0.1; //Stepsize for lines
+    majorInterval = 0.2; //Stepsize for lines
     minorInterval = null;
 
     majorTicks = function() {
@@ -70,20 +70,18 @@
 
     graticule = function(plot) {
       var axisGraticule, gratAxes;
-      gratAxes = [0, 1, 2].map(function() {
-        return d3.svg.axis().tickValues(majorTicks());
-      });
+      gratAxes = [0, 1, 2].map(function() { return d3.svg.axis().tickValues(majorTicks()); });
+      
       axisGraticule = function(axis, i) {
         var container, draw, selA, selB;
         container = d3.select(this);
         selA = container.selectAll("path.minor").data(minorTicks());
-        selA.enter().append("path").attr({
-          "class": "minor"
-        });
+        selA.enter().append("path")
+          .attr({"class": "minor"});
+
         selB = container.selectAll("path.major").data(majorTicks());
-        selB.enter().append("path").attr({
-          "class": "major"
-        });
+        selB.enter().append("path")
+          .attr({"class": "major"});
 
         draw = function() {
           // console.log("plot.rule(i)", plot.rule(i));
@@ -91,7 +89,7 @@
           axis.scale(plot.scales[i]);
           selA.attr({d: plot.rule(i) });
 
-          return selB.attr({ d: plot.rule(i) });
+          return selB.attr("d", plot.rule(i));
         };
 
         plot.on("resize." + (randomid()), draw);
@@ -102,10 +100,9 @@
               .selectAll(".graticule")
               .data(gratAxes)
               .enter().append("g")
-                .attr({
-                    "class": "graticule",
-                    'clip-path': "url(#axesClip)"
-                  }).each(axisGraticule);
+                .attr("class", "graticule")
+                .attr("clip-path", "url(#axesClip)")
+                .each(axisGraticule);
     };
 
     graticule.axes = function() {
@@ -138,7 +135,7 @@
       opts = {};
     }
 
-    // console.log("Calling scalebar");
+    // console.log("Callixng scalebar");
     plot = null;
     labels = opts.labels || null;
 
@@ -224,8 +221,8 @@
           var el;
           el = d3.select(this);
           return axes[i](el);
-        }).attr({
-          transform: function(d, i) {
+        })
+        .attr("transform", function(d, i) {
             var x, y;
             x = offs[0];
             y = offs[1];
@@ -241,6 +238,7 @@
 
     scalebar.labels = function(l) {
       if (l == null) {
+        console.log(labels)
         return labels;
       }
       labels = l;
