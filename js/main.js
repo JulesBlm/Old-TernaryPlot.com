@@ -257,12 +257,42 @@ submitLines.addEventListener("submit", submittedLines);
 
 const clearPointsButton = document.getElementById("clearPoints");
 clearPointsButton.addEventListener("click", clearPoints);
+clearPointsButton.addEventListener("mouseover", function(event) {
+  d3.selectAll(".point")
+    .attr("opacity", "0.4");
+
+  setTimeout(function() {
+    d3.selectAll(".point")
+      .attr("opacity", "1");
+  }, 700);  
+});
 
 const clearLinesButton = document.getElementById("clearLines");
 clearLinesButton.addEventListener("click", clearLines);
+clearLinesButton.addEventListener("mouseover", function(event) {
+  d3.selectAll(".ternary-line")
+    .attr("stroke-opacity", "0.3");
+
+  setTimeout(function() {
+    d3.selectAll(".ternary-line")
+      .attr("stroke-opacity", "1");
+  }, 700);  
+});
 
 const clearLabelsButton = document.getElementById("clearLabels");
 clearLabelsButton.addEventListener("click", clearLabels);
+// Show linethrough vertex labels for short while when hovering over clear Labels button
+clearLabelsButton.addEventListener("mouseover", function(event) {
+  d3.selectAll(".vertex-label")
+    .attr("text-decoration", "line-through");
+
+  setTimeout(function() {
+    d3.selectAll(".vertex-label")
+      .attr("text-decoration", "none");
+  }, 700);
+  
+})
+
 
 const clearAllButton = document.getElementById("clearAll");
 clearAllButton.addEventListener("click", clearAll);

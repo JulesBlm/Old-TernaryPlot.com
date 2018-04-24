@@ -49,6 +49,9 @@
         ticks.push(start);
         start += int;
       }
+
+      // console.log("ticks", ticks);
+
       return ticks;
     };
 
@@ -71,27 +74,28 @@
     graticule = function(plot) {
       var axisGraticule, gratAxes;
       gratAxes = [0, 1, 2].map(function() {
-        return d3.svg.axis().tickValues(majorTicks());
+        return d3.svg.axis()
+              .tickValues(majorTicks());
       });
       axisGraticule = function(axis, i) {
         var container, draw, selA, selB;
         container = d3.select(this);
+        
         selA = container.selectAll("path.minor").data(minorTicks());
-        selA.enter().append("path").attr({
-          "class": "minor"
-        });
+        selA.enter().append("path")
+          .attr("class", "minor");
+
         selB = container.selectAll("path.major").data(majorTicks());
-        selB.enter().append("path").attr({
-          "class": "major"
-        });
+        selB.enter().append("path")
+          .attr("class", "major");
 
         draw = function() {
           // console.log("plot.rule(i)", plot.rule(i));
 
           axis.scale(plot.scales[i]);
-          selA.attr({d: plot.rule(i) });
+          selA.attr("d", plot.rule(i));
 
-          return selB.attr({ d: plot.rule(i) });
+          return selB.attr("d", plot.rule(i));
         };
 
         plot.on("resize." + (randomid()), draw);
@@ -102,10 +106,9 @@
               .selectAll(".graticule")
               .data(gratAxes)
               .enter().append("g")
-                .attr({
-                    "class": "graticule",
-                    'clip-path': "url(#axesClip)"
-                  }).each(axisGraticule);
+                .attr("class", "graticule")
+                .attr("clip-path", "url(#axesClip)")
+                .each(axisGraticule);
     };
 
     graticule.axes = function() {
@@ -151,21 +154,25 @@
     });
 
     adjustText = function(d, i) {
-      if (i !== 2) {
-        return;
+
+      // Set left axis ticklabels straight
+      if (i === 0) {
+        return d3.select(this).selectAll("text")
+          .attr("transform", function(d) {
+            const y = d3.select(this).attr("y");
+            return "translate(30 " + (-y) + ") rotate(60 0 " + (4.5 * y) + ")"; //-180
+          });
       }
-      return d3.select(this).selectAll("text").attr({
-        transform: function(d) {
-          var y;
-          y = d3.select(this).attr("y");
-          return "translate(0 " + (-y) + ") rotate(-180 0 " + (2 * y) + ")";
-        }
-      });
+
+      return d3.select(this).selectAll("text")
+        .attr("transform", function(d) {
+          const y = d3.select(this).attr("y");
+          return "translate(-25 " + (-y) + ") rotate(-120 0 " + (2.5 * y) + ")"; //-180
+        });
     };
 
     formatLabel = function(d, i) {
       var dy, t, width;
-      // console.log("Adding label " + d + "kANKER");
       width = plot.width();
       dy = -30;
       t = "translate(" + (width / 2) + ")";
@@ -173,12 +180,12 @@
         dy = 42;
         t = " rotate(-180 0 0) translate(" + (-width / 2) + ")";
       }
-      return d3.select(this).attr({
-        "class": 'label',
-        transform: t,
-        y: dy,
-        'text-anchor': 'middle'
-      }).text(d);
+      return d3.select(this)
+        .attr("class", "label")
+        .attr("transform", t)
+        .attr("y", dy)
+        .attr("text-anchor", "middle")
+        .text(d);
     };
 
     // console.info("formatLabel", formatLabel);
@@ -187,19 +194,18 @@
       var b_axes, draw;
       // console.log("Adding scalebar to plot");
       plot = p;
-      b_axes = plot.axes().selectAll(".bary-axis").data(angles).enter().append("g").attr({
-        "class": function(d, i) {
+      b_axes = plot.axes().selectAll(".bary-axis").data(angles).enter().append("g")
+        .attr("class", function(d, i) {
           d = "bary-axis";
           if (i === 2) {
             d += ' bottom';
           }
           return d;
-        }
-      });
-      b_axes.each(function() {
-        return d3.select(this).append('text').attr({
-          "class": 'label'
         });
+
+      b_axes.each(function() {
+        return d3.select(this).append("text")
+          .attr("class", "label");
       });
 
       draw = function() {
@@ -224,14 +230,13 @@
           var el;
           el = d3.select(this);
           return axes[i](el);
-        }).attr({
-          transform: function(d, i) {
-            var x, y;
-            x = offs[0];
-            y = offs[1];
-            return "rotate(" + (-60 + i * 120) + " " + x + " " + y + ") translate(0 " + (r / 2) + ")";
+        }).attr("transform", function(d, i) {
+            const x = offs[0];
+            const y = offs[1];
+
+            return "rotate(" + (-60 + i * 120) + " " + x + " " + y + ") translate(0 " + (r / 2) + ")"; //"rotate(" + (-60 + i * 120) + " " + x + " " + y + ") translate(0 " + (r / 2) + ")";
           }
-        }).each(adjustText);
+        ).each(adjustText);
 
         if (labelSel) return labelSel = plot.axes().selectAll('.bary-axis .label').data(labels).each(formatLabel);
       };
@@ -269,8 +274,7 @@
       sel.enter().append("text").text(function(d) { return d.label;})
         .attr("dy", ".35em")
         .attr("text-anchor", "middle")
-        .attr("class", "vertex-label")
-        .attr("id", function(d) { return d.label;} );
+        .attr("class", function(d) { return "vertex-label " + d.label.toLowerCase();} )
 
       draw = function() {
         return sel.attr({
@@ -295,13 +299,13 @@
     var neatline;
     neatline = function(plot) {
       var el;
-      return el = plot.node().append("use").attr({
-        "class": 'neatline',
-        "xlink:href": "#bounds"
-      });
-    };
+      return el = plot.node().append("use")
+        .attr("class", "neatline")
+        .attr("xlink:href", "#bounds")
+      };
+    
     return neatline;
-  };
+  }
 
   _plotBounds = function(plot) {
     var _, a, domains, draw, el, i, j, points, v;
@@ -327,6 +331,7 @@
       a[i] = domains[i][1];
       points.push(a);
     }
+
     _ = d3.select(this);
     el = _.select("#bounds");
     if (el.node() == null) {

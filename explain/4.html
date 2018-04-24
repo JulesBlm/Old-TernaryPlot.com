@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="../css/ternary.css">
-  
+  <link rel="stylesheet" href="../css/explain.css">
 </head>
 <body>
   <script src="../d3/d3.js"></script>
@@ -29,10 +29,6 @@ ternary = d3.ternary.plot()
 
 d3.select("svg").call(ternary);
 
-function addLabels(labels){
-  ternary.call(d3.ternary.vertexLabels(labels));
-}
-
 function drawLines(d) {
   const paths = ternary.plot()
     .selectAll(".line")
@@ -41,7 +37,7 @@ function drawLines(d) {
   paths.enter().append("path")
       .attr("class", "axis")
       .attr("d", function(d) { return ternary.path(d.values); })
-      .attr("stroke", function(d) { return d.color; })
+      .attr("class", function(d) { return d.class; })
       .attr("stroke-linecap", "round")
       .attr("opacity", 0.6)
       .attr("stroke-width", "10")
@@ -52,7 +48,7 @@ function drawPoint(d) {
     .selectAll('circle')
     .data([d])
     .enter().append('circle')
-      .attr("r", 9)
+      .attr("r", 7.5)
       .attr("cx", function(d) { return ternary.point(d)[0];}) 
       .attr("cy", function(d) { return ternary.point(d)[1];}) 
 }
@@ -61,23 +57,23 @@ function drawPoint(d) {
 var _transitions = [
 
   {
-    transitionForward: () => drawLines({values: [[1, 0, 0], [0, 0, 1]], color: "crimson"}),
-    transitionBackward: () => console.log("ypu"),
+    transitionForward: () => drawLines({values: [[1, 0, 0], [0, 0, 1]], class: "clay"}),
+    transitionBackward: () => console.log(""),
     index: 0
   },
   {
-    transitionForward: () => {drawLines({values: [[0, 0.2, 0.8], [0.2, 0, 0.8]], color: "plum"})},  //d3.select("#silt").style("text-decoration, underline")
-    transitionBackward: () => console.log("ypu"),
+    transitionForward: () => drawLines({values: [[0, 0.2, 0.8], [0.2, 0, 0.8]], class: "silt"}),
+    transitionBackward: () => console.log(""),
     index: 1
   },
   {
-    transitionForward: () => drawLines({values: [[0.2, 0.8, 0], [0.2, 0, 0.8]], color: "deepskyblue"}),
-    transitionBackward: () => console.log("ypu"),
+    transitionForward: () => drawLines({values: [[0.2, 0.8, 0], [0.2, 0, 0.8]], class: "sand"}),
+    transitionBackward: () => console.log(""),
     index: 2
   },
   {
     transitionForward: () => drawPoint([0.2, 0, 0.8]),
-    transitionBackward: () => console.log("ypu"),
+    transitionBackward: () => console.log(""),
     index: 3
   },  
 ]
