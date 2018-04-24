@@ -62,21 +62,3 @@ path.domain {
 tspan {
   font-weight: bold;
 }
-
-.sand {
-  background-color: sandybrown;
-  fill: sandybrown;
-  stroke: sandybrown;
-}
-
-.silt {
-  background-color: darkkhaki;
-  fill: darkkhaki;
-  stroke: darkkhaki;
-}
-
-.clay {
-  background-color: slategray;
-  fill: slategray;
-  stroke: slategray;
-}
