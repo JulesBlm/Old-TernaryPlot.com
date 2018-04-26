@@ -4,9 +4,9 @@
 ? Lines always close
 2. Sweet alert
 3. Catch errors
+4. Filter out emplty arrays split dashes
 
 0. Make animated explanation
-1. Fix reveal.js with d3.
 2. On resize mobile
 1. Column order agnostic
     Check column index between lines and point [global variable?]
@@ -18,13 +18,12 @@
 3. Update to d3 v5
 5. Upload and submit csv
 
-- cookie: First visit example data, afterwards keep entered text, LocalStorage
-- On hover of point: highlight lines/values, ? voronoi option visualcinnamon
+- cookie: First visit example data, afterwards keep entered text or LocalStorage?
+- On hover of point: highlight lines
 
-MAKE IT SLICK
-- check against reserved columns
+--------MAKE IT SLICK--------
 - validate input
-- error handling
+- more error handling
 - option for radius/size of point
 - lines
     - end style: arrow-end) https://vanseodesign.com/web-design/svg-markers/
@@ -37,18 +36,11 @@ MAKE IT SLICK
     https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects
   https://ejb.github.io/2017/08/09/a-better-way-to-structure-d3-code-es6-version.html
 
-VORONOI [does litter in downloaded svg ??]
-make it optional
-
 
 --------Later Features--------
 - hexbin option
 - areas
 - heatmap & contour option
-
-* Download the chart with SVG crowbar
-* Hackertip: inspect an element in Chrome dev tool to alter its properties
-
 */
 
 let defaultPointColor = "black";
@@ -61,7 +53,7 @@ labelsAdded = false;
 let columns;
 
 function capitalize(word) {
-  return  word.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+  return word.toLowerCase().replace(/\b[a-z]/g, function(letter) {
        return letter.toUpperCase();
   });
 }
@@ -77,7 +69,7 @@ function resize(t) {
   else { t.fit(window.innerWidth, window.innerHeight); }
 };
 
-var ternary = d3.ternary.plot()
+const ternary = d3.ternary.plot()
   .call(resize, [500, 500])
   .call(d3.ternary.scalebars())
   .call(d3.ternary.neatline())
@@ -103,13 +95,12 @@ function drawLines(d) {
         let drawArray = [];
         const myKeys = Object.keys(line[0]);
         // Loop over each point in line and add to drawarray because d3 path wants it that way
-        for (i = 0; i <= (line.length - 1); i+=1) {
+        for (let i = 0; i <= (line.length - 1); i+=1) {
           // d3.ternary wants the values swapped ¯\_(ツ)_/¯
           const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]]; // Better find the index of the columns that aren"t keywords
           drawArray.push(current);
           // maybe old method for non closed lines ?
         };
-        console.log("drawArray", drawArray);
         return ternary.path(drawArray);
       })
       .attr("stroke-dasharray", function(e) { return e[0].linestyle ?  e[0].linestyle.trim().replace("/([\s])+/", ",") : defaultLinestyle })
@@ -222,7 +213,7 @@ function submittedLines(e) {
 
 function addVertexLabels(f) {
   const cols = (f.columns).slice(0, 3);
-  const labels = cols.map(d => { return capitalize(d); });
+  const labels = cols.map(d => capitalize(d));
   ternary.call(d3.ternary.vertexLabels(labels))
 }
 

@@ -3,8 +3,7 @@
 
   window.URL = (window.URL || window.webkitURL);
 
-  var body = document.body,
-      emptySvg;
+  const body = document.body;
 
   const prefix = {
     xmlns: "http://www.w3.org/2000/xmlns/",
@@ -21,9 +20,9 @@
     let SVGSources = [];
 
     // add empty svg element
-    var emptySvg = window.document.createElementNS(prefix.svg, "svg");
+    const emptySvg = window.document.createElementNS(prefix.svg, "svg");
     window.document.body.appendChild(emptySvg);
-    var emptySvgDeclarationComputed = getComputedStyle(emptySvg);
+    const emptySvgDeclarationComputed = getComputedStyle(emptySvg);
 
     [].forEach.call(iframes, function(el) {
       try {
@@ -46,9 +45,9 @@
     });
 
     documents.forEach(function(doc) {
-      var newSources = getSources(doc, emptySvgDeclarationComputed);
+      const newSources = getSources(doc, emptySvgDeclarationComputed);
       // because of prototype on NYT pages
-      for (var i = 0; i < newSources.length; i++) {
+      for (let i = 0; i < newSources.length; i++) {
         SVGSources.push(newSources[i]);
       }
     });
@@ -62,7 +61,7 @@
   }
 
   function getSources(doc, emptySvgDeclarationComputed) {
-    var svgInfo = [],
+    const svgInfo = [],
         svg = doc.querySelector("svg"); //svgs = doc.querySelectorAll("svg");
 
     // [].forEach.call(svgs, function (svg) {
@@ -84,8 +83,8 @@
 
       setInlineStyles(svg, emptySvgDeclarationComputed);
 
-      var source = (new XMLSerializer()).serializeToString(svg);
-      var rect = svg.getBoundingClientRect();
+      const source = (new XMLSerializer()).serializeToString(svg);
+      const rect = svg.getBoundingClientRect();
       svgInfo.push({
         top: rect.top,
         left: rect.left,
@@ -102,7 +101,7 @@
   }
 
   function download(source) {
-    var filename = "untitled";
+    let filename = "untitled";
 
     if (source.name) {
       filename = source.name;
@@ -114,9 +113,9 @@
       filename = window.document.title.replace(/[^a-z0-9]/gi, "-").toLowerCase();
     }
 
-    var url = window.URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
+    const url = window.URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
 
-    var a = document.createElement("a");
+    const a = document.createElement("a");
     body.appendChild(a);
     a.setAttribute("class", "svg-crowbar");
     a.setAttribute("download", filename + ".svg");
@@ -129,29 +128,29 @@
     }, 10);
   }
 
-
   function setInlineStyles(svg, emptySvgDeclarationComputed) {
 
     function explicitlySetStyle (element) {
-      var cSSStyleDeclarationComputed = getComputedStyle(element);
-      var i, len, key, value;
-      var computedStyleStr = "";
-      for (i=0, len=cSSStyleDeclarationComputed.length; i<len; i++) {
-        key=cSSStyleDeclarationComputed[i];
-        value=cSSStyleDeclarationComputed.getPropertyValue(key);
-        if (value!==emptySvgDeclarationComputed.getPropertyValue(key)) {
+      const cSSStyleDeclarationComputed = getComputedStyle(element);
+
+      let len;
+      let computedStyleStr = "";
+      for (let i = 0, len = cSSStyleDeclarationComputed.length; i < len; i++) {
+        const key = cSSStyleDeclarationComputed[i];
+        const value = cSSStyleDeclarationComputed.getPropertyValue(key);
+        if (value !== emptySvgDeclarationComputed.getPropertyValue(key)) {
           computedStyleStr+=key+":"+value+";";
         }
       }
       element.setAttribute("style", computedStyleStr);
     }
     function traverse(obj){
-      var tree = [];
+      const tree = [];
       tree.push(obj);
       visit(obj);
       function visit(node) {
         if (node && node.hasChildNodes()) {
-          var child = node.firstChild;
+          let child = node.firstChild;
           while (child) {
             if (child.nodeType === 1 && child.nodeName != "SCRIPT"){
               tree.push(child);
@@ -164,8 +163,8 @@
       return tree;
     }
     // hardcode computed css styles inside svg
-    var allElements = traverse(svg);
-    var i = allElements.length;
+    const allElements = traverse(svg);
+    let i = allElements.length;
     while (i--){
       explicitlySetStyle(allElements[i]);
     }

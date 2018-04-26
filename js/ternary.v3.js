@@ -160,15 +160,23 @@
         return d3.select(this).selectAll("text")
           .attr("transform", function(d) {
             const y = d3.select(this).attr("y");
-            return "translate(30 " + (-y) + ") rotate(60 0 " + (4.5 * y) + ")"; //-180
-          });
+            return "translate(25 " + (-y) + ") rotate(60 0 " + (4.5 * y) + ")"; //-180
+          }) && d3.select(this).selectAll("line")
+                .attr("transform", function(d) {
+            const y = d3.select(this).attr("y");
+            return "translate(0 " + (-y) + ") rotate(-30 0 " + (1 * y) + ")"; //-180
+          });;
       }
 
       return d3.select(this).selectAll("text")
         .attr("transform", function(d) {
           const y = d3.select(this).attr("y");
-          return "translate(-25 " + (-y) + ") rotate(-120 0 " + (2.5 * y) + ")"; //-180
-        });
+          return "translate(-27 " + (-y) + ") rotate(-120 0 " + (2.5 * y) + ")"; //-180
+        }) && d3.select(this).selectAll("line")
+                .attr("transform", function(d) {
+            const y = d3.select(this).attr("y");
+            return "translate(0 " + (-y) + ") rotate(-30 0 " + (1 * y) + ")"; //-180
+          });;
     };
 
     formatLabel = function(d, i) {
