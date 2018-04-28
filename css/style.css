@@ -3,7 +3,7 @@
 #alpha {
   font-size: 0.5em;
   line-height: 0.5em;
-  color: gold;
+  color: #fcf113;
   animation: pulse 5s infinite;  
 }
 
@@ -67,11 +67,9 @@ nav > a:first-child {
 }
 
 nav > a[href]:hover {
-  background-color: #efa2a2;
   color: black;
-  -webkit-box-shadow: 7px 7px 20px 0px rgba(0,0,0,0.57);
-  -moz-box-shadow: 7px 7px 20px 0px rgba(0,0,0,0.57);
-  box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.57); 
+  background-image: linear-gradient(180deg,transparent 65%,#fcf113 0);
+  transition: background-size .4s ease;
 }
 
 .flex-wrapper {
