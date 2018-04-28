@@ -55,10 +55,9 @@ nav {
 nav > a {
   color: #fff;
   text-align: center;
-/*  font-weight: 1em;  
-*/  padding: 20px;
+  transition: background-size .4s ease;
+  padding: 20px;
   text-decoration: none;
-  transition-duration: 0.2s
 }
 
 nav > a:first-child {
@@ -67,9 +66,7 @@ nav > a:first-child {
 }
 
 nav > a[href]:hover {
-  color: black;
   background-image: linear-gradient(180deg,transparent 65%,#fcf113 0);
-  transition: background-size .4s ease;
 }
 
 .flex-wrapper {
