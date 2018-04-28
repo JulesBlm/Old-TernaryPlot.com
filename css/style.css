@@ -58,6 +58,7 @@ nav > a {
   transition: background-size .4s ease;
   padding: 20px;
   text-decoration: none;
+  background-size: 0 100%;
 }
 
 nav > a:first-child {
