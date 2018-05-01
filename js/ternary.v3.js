@@ -83,7 +83,7 @@
         
         selA = container.selectAll("path.minor").data(minorTicks());
         selA.enter().append("path")
-          .attr("class", "minor");
+          .attr("class", `minor axis-${i}`  );
 
         selB = container.selectAll("path.major").data(majorTicks());
         selB.enter().append("path")

@@ -70,7 +70,8 @@ nav > a:first-child {
 }
 
 nav > a[href]:hover {
-  transform: scale(1.3);
+  transform: scale(1.15);
+  text-decoration: underline;
   color: gold;
 }
 

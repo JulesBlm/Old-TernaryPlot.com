@@ -1,0 +1,42 @@
+{
+	"sand":[
+		{
+			"clay":0,
+			"sand":100,
+			"silt":0
+		},
+		{
+			"clay":10,
+			"sand":90,
+			"silt":0
+		},
+		{
+			"clay":0,
+			"sand":90,
+			"silt":10
+		}
+	],
+	"loamy sand":[
+		
+		{
+			"clay":0,
+			"sand":90,
+			"silt":10
+		},
+		{
+			"clay":10,
+			"sand":90,
+			"silt":0
+		},
+		{
+			"clay":15,
+			"sand":85,
+			"silt":0
+		},
+		{
+			"clay":0,
+			"sand":70,
+			"silt":30
+		}
+	]
+}
