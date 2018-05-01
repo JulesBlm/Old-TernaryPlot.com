@@ -41,7 +41,7 @@ path.domain {
 }
 
 .graticule path.major ,.tick line {
-  stroke: #eee;
+  stroke: #e9e9e9;
   stroke-width: 2px;
 }
 

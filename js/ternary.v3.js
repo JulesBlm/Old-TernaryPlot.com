@@ -8,7 +8,7 @@
 
   cos30 = Math.sqrt(3) / 2;
 
-  tickValues = [.2, .4, .6, .8]
+  tickValues = [.2, .4, .6, .8, 1]
 
   randomid = function() {
     var i, j, pos, possible, text;
@@ -87,13 +87,12 @@
 
         selB = container.selectAll("path.major").data(majorTicks());
         selB.enter().append("path")
-          .attr("class", "major");
+          .attr("class", `major axis-${i}`  );
 
         draw = function() {
           // console.log("plot.rule(i)", plot.rule(i));
-
           axis.scale(plot.scales[i]);
-          selA.attr("d", plot.rule(i));
+          selA.attr("d", plot.rule(i))
 
           return selB.attr("d", plot.rule(i));
         };
@@ -160,7 +159,7 @@
         return d3.select(this).selectAll("text")
           .attr("transform", function(d) {
             const y = d3.select(this).attr("y");
-            return "translate(25 " + (-y) + ") rotate(60 0 " + (4.5 * y) + ")"; //-180
+            return "translate(22 " + (-y) + ") rotate(60 0 " + (4.5 * y) + ")"; //-180
           }) && d3.select(this).selectAll("line")
                 .attr("transform", function(d) {
             const y = d3.select(this).attr("y");
@@ -288,7 +287,7 @@
         return sel.attr({
           transform: function(d, i) {
             var ref, x, y;
-            ref = d.vertex, x = ref[0], y = ref[1];
+            ref = d.vertex, x = ref[0] , y = ref[1];
             return "translate(" + x + "," + y + ")rotate(" + rotate[i] + ")";
           }
         });
