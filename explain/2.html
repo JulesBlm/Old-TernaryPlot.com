@@ -50,22 +50,22 @@ function addLabels(labels){
 var _transitions = [
   {
     transitionForward: () => {addLabels(["Sand"]); colorAxis(2)},
-    transitionBackward: () => d3.ternary.removeLabels(),
+    transitionBackward: () => colorAxis(4),
     index: 0
   },
   {
     transitionForward: () => {addLabels(["Sand", "Silt"]); colorAxis(0)},
-    transitionBackward: () => d3.ternary.removeLabels(),
+    transitionBackward: () => colorAxis(2),
     index: 1
   },
   {
     transitionForward: () => {addLabels(["Sand", "Silt", "Clay"]); colorAxis(1)},
-    transitionBackward: () => d3.ternary.removeLabels(),
+    transitionBackward: () => colorAxis(0),
     index: 2
   },
   {
     transitionForward: () => {addLabels(["Sand", "Silt", "Clay"]); colorAxis(4)},
-    transitionBackward: () => d3.ternary.removeLabels(),
+    transitionBackward: () => colorAxis(1),
     index: 3
   },
 ]
