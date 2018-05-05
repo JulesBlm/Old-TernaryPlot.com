@@ -2,7 +2,6 @@
 
 --------BUGS--------
 ? Lines always close
-2. Sweet alert
 3. Catch errors
 4. Filter out emplty arrays split dashes
 
@@ -47,6 +46,7 @@ let defaultPointColor = "black";
 let defaultShape = "circle";
 let defaultLinestyle = "none";
 let defaultLineColor = "black";
+let defaultStrokewidth = "4px";
 // const items = JSON.parse(localStorage.getItem("points")) || [];
 labelsAdded = false;
 
@@ -83,14 +83,13 @@ function drawLines(d) {
   // console.log("DRAWING", d);
   // console.log("----------------------------------------------");
 
-  // const drawArray = d.map(line => line.map(linePoint => { return [linePoint[0], linePoint[2], linePoint[1]] } ));
-
   const paths = ternary.plot()
     .selectAll(".line")
     .data(d);
 
+  // 🤔I think there must be a way to do this 'better' with Object methods
   paths.enter().append("path")
-      .attr("class", "ternary-line")
+      .attr("class", "ternary-line" )
       .attr("d", function(line) {
         let drawArray = [];
         const myKeys = Object.keys(line[0]);
@@ -99,15 +98,14 @@ function drawLines(d) {
           // d3.ternary wants the values swapped ¯\_(ツ)_/¯
           const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]]; // Better find the index of the columns that aren"t keywords
           drawArray.push(current);
-          // maybe old method for non closed lines ?
         };
         return ternary.path(drawArray);
       })
       .attr("stroke-dasharray", function(e) { return e[0].linestyle ?  e[0].linestyle.trim().replace("/([\s])+/", ",") : defaultLinestyle })
       .attr("stroke", function(e) { return e[0].color ? (e[0].color).trim() : (e[0].colour ? (e[0].colour).trim() : defaultLineColor)}) // both color and colour are valid   
-      .attr("fill", function(e) { return e[0].fillcolor ? (e[0].fillcolor).trim() : undefined})
-      // .attr("fill-opacity", 0.5)
-      .append("title")
+      // .attr("fill", function(e) { return e[0].fillcolor ? (e[0].fillcolor).trim() : undefined})
+      .attr("stroke-width", function(e) { return e[0].strokewidth ? e[0].strokewidth : defaultStrokewidth })
+      .append("title") // 🤔 Would there be a way to not append a title if there is none?
         .text( function(e) { return e[0].title ? capitalize((e[0].title).trim()) : undefined; }); //Object.values(e).slice(0,3).join(", ")
 
 }
@@ -133,6 +131,8 @@ function drawPoints(d) {
         const plotCoords = ternary.point(myValues);
         return "translate(" + plotCoords[0] + "," + plotCoords[1] + ")";
       })
+      .on("mouseover", handleMouseOver)
+      .on("mouseout", handleMouseOut)
     .append("title")
       .text( function(point) { 
         const myKeys = Object.keys(point);
@@ -179,7 +179,6 @@ function submittedLines(e) {
   const columnsString = splitNewlines[0].shift(); // Remove first entry (Columns)
   const columnsArray = columnsString.split(",").map(col => col.trim()); // Array with column names
 
-
   if (!columns) {
     columns = columnsArray.slice(0,3)
   } else {
@@ -209,6 +208,54 @@ function submittedLines(e) {
     return lineObjects
   });
   drawLines(lineObjectsArray);
+}
+
+function handleMouseOver(e) { 
+  const entries = Object.entries(e).slice(0,3);
+
+  let pointValues = Object.values(e);
+  pointValues = [pointValues[0], pointValues[2], pointValues[1]];
+
+  // Its ugly but it works is my motto for programming
+  const helpLinesArray = [
+    [pointValues, 
+      [
+        0,
+        parseFloat(pointValues[0]) + parseFloat(pointValues[1]),
+        parseFloat(pointValues[2]) ]
+      ],  
+    [pointValues,
+      [
+        parseFloat(pointValues[0]),
+        0,
+        parseFloat(pointValues[1]) + parseFloat(pointValues[2])
+      ]
+    ],
+    [pointValues, 
+      [
+        parseFloat(pointValues[0]) + parseFloat(pointValues[2]),      
+        parseFloat(pointValues[1]),
+        0        
+      ]
+    ]
+  ]
+
+  const helpLines = ternary.plot()
+    .selectAll(".line")
+    .data(helpLinesArray);
+
+  // I could (should?) use the drawLines function but that one is geared towards the submmittedLines format and this is easier🤗
+  helpLines.enter().append("path")
+      .attr("class", "help-line")
+      .attr("d", function(line) { return ternary.path(line) })
+      .attr("stroke-dasharray", "3, 3, 3")
+      .attr("stroke", "black")  
+      .attr("stroke-width", "1px")
+      .attr("z-index", "-1");
+}
+
+function handleMouseOut(e) {
+  d3.selectAll(".help-line").remove()
 }
 
 function addVertexLabels(f) {

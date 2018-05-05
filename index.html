@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ternary.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
   <!--[if lt IE 9]>
@@ -76,7 +77,7 @@
       </label>
     </div>
     <form id="enterpoints" class="add-items">
-      <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4,square,limegreen,sample nr. 1&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,</textarea>
+      <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4,square,limegreen,sample nr. 1&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,&#13;0.2,0.5,0.3,&#13;0.3, 0.1, 0.6,cross,magenta&#13;0.5, 0.5, 0,diamond, #d1b621&#13;0.6,0.2,0.2,triangle-up,peru</textarea>
       <input type="submit" name="add" value="+ Add Points">
       <input type="button" id="clearPoints" value="- Clear Points">
     </form>
@@ -90,6 +91,7 @@
   <div class="flex-item">
   <h2 class="underline">Lines </h2> <!-- <i class="fas fa-info-circle" id="infolines"></i> -->
 
+  <div class="labels">
   <label>
     Default Color
     <select name="defaultColorLines""> 
@@ -99,7 +101,6 @@
       <option value="green">Green</option>  
     </select>
   </label>
-  <br>
   <label>
     Default Linestyle
     <select name="defaultLineStyle"> 
@@ -109,8 +110,9 @@
       <option value="5,10,5">Dash-dot</option>
     </select>
   </label>
+  </div>
   <form id="enterlines" class="add-items">
-    <textarea placeholder="column1,column2,column3,linestyle,color,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,linestyle,title&#13;0.2,0.8,0,orangered,5 3 5,dotted line&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
+    <textarea placeholder="column1,column2,column3,linestyle,color,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,linestyle,strokewidth,title&#13;0.2,0.8,0,orangered,5 3 5,2,dotted line 1&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
     <input type="submit" value="+ Add Lines">
     <input type="button"  id="clearLines" value="- Clear Lines">
   </form>
@@ -149,6 +151,10 @@
       <td class="tg-yw4l">Line only: Linestyle</td>
       <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. A list of white space separated length's and percentage's that specify the lengths of alternating dashes and gaps. The values should be separated by spaces not commas! For example: <em>'5 15 3'</em>. Use <em>'none'</em> for a solid line.</td>
     </tr>
+    <tr class="line-only">
+      <td class="tg-yw4l">Line only: Strokewidth</td>
+      <td class="tg-yw4l">The width of the line in pixels. Be warned; anything above 7 will look too chunky. Default is 4 px.</td>
+    </tr>    
   </table>
 
 </div>
@@ -157,7 +163,7 @@
 </div>
 
 <footer>
- Copyright 2018 Jules Blom <i class="far fa-copyright"></i>
+2018 Jules Blom <i class="far fa-copyright"></i>
 </footer>
 
 

@@ -6,12 +6,16 @@
 
 .ternary-line{
   fill: rgba(255,255,255,0.0);
-  stroke-width: 4px;
   border-style: dotted;
 }
 
 .ternary-line:hover {
   opacity: 0.6
+}
+
+.mouseover-line{
+  fill: rgba(255,255,255,0.0);
+  border-style: dotted;
 }
 
 .ternary-tick{
