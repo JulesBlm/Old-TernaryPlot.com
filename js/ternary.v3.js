@@ -564,7 +564,7 @@
         // console.log("positions", positions);
         // console.log("path(positions", path(positions));
 
-        return path(positions) + "Z";
+        return path(positions); //+ "Z" // closes the path
       };
     })(this);
 
