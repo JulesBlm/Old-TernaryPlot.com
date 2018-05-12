@@ -551,6 +551,18 @@
     };
 
     T.path = (function(_this) {
+      return function(coordsList, accessor, interpolator) {
+        var positions;
+        line(interpolator);
+        if (!accessor) { accessor = function(d) { return d; }; }
+
+        positions = coordsList.map(function(d) { return T.point(accessor(d)); });
+        
+        return path(positions);
+      };
+    })(this);
+
+    T.area = (function(_this) {
       // console.log("t.path _this", _this);
 
       return function(coordsList, accessor, interpolator) {
@@ -564,9 +576,9 @@
         // console.log("positions", positions);
         // console.log("path(positions", path(positions));
 
-        return path(positions); //+ "Z" // closes the path
+        return path(positions) + "Z"; // closes the path
       };
-    })(this);
+    })(this);    
 
     T.rule = function(axis) {
       return function(value) {

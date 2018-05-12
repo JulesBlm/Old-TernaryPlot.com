@@ -28,7 +28,7 @@
 
 <header>
   <nav>
-    <a><span class="underline">Ternary plot maker</span> <span id="alpha">ALPHA</span></a>
+    <a><span class="underline">Ternary plot maker</span> <span id="alpha">BETA</span></a>
     <a></a>
     <a href="explain.html">Explanation</a>
     <a href="about.html">About</a>
@@ -42,7 +42,7 @@
 <div class="flex-wrapper">
 
   <div class="flex-item" >
-    <svg></svg>
+    <svg id="ternary-plot"></svg>
     <div class="buttons">
       <input type="button" id="clearLabels" value="Clear Labels">
       <input type="button" id="clearAll" value="Clear All">
@@ -56,28 +56,28 @@
 
     <div class="labels">
       <label>
-      Default Color
-      <select name="defaultColorPoints">
-        <option value="black" selected>Black</option> 
-        <option value="red">Red</option>
-        <option value="gold">Gold</option>
-        <option value="green">Green</option>  
-      </select>
+        Default Color
+        <select name="defaultColorPoints">
+          <option value="black" selected>Black</option> 
+          <option value="red">Red</option>
+          <option value="gold">Gold</option>
+          <option value="green">Green</option>  
+        </select>
       </label>
       <label>
-      Default Shape
-      <select name="defaultShape">
-        <option value="circle" selected>Circle</option> 
-        <option value="square">Square</option>
-        <option value="diamond">Diamond</option>
-        <option value="cross">Cross</option>
-        <option value="triangle-up">Triangle up</option>
-        <option value="triangle-down">Triangle down</option>
-      </select>
+        Default Shape
+        <select name="defaultShape">
+          <option value="circle" selected>Circle</option> 
+          <option value="square">Square</option>
+          <option value="diamond">Diamond</option>
+          <option value="cross">Cross</option>
+          <option value="triangle-up">Triangle up</option>
+          <option value="triangle-down">Triangle down</option>
+        </select>
       </label>
     </div>
-    <form id="enterpoints" class="add-items">
-      <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4, square, limegreen, sample nr. 1&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,&#13;0.2,0.5,0.3,,coral&#13;0.3, 0.1, 0.6,cross,magenta&#13;0.5,0.5,0, diamond, #d1b621&#13;0.6,0.2,0.2, triangle-up, peru</textarea>
+    <form name="enterPoints" class="add-items">
+      <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,opacity,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4, square, limegreen, sample nr. 1&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,&#13;0.2,0.5,0.3,,coral&#13;0.3, 0.1, 0.6,cross,magenta&#13;0.5,0.5,0, diamond, #d1b621&#13;0.6,0.2,0.2, triangle-up, peru</textarea>
       <input type="submit" name="add" value="+ Add Points">
       <input type="button" id="clearPoints" value="- Clear Points">
     </form>
@@ -89,18 +89,18 @@
    -->
 
   <div class="flex-item">
-  <h2 class="underline">Lines </h2> <!-- <i class="fas fa-info-circle" id="infolines"></i> -->
+  <h2 class="underline">Lines</h2> <!-- <i class="fas fa-info-circle" id="infolines"></i> -->
 
   <div class="labels">
-  <label>
-    Default Color
-    <select name="defaultColorLines""> 
-      <option value="black" selected>Black</option> 
-      <option value="red">Red</option>
-      <option value="gold">Gold</option>
-      <option value="green">Green</option>  
-    </select>
-  </label>
+    <label>
+      Default Color
+      <select name="defaultColorLines""> 
+        <option value="black" selected>Black</option> 
+        <option value="red">Red</option>
+        <option value="gold">Gold</option>
+        <option value="green">Green</option>  
+      </select>
+    </label>
   <label>
     Default Linestyle
     <select name="defaultLineStyle"> 
@@ -111,24 +111,56 @@
     </select>
   </label>
   </div>
-  <form id="enterlines" class="add-items">
-    <textarea placeholder="column1,column2,column3,linestyle,color,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"   type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,linestyle,strokewidth,title&#13;0.2,0.8,0,orangered,5 3 5,2,dotted line 1&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
+  <form name="enterLines" class="add-items">
+    <textarea placeholder="column1,column2,column3,linestyle,color,opacity,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,linestyle,strokewidth,title&#13;0.2,0.8,0,orangered,5 3 5,2,dotted line 1&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
     <input type="submit" value="+ Add Lines">
     <input type="button"  id="clearLines" value="- Clear Lines">
+  </form>
+  </div>
+
+  <div class="flex-item">
+  <h2 class="underline">Areas</h2>
+
+  <div class="labels">
+    <label>
+      Default Color
+      <select name="defaultColorAreas""> 
+        <option value="black" selected>Black</option> 
+        <option value="red">Red</option>
+        <option value="gold">Gold</option>
+        <option value="green">Green</option>  
+      </select>
+    </label>
+  <label>
+    Default Pattern
+    <select name="defaultAreaPattern"> 
+      <option value="none" selected>Solid</option> 
+      <option value="circles">Dotted</option>
+      <option value="diagonalstripe">Striped</option>
+      <option value="crosshatch">Crosshatch</option>
+      <option value="blocks">Blocks</option>      
+    </select>
+  </label>
+  </div>
+  <form name="enterAreas" class="add-items">
+    <textarea placeholder="column1,column2,column3,color,pattern,opacity,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,pattern,opacity,title&#13;0,0.5,0.5,,circles,0.7,More than 50% silt&#13;0.5,0.5,0&#13;0,1,0&#13;---------&#13;0.5,0,0.5,,crosshatch,,More than 50% sand&#13;0.5,0.5,0&#13;1,0,0&#13;-&#13;0,0.5,0.5,coral,,0.3,More than 50% clay&#13;0.5,0,0.5,&#13;0,0,1</textarea>
+    <input type="submit" value="+ Add Areas">
+    <input type="button" id="clearAreas" value="- Clear Areas">
   </form>
   <!-- <form id="pointsfile" class="add-items">
     <input type="file" accept=".csv">
     <button>Submit</button>  
   </form> -->
-  </div>
+  </div> 
 
 </div>
 
 <div class="margin-main">
   <h2>Parameters</h2>
   <p>The values in the text area should be separated by commas. The first row has to contain your column names and these have to be the first three values. These will be entered as vertex labels in the ternary plot. The labels are placed in the following order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points and lines.</p>
-  <p>For the values you can use either decimals <em>(0.2, 0.3, 0.5)</em> or percentages <em>(20, 30, 50)</em>. Mixing these formats between rows is possible. You can't mix 'm in one line though! </p>
-  
+  <p>For the values you can use either decimals <code>0.2, 0.3, 0.5</code> or percentages <code>20, 30, 50</code>. Mixing these formats between rows is possible. You can't mix 'm in one line though! Also be sure to use a dot as a decimal separator.</p>
+  <p>Lines and areas are seperated by one or multiple dashes, like <code>'-'</code> or <code>'------'</code>. Only the first row of a a line or area style parameters area read. The optional parameters on following rows won't be read.</p>
+
   <h3>Optional Keywords</h3>
   <table class="tg">
     <tr>
@@ -137,24 +169,33 @@
     </tr>
     <tr>
       <td class="tg-l711">Title</td>
-      <td class="tg-l711">Text (without commas)</td>
+      <td class="tg-l711">Text (without commas and dashed). This will appended as an SVG title and will appear when hovering over the point or line.</td>
     </tr>
     <tr>
       <td class="tg-yw4l">Color (or colour)</td>
-      <td class="tg-yw4l">A hexadecimal color value like <em>'#dcedff'</em>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank">named color</a> like <em>'blue'</em> or <em>'orangered'</em></td>
+      <td class="tg-yw4l">A hexadecimal color value like <code>'#dcedff'</code>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank">named color</a> like <code>'blue'</code> or <code>'orangered'</code></td>
     </tr>
+    <tr>
+      <td class="tg-yw4l">Opacity</td>
+      <td class="tg-yw4l">Value between 1 and 0</td>
+    </tr>         
     <tr class="point-only">
       <td class="tg-yw4l">Point only: Shape</td>
       <td class="tg-yw4l">Circle, cross, diamond, triangle-down, or triangle-up</td>
     </tr>
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Linestyle</td>
-      <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. A list of white space separated length's and percentage's that specify the lengths of alternating dashes and gaps. The values should be separated by spaces not commas! For example: <em>'5 15 3'</em>. Use <em>'none'</em> for a solid line.</td>
+      <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. A list of white space separated length's and percentage's that specify the lengths of alternating dashes and gaps. The values should be separated by spaces not commas! For example: <code>'5 15 3'</code>. Use <code>'none'</code> for a solid line.</td>
     </tr>
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Strokewidth</td>
       <td class="tg-yw4l">The width of the line in pixels. Be warned; anything above 7 will look too chunky. Default is 4 px.</td>
-    </tr>    
+    </tr>
+    <tr class="area-only">
+      <td class="tg-yw4l">Area only: Pattern</td>
+      <td class="tg-yw4l">A pattern used to as a background for the area, these tend not appear in Adobe Illustrator unfortunately. Possible patterns are: <code>circles</code>, <code>crosshatch</code>, <code>diagonalstripe</code> or <code>blocks</code>.</td>
+    </tr>
+    
   </table>
 
 </div>
@@ -165,6 +206,17 @@
 <footer>
 2018 Jules Blom <i class="far fa-copyright"></i>
 </footer>
+
+
+<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="circles" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg==" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
+
+<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="diagonalstripe" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScvPgogIDxwYXRoIGQ9J00tMSwxIGwyLC0yCiAgICAgICAgICAgTTAsMTAgbDEwLC0xMAogICAgICAgICAgIE05LDExIGwyLC0yJyBzdHJva2U9J2JsYWNrJyBzdHJva2Utd2lkdGg9JzEnLz4KPC9zdmc+Cg==" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
+
+<svg height="8" width="8" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="crosshatch" patternUnits="userSpaceOnUse" width="8" height="8"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4JyBoZWlnaHQ9JzgnPgogIDxyZWN0IHdpZHRoPSc4JyBoZWlnaHQ9JzgnIGZpbGw9JyNmZmYnLz4KICA8cGF0aCBkPSdNMCAwTDggOFpNOCAwTDAgOFonIHN0cm9rZS13aWR0aD0nMC41JyBzdHJva2U9JyNhYWEnLz4KPC9zdmc+Cg==" x="0" y="0" width="8" height="8"> </image> </pattern> </defs> </svg>
+
+<svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg==" x="0" y="0" width="5" height="5"> </image> </pattern> </defs> </svg>
+
+<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="blocks" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8cmVjdCB4PScwJyB5PScwJyB3aWR0aD0nNScgaGVpZ2h0PSc1JyBmaWxsPSdibGFjaycgLz4KPC9zdmc+" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
 
 
 <script charset="UTF-8" src="d3/d3.min.js"></script>

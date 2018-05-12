@@ -1,11 +1,12 @@
 /* To do
 
 --------BUGS--------
-? Lines always close
+0. Fix color of patterns
+1. Fix when only one line/area is present followed by a '---'
+2. https://spin.atomicobject.com/2014/01/21/convert-svg-to-png/
 3. Catch errors
 4. Filter out emplty arrays split dashes
 
-0. Make animated explanation
 2. On resize mobile
 1. Column order agnostic
     Check column index between lines and point [global variable?]
@@ -18,23 +19,17 @@
 5. Upload and submit csv
 
 - cookie: First visit example data, afterwards keep entered text or LocalStorage?
-- On hover of point: highlight lines
-
---------MAKE IT SLICK--------
+--------MAKE IT SLICKER--------
 - validate input
 - more error handling
 - option for radius/size of point
 - lines
     - end style: arrow-end) https://vanseodesign.com/web-design/svg-markers/
-    - fill color & border color
-    - curved or straight
-- select points and lines
-- make animated explanation page
+    - curve
 - structure code better https://css-tricks.com/how-do-you-structure-javascript-the-module-pattern-edition/
     http://jstherightway.org/#js-code-style
     https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects
   https://ejb.github.io/2017/08/09/a-better-way-to-structure-d3-code-es6-version.html
-
 
 --------Later Features--------
 - hexbin option
@@ -44,9 +39,14 @@
 
 let defaultPointColor = "black";
 let defaultShape = "circle";
+
 let defaultLinestyle = "none";
 let defaultLineColor = "black";
 let defaultStrokewidth = "4px";
+
+let defaultAreaColor = "grey";
+let defaultAreaPattern = "circles";
+
 // const items = JSON.parse(localStorage.getItem("points")) || [];
 labelsAdded = false;
 
@@ -75,7 +75,39 @@ const ternary = d3.ternary.plot()
   .call(d3.ternary.neatline())
   .call(graticule);
 
-d3.select("svg").call(ternary);
+d3.select("#ternary-plot").call(ternary);
+
+/* ------ Points ------ */
+function drawPoints(d) {
+  const values = d.slice([0, 3]);
+  const symbol = d3.svg.symbol();
+  let myValues;
+
+  const points = ternary.plot()
+    .selectAll(".point")
+    .data(values);
+
+  points.enter().append("path")
+      .attr("class", "point")
+      .attr("fill",function(point) { return point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : defaultPointColor)}) // both color and colour are valid
+      .attr("fill-opacity", function(point) { return point.opacity ?  point.opacity.trim() : 1 }) 
+      .attr("d", symbol.type(function(point) { return point.shape ? (point.shape).trim() : defaultShape; }))
+      .attr("transform", function(point) {
+        const myKeys = Object.keys(point);
+        myValues = [point[myKeys[0]], point[myKeys[2]], point[myKeys[1]]];
+
+        const plotCoords = ternary.point(myValues);
+        return "translate(" + plotCoords[0] + "," + plotCoords[1] + ")";
+      })
+      .on("mouseover", handleMouseOver)
+      .on("mouseout", handleMouseOut)
+    .append("title")
+      .text( function(point) { 
+        const myKeys = Object.keys(point);
+        const valuesString = `${capitalize(myKeys[0])}: ${point[myKeys[0]]}, ${capitalize(myKeys[2])}: ${point[myKeys[2]]}, ${capitalize(myKeys[1])}: ${point[myKeys[1]]}`;
+        return point.title ? `${capitalize(point.title.trim())}; ${valuesString}` : valuesString;
+      });
+}
 
 /* ------ Lines ------ */
 function drawLines(d) {
@@ -101,44 +133,38 @@ function drawLines(d) {
         };
         return ternary.path(drawArray);
       })
-      .attr("stroke-dasharray", function(e) { return e[0].linestyle ?  e[0].linestyle.trim().replace("/([\s])+/", ",") : defaultLinestyle })
-      .attr("stroke", function(e) { return e[0].color ? (e[0].color).trim() : (e[0].colour ? (e[0].colour).trim() : defaultLineColor)}) // both color and colour are valid   
-      // .attr("fill", function(e) { return e[0].fillcolor ? (e[0].fillcolor).trim() : undefined})
-      .attr("stroke-width", function(e) { return e[0].strokewidth ? e[0].strokewidth : defaultStrokewidth })
+      .attr("stroke-dasharray", function(line) { return line[0].linestyle ?  line[0].linestyle.trim().replace("/([\s])+/", ",") : defaultLinestyle })
+      .attr("stroke", function(line) { return line[0].color ? (line[0].color).trim() : (line[0].colour ? (line[0].colour).trim() : defaultLineColor)}) // both color and colour are valid   
+      .attr("stroke-opacity", function(line) { return line[0].opacity ?  line[0].opacity.trim() : 1 })
+      .attr("fill-opacity", "0") // So no inside fill shows up in Adobe Illustrator 
+      .attr("stroke-width", function(line) { return line[0].strokewidth ? line[0].strokewidth : defaultStrokewidth })
       .append("title") // 🤔 Would there be a way to not append a title if there is none?
-        .text( function(e) { return e[0].title ? capitalize((e[0].title).trim()) : undefined; }); //Object.values(e).slice(0,3).join(", ")
-
+        .text( function(line) { return line[0].title ? capitalize((line[0].title).trim()) : undefined; }); //Object.values(e).slice(0,3).join(", ")
 }
 
-/* ------ Points ------ */
-function drawPoints(d) {
-  const values = d.slice([0, 3]);
-  const symbol = d3.svg.symbol();
-  let myValues;
+/* ------ Lines ------ */
+function drawAreas(d) {
+  const paths = ternary.plot()
+    .selectAll(".area")
+    .data(d);
 
-  const points = ternary.plot()
-    .selectAll(".point")
-    .data(values);
-
-  points.enter().append("path")
-      .attr("class", "point")
-      .attr("fill",function(point) { return point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : defaultPointColor)}) // both color and colour are valid
-      .attr("d", symbol.type(function(point) { return point.shape ? (point.shape).trim() : defaultShape; }))
-      .attr("transform", function(point) {
-        const myKeys = Object.keys(point);
-        myValues = [point[myKeys[0]], point[myKeys[2]], point[myKeys[1]]];
-
-        const plotCoords = ternary.point(myValues);
-        return "translate(" + plotCoords[0] + "," + plotCoords[1] + ")";
+  paths.enter().append("path")
+      .attr("class", "ternary-area" )
+      .attr("d", function(line) {
+        let drawArray = [];
+        const myKeys = Object.keys(line[0]);
+        // Loop over each point in line and add to drawarray because d3 path wants it that way
+        for (let i = 0; i <= (line.length - 1); i+=1) {
+          // d3.ternary wants the values swapped ¯\_(ツ)_/¯
+          const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]]; // Better find the index of the columns that aren"t keywords
+          drawArray.push(current);
+        };
+        return ternary.area(drawArray);
       })
-      .on("mouseover", handleMouseOver)
-      .on("mouseout", handleMouseOut)
-    .append("title")
-      .text( function(point) { 
-        const myKeys = Object.keys(point);
-        const valuesString = `${capitalize(myKeys[0])}: ${point[myKeys[0]]}, ${capitalize(myKeys[2])}: ${point[myKeys[2]]}, ${capitalize(myKeys[1])}: ${point[myKeys[1]]}`;
-        return point.title ? `${capitalize(point.title.trim())}; ${valuesString}` : valuesString;
-      });
+      .attr("fill", function(area) { console.log(defaultAreaPattern); return area[0].pattern ? `url(#${(area[0].pattern.trim()).toLowerCase()})` :  area[0].color ? (area[0].color).trim() : `url(#${defaultAreaPattern}` })
+      .attr("fill-opacity", function(area) { return area[0].opacity ?  area[0].opacity.trim() : 0.5 })
+      .append("title")
+        .text( function(area) { return area[0].title ? capitalize((area[0].title).trim()) : undefined; });
 }
 
 // Make one function submitted check wether lines or points???
@@ -169,21 +195,19 @@ function submittedPoints(e) {
   drawPoints(parsedInput);
 }
 
-// enter lines as csv as well, with certain character for a new line???
-function submittedLines(e) {
-  e.preventDefault();
+function parse(data) {
 
-  const rawInput = (this.querySelector("[name=item]")).value;
-  let splitNewlines = rawInput.split(/([-])+/).map(d => d.split("\n")); // Split by dashes [separate lines to draw], then split by newlines [separate points in each line]
+  let splitNewlines = data.split(/([-])+/).map(d => d.split("\n")); // Split by dashes [separate lines to draw], then split by newlines [separate points in each line]
   
   const columnsString = splitNewlines[0].shift(); // Remove first entry (Columns)
   const columnsArray = columnsString.split(",").map(col => col.trim()); // Array with column names
 
+  // Check if lines column names match with point column names
   if (!columns) {
     columns = columnsArray.slice(0,3)
   } else {
     if (JSON.stringify(columnsArray.slice(0,3)) !== JSON.stringify(columns)) {
-      swal("Your columns in Points and Lines don't seem to match", `Your columns for points are "${columns}" and for lines they are "${columnsArray.slice(0,3)}". The lines will still be plotted, but they might not appear the way you intended.`, "warning");
+      swal("Your columns in Points and Lines don't seem to match", `Your columns for points are "${columns}" and for lines they are "${columnsArray.slice(0,3)}". The areas will still be plotted, but they might not appear the way you intended.`, "warning");
     }
   }
 
@@ -197,7 +221,7 @@ function submittedLines(e) {
   if (!labelsAdded) { addVertexLabels({columns: columnsArray}); labelsAdded = true;}
 
   // Its ugly but it works ¯\_(ツ)_/¯
-  const lineObjectsArray = lines.map(line => {
+  const objectsArray = lines.map(line => {
     const lineObjects = line.map(function(p) {
       const point = columnsArray.reduce(function(result, column, i) {
         result[column.toLowerCase()] = p[i];
@@ -207,7 +231,28 @@ function submittedLines(e) {
     });
     return lineObjects
   });
+
+  return objectsArray
+}
+
+function submittedLines(e) {
+  e.preventDefault();
+
+  const rawInput = (this.querySelector("[name=item]")).value;
+  const lineObjectsArray = parse(rawInput);
+
   drawLines(lineObjectsArray);
+}
+
+// Almost the damn same, not good
+function submittedAreas(e) {
+  e.preventDefault();
+
+  const rawInput = (this.querySelector("[name=item]")).value;
+
+  const areaObjectsArray = parse(rawInput);
+
+  drawAreas(areaObjectsArray);
 }
 
 function handleMouseOver(e) { 
@@ -278,20 +323,21 @@ function clearLines(e) {
   d3.selectAll(".ternary-line").remove();
 }
 
+function clearAreas(e) {
+  d3.selectAll(".ternary-area").remove();
+}
+
 function clearAll(e) {
   clearLines();
   clearPoints();
   clearLabels();
+  clearAreas();
 }
 
 /* event listeners */
-
-// Change to oneliners?
-const submitPoints = document.querySelector("#enterpoints");
-submitPoints.addEventListener("submit", submittedPoints);
-
-const submitLines = document.querySelector("#enterlines");
-submitLines.addEventListener("submit", submittedLines);
+document.enterPoints.addEventListener("submit", submittedPoints);
+document.enterLines.addEventListener("submit", submittedLines);
+document.enterAreas.addEventListener("submit", submittedAreas);
 
 const clearPointsButton = document.getElementById("clearPoints");
 clearPointsButton.addEventListener("click", clearPoints);
@@ -308,14 +354,27 @@ clearPointsButton.addEventListener("mouseover", function(event) {
 const clearLinesButton = document.getElementById("clearLines");
 clearLinesButton.addEventListener("click", clearLines);
 clearLinesButton.addEventListener("mouseover", function(event) {
-  d3.selectAll(".ternary-line")
+  d3.selectAll(".ternary-area")
     .attr("stroke-opacity", "0.3");
 
   setTimeout(function() {
-    d3.selectAll(".ternary-line")
+    d3.selectAll(".ternary-area")
       .attr("stroke-opacity", "1");
   }, 700);  
 });
+
+const clearAreasButton = document.getElementById("clearAreas");
+
+clearAreasButton.addEventListener("click", clearAreas );
+// clearLinesButton.addEventListener("mouseover", function(event) {
+//   d3.selectAll(".ternary-line")
+//     .attr("stroke-opacity", "0.3");
+
+//   setTimeout(function() {
+//     d3.selectAll(".ternary-line")
+//       .attr("stroke-opacity", "1");
+//   }, 700);  
+// });
 
 const clearLabelsButton = document.getElementById("clearLabels");
 clearLabelsButton.addEventListener("click", clearLabels);
@@ -328,33 +387,18 @@ clearLabelsButton.addEventListener("mouseover", function(event) {
     d3.selectAll(".vertex-label")
       .attr("text-decoration", "none");
   }, 700);
-  
 })
-
 
 const clearAllButton = document.getElementById("clearAll");
 clearAllButton.addEventListener("click", clearAll);
 
-document.querySelector(`select[name="defaultColorPoints"]`).onchange = pointColorSelect;
-document.querySelector(`select[name="defaultShape"]`).onchange = pointShapeSelect;
+document.querySelector(`select[name="defaultColorPoints"]`).onchange = function() { defaultPointColor = event.target.value; };
+document.querySelector(`select[name="defaultShape"]`).onchange = function() { defaultShape = event.target.value; };
 
-document.querySelector(`select[name="defaultColorLines"]`).onchange = lineColorSelect;
-document.querySelector(`select[name="defaultLineStyle"]`).onchange = linestyleSelect;
+document.querySelector(`select[name="defaultColorLines"]`).onchange = function() { defaultLineColor = event.target.value; };
+document.querySelector(`select[name="defaultLineStyle"]`).onchange = function() { defaultLinestyle = event.target.value; };
 
-function pointColorSelect(event) {
-  defaultPointColor = event.target.value;
-}
-
-function pointShapeSelect(event) {
-  defaultShape = event.target.value;
-}
-
-function lineColorSelect(event) {
-  defaultLineColor = event.target.value;
-}
-
-function linestyleSelect(event) {
-  defaultLinestyle = event.target.value;
-}
+document.querySelector(`select[name="defaultColorAreas"]`).onchange = function() { defaultAreaColor = event.target.value; }
+document.querySelector(`select[name="defaultAreaPattern"]`).onchange = function() { defaultAreaPattern = event.target.value; }
 
 window.addEventListener("resize",  resize(ternary))

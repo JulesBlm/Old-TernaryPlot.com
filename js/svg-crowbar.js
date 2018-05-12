@@ -46,16 +46,16 @@
 
     documents.forEach(function(doc) {
       const newSources = getSources(doc, emptySvgDeclarationComputed);
-      // because of prototype on NYT pages
       for (let i = 0; i < newSources.length; i++) {
         SVGSources.push(newSources[i]);
       }
     });
     if (SVGSources.length > 0) {
+      console.log(SVGSources);      
       download(SVGSources[0]);
     } else {
       console.log(SVGSources);
-      swal("Couldn’t find any SVG nodes.");
+      swal("Not sure what you did but no SVG could be found.");
     }
 
   }
