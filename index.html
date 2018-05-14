@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-  <title>Ternary plot generator</title>
+  <title>Online Ternary Plot Generator</title>
   <meta charset="utf-8">  
-  <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary plot for free.">
+  <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ternary.css">
@@ -46,7 +46,6 @@
     <div class="buttons">
       <input type="button" id="clearLabels" value="Clear Labels">
       <input type="button" id="clearAll" value="Clear All">
-      <!-- <input type="button" id="download" value="Download">  seteventlistener to perform svg-crowbar.js sans popover-->
       <a id="download" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27js/svg-crowbar.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download</a>
     </div>
   </div>
@@ -193,7 +192,7 @@
     </tr>
     <tr class="area-only">
       <td class="tg-yw4l">Area only: Pattern</td>
-      <td class="tg-yw4l">A pattern used to as a background for the area, these tend not appear in Adobe Illustrator unfortunately. Possible patterns are: <code>circles</code>, <code>crosshatch</code>, <code>diagonalstripe</code> or <code>blocks</code>.</td>
+      <td class="tg-yw4l">A pattern can used as fill for an area. Available patterns are: <code>circles</code>, <code>crosshatch</code>, <code>diagonalstripe</code> or <code>blocks</code>. Patterns <em>cannot</em> be exported to the downloadable SVG! Only use colors if you wan't areas to be visible in the downloaded SVG.</td>
     </tr>
     
   </table>

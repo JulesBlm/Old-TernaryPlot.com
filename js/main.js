@@ -1,7 +1,7 @@
 /* To do
 
 --------BUGS--------
-0. Fix color of patterns
+0. Export patterns
 1. Fix when only one line/area is present followed by a '---'
 2. https://spin.atomicobject.com/2014/01/21/convert-svg-to-png/
 3. Catch errors
@@ -46,6 +46,7 @@ let defaultStrokewidth = "4px";
 
 let defaultAreaColor = "grey";
 let defaultAreaPattern = "circles";
+let patternsUsed = false;
 
 // const items = JSON.parse(localStorage.getItem("points")) || [];
 labelsAdded = false;
@@ -136,13 +137,13 @@ function drawLines(d) {
       .attr("stroke-dasharray", function(line) { return line[0].linestyle ?  line[0].linestyle.trim().replace("/([\s])+/", ",") : defaultLinestyle })
       .attr("stroke", function(line) { return line[0].color ? (line[0].color).trim() : (line[0].colour ? (line[0].colour).trim() : defaultLineColor)}) // both color and colour are valid   
       .attr("stroke-opacity", function(line) { return line[0].opacity ?  line[0].opacity.trim() : 1 })
-      .attr("fill-opacity", "0") // So no inside fill shows up in Adobe Illustrator 
+      .attr("fill-opacity", "0") // So no inside fill shows up inside lines in Adobe Illustrator 
       .attr("stroke-width", function(line) { return line[0].strokewidth ? line[0].strokewidth : defaultStrokewidth })
       .append("title") // 🤔 Would there be a way to not append a title if there is none?
         .text( function(line) { return line[0].title ? capitalize((line[0].title).trim()) : undefined; }); //Object.values(e).slice(0,3).join(", ")
 }
 
-/* ------ Lines ------ */
+/* ------ Areas ------ */
 function drawAreas(d) {
   const paths = ternary.plot()
     .selectAll(".area")
@@ -153,21 +154,18 @@ function drawAreas(d) {
       .attr("d", function(line) {
         let drawArray = [];
         const myKeys = Object.keys(line[0]);
-        // Loop over each point in line and add to drawarray because d3 path wants it that way
         for (let i = 0; i <= (line.length - 1); i+=1) {
-          // d3.ternary wants the values swapped ¯\_(ツ)_/¯
-          const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]]; // Better find the index of the columns that aren"t keywords
+          const current = [+line[i][myKeys[0]], +line[i][myKeys[2]], +line[i][myKeys[1]]];
           drawArray.push(current);
         };
         return ternary.area(drawArray);
       })
-      .attr("fill", function(area) { console.log(defaultAreaPattern); return area[0].pattern ? `url(#${(area[0].pattern.trim()).toLowerCase()})` :  area[0].color ? (area[0].color).trim() : `url(#${defaultAreaPattern}` })
+      .attr("fill", function(area) { if (area[0].pattern) { patternsUsed = true }; return area[0].pattern ? (`url(#${(area[0].pattern.trim()).toLowerCase()})`) :  area[0].color ? (area[0].color).trim() : undefined })
       .attr("fill-opacity", function(area) { return area[0].opacity ?  area[0].opacity.trim() : 0.5 })
       .append("title")
         .text( function(area) { return area[0].title ? capitalize((area[0].title).trim()) : undefined; });
 }
 
-// Make one function submitted check wether lines or points???
 function submittedPoints(e) {
   e.preventDefault();
   const parsedInput = d3.csvParse((this.querySelector("[name=item]")).value.toLowerCase());
@@ -182,21 +180,11 @@ function submittedPoints(e) {
 
   columns.some(v => { if (reserved.includes(v)) { swal("Reserved column name", `You can't use any of the following names as your columns names: ${reserved.join(', ')}`, "error") }; return }) 
 
-  // parsedInput.columns.map(key => {
-  //   reserved.forEach(res => {
-  //     if (key == res) console.log("key", key, "res", res); }
-  //   })
-  // });
-
-  // console.log("points cols", parsedInput.columns);
-
-
   if (!labelsAdded) { addVertexLabels(parsedInput); labelsAdded = true;}
   drawPoints(parsedInput);
 }
 
 function parse(data) {
-
   let splitNewlines = data.split(/([-])+/).map(d => d.split("\n")); // Split by dashes [separate lines to draw], then split by newlines [separate points in each line]
   
   const columnsString = splitNewlines[0].shift(); // Remove first entry (Columns)
@@ -207,7 +195,7 @@ function parse(data) {
     columns = columnsArray.slice(0,3)
   } else {
     if (JSON.stringify(columnsArray.slice(0,3)) !== JSON.stringify(columns)) {
-      swal("Your columns in Points and Lines don't seem to match", `Your columns for points are "${columns}" and for lines they are "${columnsArray.slice(0,3)}". The areas will still be plotted, but they might not appear the way you intended.`, "warning");
+      swal("Your columns in Points, Lines and areas don't seem to match", `Your columns you entered first are "${columns}" and for your columns now are "${columnsArray.slice(0,3)}". Your data will still be plotted, but it might not appear the way you intended.`, "warning");
     }
   }
 
@@ -324,6 +312,7 @@ function clearLines(e) {
 }
 
 function clearAreas(e) {
+  patternsUsed = false;
   d3.selectAll(".ternary-area").remove();
 }
 
@@ -348,7 +337,7 @@ clearPointsButton.addEventListener("mouseover", function(event) {
   setTimeout(function() {
     d3.selectAll(".point")
       .attr("opacity", "1");
-  }, 700);  
+  }, 600);  
 });
 
 const clearLinesButton = document.getElementById("clearLines");
@@ -360,21 +349,21 @@ clearLinesButton.addEventListener("mouseover", function(event) {
   setTimeout(function() {
     d3.selectAll(".ternary-area")
       .attr("stroke-opacity", "1");
-  }, 700);  
+  }, 600);  
 });
 
 const clearAreasButton = document.getElementById("clearAreas");
 
 clearAreasButton.addEventListener("click", clearAreas );
-// clearLinesButton.addEventListener("mouseover", function(event) {
-//   d3.selectAll(".ternary-line")
-//     .attr("stroke-opacity", "0.3");
+clearAreasButton.addEventListener("mouseover", function(event) {
+  d3.selectAll(".ternary-area")
+    .attr("fill-opacity", "0.1");
 
-//   setTimeout(function() {
-//     d3.selectAll(".ternary-line")
-//       .attr("stroke-opacity", "1");
-//   }, 700);  
-// });
+  setTimeout(function() {
+    d3.selectAll(".ternary-area")
+      .attr("fill-opacity", "1");
+  }, 600);  
+});
 
 const clearLabelsButton = document.getElementById("clearLabels");
 clearLabelsButton.addEventListener("click", clearLabels);
