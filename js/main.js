@@ -45,8 +45,7 @@ let defaultLineColor = "black";
 let defaultStrokewidth = "4px";
 
 let defaultAreaColor = "grey";
-let defaultAreaPattern = "circles";
-let patternsUsed = false;
+let defaultAreaOpacity = 0.5;
 
 // const items = JSON.parse(localStorage.getItem("points")) || [];
 labelsAdded = false;
@@ -124,6 +123,7 @@ function drawLines(d) {
   paths.enter().append("path")
       .attr("class", "ternary-line" )
       .attr("d", function(line) {
+        // Use d3.pairs?
         let drawArray = [];
         const myKeys = Object.keys(line[0]);
         // Loop over each point in line and add to drawarray because d3 path wants it that way
@@ -160,8 +160,8 @@ function drawAreas(d) {
         };
         return ternary.area(drawArray);
       })
-      .attr("fill", function(area) { if (area[0].pattern) { patternsUsed = true }; return area[0].pattern ? (`url(#${(area[0].pattern.trim()).toLowerCase()})`) :  area[0].color ? (area[0].color).trim() : undefined })
-      .attr("fill-opacity", function(area) { return area[0].opacity ?  area[0].opacity.trim() : 0.5 })
+      .attr("fill", function(area) { return area[0].color ? (area[0].color).trim() : defaultAreaColor })
+      .attr("fill-opacity", function(area) { return area[0].opacity ?  area[0].opacity.trim() : defaultAreaOpacity })
       .append("title")
         .text( function(area) { return area[0].title ? capitalize((area[0].title).trim()) : undefined; });
 }
@@ -232,7 +232,6 @@ function submittedLines(e) {
   drawLines(lineObjectsArray);
 }
 
-// Almost the damn same, not good
 function submittedAreas(e) {
   e.preventDefault();
 
@@ -312,7 +311,6 @@ function clearLines(e) {
 }
 
 function clearAreas(e) {
-  patternsUsed = false;
   d3.selectAll(".ternary-area").remove();
 }
 
@@ -388,6 +386,6 @@ document.querySelector(`select[name="defaultColorLines"]`).onchange = function()
 document.querySelector(`select[name="defaultLineStyle"]`).onchange = function() { defaultLinestyle = event.target.value; };
 
 document.querySelector(`select[name="defaultColorAreas"]`).onchange = function() { defaultAreaColor = event.target.value; }
-document.querySelector(`select[name="defaultAreaPattern"]`).onchange = function() { defaultAreaPattern = event.target.value; }
+document.querySelector(`select[name="defaultAreaOpacity"]`).onchange = function() { defaultAreaPattern = event.target.value; }
 
 window.addEventListener("resize",  resize(ternary))

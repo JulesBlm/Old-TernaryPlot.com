@@ -131,18 +131,18 @@
       </select>
     </label>
   <label>
-    Default Pattern
-    <select name="defaultAreaPattern"> 
-      <option value="none" selected>Solid</option> 
-      <option value="circles">Dotted</option>
-      <option value="diagonalstripe">Striped</option>
-      <option value="crosshatch">Crosshatch</option>
-      <option value="blocks">Blocks</option>      
+    Default Opacity
+    <select name="defaultAreaOpacity"> 
+      <option value="0.2" selected>20%</option> 
+      <option value="0.4">40%</option>
+      <option value="0.6">60%</option>
+      <option value="0.8">80%</option>
+      <option value="1">100&%</option>      
     </select>
   </label>
   </div>
   <form name="enterAreas" class="add-items">
-    <textarea placeholder="column1,column2,column3,color,pattern,opacity,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,pattern,opacity,title&#13;0,0.5,0.5,,circles,0.7,More than 50% silt&#13;0.5,0.5,0&#13;0,1,0&#13;---------&#13;0.5,0,0.5,,crosshatch,,More than 50% sand&#13;0.5,0.5,0&#13;1,0,0&#13;-&#13;0,0.5,0.5,coral,,0.3,More than 50% clay&#13;0.5,0,0.5,&#13;0,0,1</textarea>
+    <textarea placeholder="column1,column2,column3,color,opacity,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,opacity,title&#13;0,0.5,0.5,palegreen,0.1,More than 50% silt&#13;0.5,0.5,0&#13;0,1,0&#13;---------&#13;0.5,0,0.5,moccasin,,More than 50% sand&#13;0.5,0.5,0&#13;1,0,0&#13;-&#13;0,0.5,0.5,coral,0.3,More than 50% clay&#13;0.5,0,0.5,&#13;0,0,1</textarea>
     <input type="submit" value="+ Add Areas">
     <input type="button" id="clearAreas" value="- Clear Areas">
   </form>
@@ -189,12 +189,7 @@
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Strokewidth</td>
       <td class="tg-yw4l">The width of the line in pixels. Be warned; anything above 7 will look too chunky. Default is 4 px.</td>
-    </tr>
-    <tr class="area-only">
-      <td class="tg-yw4l">Area only: Pattern</td>
-      <td class="tg-yw4l">A pattern can used as fill for an area. Available patterns are: <code>circles</code>, <code>crosshatch</code>, <code>diagonalstripe</code> or <code>blocks</code>. Patterns <em>cannot</em> be exported to the downloadable SVG! Only use colors if you wan't areas to be visible in the downloaded SVG.</td>
-    </tr>
-    
+    </tr>    
   </table>
 
 </div>
@@ -205,18 +200,6 @@
 <footer>
 2018 Jules Blom <i class="far fa-copyright"></i>
 </footer>
-
-
-<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="circles" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScxLjUnIGN5PScxLjUnIHI9JzEuNScgZmlsbD0nYmxhY2snLz4KPC9zdmc+Cg==" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
-
-<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="diagonalstripe" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScvPgogIDxwYXRoIGQ9J00tMSwxIGwyLC0yCiAgICAgICAgICAgTTAsMTAgbDEwLC0xMAogICAgICAgICAgIE05LDExIGwyLC0yJyBzdHJva2U9J2JsYWNrJyBzdHJva2Utd2lkdGg9JzEnLz4KPC9zdmc+Cg==" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
-
-<svg height="8" width="8" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="crosshatch" patternUnits="userSpaceOnUse" width="8" height="8"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4JyBoZWlnaHQ9JzgnPgogIDxyZWN0IHdpZHRoPSc4JyBoZWlnaHQ9JzgnIGZpbGw9JyNmZmYnLz4KICA8cGF0aCBkPSdNMCAwTDggOFpNOCAwTDAgOFonIHN0cm9rZS13aWR0aD0nMC41JyBzdHJva2U9JyNhYWEnLz4KPC9zdmc+Cg==" x="0" y="0" width="8" height="8"> </image> </pattern> </defs> </svg>
-
-<svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg==" x="0" y="0" width="5" height="5"> </image> </pattern> </defs> </svg>
-
-<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="blocks" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8cmVjdCB4PScwJyB5PScwJyB3aWR0aD0nNScgaGVpZ2h0PSc1JyBmaWxsPSdibGFjaycgLz4KPC9zdmc+" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
-
 
 <script charset="UTF-8" src="d3/d3.min.js"></script>
 <script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
