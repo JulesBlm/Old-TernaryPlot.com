@@ -1,7 +1,6 @@
 /* To do
 
 --------BUGS--------
-0. Export patterns
 1. Fix when only one line/area is present followed by a '---'
 2. https://spin.atomicobject.com/2014/01/21/convert-svg-to-png/
 3. Catch errors
@@ -35,6 +34,7 @@
 - hexbin option
 - areas
 - heatmap & contour option
+- Curved lines
 */
 
 let defaultPointColor = "black";
@@ -292,8 +292,7 @@ function handleMouseOut(e) {
 
 function addVertexLabels(f) {
   const cols = (f.columns).slice(0, 3);
-  const labels = cols.map(d => capitalize(d));
-  ternary.call(d3.ternary.vertexLabels(labels))
+  ternary.call(d3.ternary.vertexLabels(cols))
 }
 
 function clearLabels() {
