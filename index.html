@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-  <title>Online Ternary Plot Generator</title>
+  <title>Ternary Plot Generator</title>
   <meta charset="utf-8">  
   <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ternary.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+  <link rel="stylesheet" href="handsontable/handsontable.full.min.css">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
+  <script src="handsontable/handsontable.full.min.js"></script>
   <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
@@ -28,7 +30,7 @@
 
 <header>
   <nav>
-    <a><span class="underline">Ternary plot maker</span> <span id="alpha">BETA</span></a>
+    <a><span class="underline">Ternary plot maker</span> <span id="alpha">RC</span></a>
     <a></a>
     <a href="explain.html">Explanation</a>
     <a href="about.html">About</a>
@@ -51,7 +53,7 @@
   </div>
 
   <div class="flex-item">
-    <h2 class="underline">Points</h2><!--  <i class="fas fa-info-circle" id="infopoint"></i> -->
+    <h2 class="underline">Points</h2>
 
     <div class="labels">
       <label>
@@ -75,17 +77,13 @@
         </select>
       </label>
     </div>
+
+    <div class="handsOnTable" id="pointsTable"></div>
     <form name="enterPoints" class="add-items">
-      <textarea autocomplete="off" autocorrect="off" placeholder="column1,column2,column3,shape,color,opacity,title" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,shape,color,title&#13;0.3,0.3,0.4, square, limegreen, sample nr. 1&#13;1,0,0,&#13;0,1,0,&#13;0,0,1,&#13;0.2,0.5,0.3,,coral&#13;0.3, 0.1, 0.6,cross,magenta&#13;0.5,0.5,0, diamond, #d1b621&#13;0.6,0.2,0.2, triangle-up, peru</textarea>
-      <input type="submit" name="add" value="+ Add Points">
+       <input type="submit" name="add" value="+ Plot Points">
       <input type="button" id="clearPoints" value="- Clear Points">
     </form>
   </div>
-  <!-- <form id="pointsfile" class="add-items">
-    <input type="file" accept=".csv">
-    <button>Submit</button> 
-  </form>
-   -->
 
   <div class="flex-item">
   <h2 class="underline">Lines</h2> <!-- <i class="fas fa-info-circle" id="infolines"></i> -->
@@ -110,9 +108,10 @@
     </select>
   </label>
   </div>
+
+  <div class="handsOnTable" id="linesTable"></div>
   <form name="enterLines" class="add-items">
-    <textarea placeholder="column1,column2,column3,linestyle,color,opacity,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,linestyle,strokewidth,title&#13;0.2,0.8,0,orangered,5 3 5,2,dotted line 1&#13;0.8,0,0.2,&#13;-&#13;0.1,0.1,0.8,slateblue&#13;0.4,0.1,0.5,&#13;0,0,1,</textarea>
-    <input type="submit" value="+ Add Lines">
+    <input type="submit" value="+ Plot Lines">
     <input type="button"  id="clearLines" value="- Clear Lines">
   </form>
   </div>
@@ -124,9 +123,9 @@
     <label>
       Default Color
       <select name="defaultColorAreas""> 
-        <option value="black" selected>Black</option> 
+        <option value="black">Black</option> 
         <option value="red">Red</option>
-        <option value="gold">Gold</option>
+        <option value="gold" selected>Gold</option>
         <option value="green">Green</option>  
       </select>
     </label>
@@ -141,24 +140,21 @@
     </select>
   </label>
   </div>
+
+  <div class="handsOnTable" id="areasTable"></div>
   <form name="enterAreas" class="add-items">
-    <textarea placeholder="column1,column2,column3,color,opacity,title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="item" cols="42" rows="20" required>sand,silt,clay,color,opacity,title&#13;0,0.5,0.5,palegreen,0.1,More than 50% silt&#13;0.5,0.5,0&#13;0,1,0&#13;---------&#13;0.5,0,0.5,moccasin,,More than 50% sand&#13;0.5,0.5,0&#13;1,0,0&#13;-&#13;0,0.5,0.5,coral,0.3,More than 50% clay&#13;0.5,0,0.5,&#13;0,0,1</textarea>
-    <input type="submit" value="+ Add Areas">
+    <input type="submit" value="+ Plot Areas">
     <input type="button" id="clearAreas" value="- Clear Areas">
   </form>
-  <!-- <form id="pointsfile" class="add-items">
-    <input type="file" accept=".csv">
-    <button>Submit</button>  
-  </form> -->
   </div> 
 
 </div>
 
 <div class="margin-main">
   <h2>Parameters</h2>
-  <p>The values in the text area should be separated by commas. The first row has to contain your column names and these have to be the first three values. These will be entered as vertex labels in the ternary plot. The labels are placed in the following order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points and lines.</p>
-  <p>For the values you can use either decimals <code>0.2, 0.3, 0.5</code> or percentages <code>20, 30, 50</code>. Mixing these formats between rows is possible. You can't mix 'm in one line though! Also be sure to use a dot as a decimal separator.</p>
-  <p>Lines and areas are seperated by one or multiple dashes, like <code>'-'</code> or <code>'------'</code>. Only the first row of a a line or area style parameters area read. The optional parameters on following rows won't be read.</p>
+  <p>The first row has to contain your column names and these have to be the first three values. These will be entered as vertex labels in the ternary plot. The labels are placed in the following order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points and lines.</p>
+  <p>For the values you can use either decimals <code>0.2</code>, <code>0.3</code>, <code>0.5</code> or percentages <code>20</code>, <code>30</code>, <code>50</code>. Mixing these formats between rows is possible. You can't mix 'm in one row though! Also be sure to use a dot as a decimal separator.</p>
+  <p>Lines and areas are seperated by one an empty row. Only the first row of a a line or area style parameters area read. The optional parameters on following rows won't be read.</p>
 
   <h3>Optional Keywords</h3>
   <table class="tg">
@@ -172,7 +168,7 @@
     </tr>
     <tr>
       <td class="tg-yw4l">Color (or colour)</td>
-      <td class="tg-yw4l">A hexadecimal color value like <code>'#dcedff'</code>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank">named color</a> like <code>'blue'</code> or <code>'orangered'</code></td>
+      <td class="tg-yw4l">A hexadecimal color value like <code>#dcedff</code>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank">named color</a> like <code>blue</code> or <code>orangered</code></td>
     </tr>
     <tr>
       <td class="tg-yw4l">Opacity</td>
@@ -184,7 +180,7 @@
     </tr>
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Linestyle</td>
-      <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. A list of white space separated length's and percentage's that specify the lengths of alternating dashes and gaps. The values should be separated by spaces not commas! For example: <code>'5 15 3'</code>. Use <code>'none'</code> for a solid line.</td>
+      <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. A list of white space separated length's and percentage's that specify the lengths of alternating dashes and gaps. The values should be separated by commmas! For example: <code>5,15,3</code>. Use <code>none</code> for a solid line.</td>
     </tr>
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Strokewidth</td>
@@ -202,8 +198,9 @@
 </footer>
 
 <script charset="UTF-8" src="d3/d3.min.js"></script>
-<script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
-<script type="text/javascript" src="js/ternary.v3.js"></script>
+<!-- <script src="https://d3js.org/d3-dsv.v1.min.js"></script>  
+ --><script type="text/javascript" src="js/ternary.v3.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/drawfunctions.js"></script>
 </body>
 </html>

@@ -2,13 +2,23 @@
 
 :root {
   --red: #e56565;
+  --round: 1px;
+  --border-style: 1px solid rgba(0,0,0,0.1);;
+  --header-height: 75px;
+  --footer-height: 5vh;
+}
+
+
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
 #alpha {
   font-size: 0.5em;
   line-height: 0.5em;
   color: gold;
-  animation: pulse 5s infinite;  
+  animation: pulse 4s infinite;  
 }
 
 @keyframes pulse {
@@ -43,7 +53,7 @@ h1 {
 
 header {
   background-color: var(--red);  
-  height: 70px;
+  height: var(--header-height);
   box-shadow: 0 1px 15px 0 rgba(192,72,25,0.32);
   top: 0;  
 }
@@ -51,7 +61,7 @@ header {
 nav {
   display: grid;
   grid-template-columns: [col] 20vw [col] 45vw [col] 15vw [col] 15vw;
-  grid-template-rows: [row] 70px;
+  grid-template-rows: [row] var(--header-height);
   align-items: center;
 }
 
@@ -91,40 +101,32 @@ nav > a[href]:hover {
   justify-content: center;
 }
 
-textarea {
-  background-color: #f0f0f0;  
-  border:1px solid rgba(0,0,0,0.3);
-  border-radius: 5px;
-  margin: 5px;
-  resize: vertical;
-}
-
 select {
   width: 100px;
   float: right;
 }
 
 .flex-item {
-  max-width: 290px;
+  min-height: 500px;
+  max-width: 500px;
   padding: 0 1rem;
   margin: auto;  
 }
 
 .flex-item:first-child {
-  min-width: 500px;
   text-align: center; 
 }
 
 .add-items {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 input {
   padding:10px;
   outline:0;
-  margin: 0px 5px;
-  border:1px solid rgba(0,0,0,0.1);
-  border-radius: 1em;
+  margin: 0px 0px 0 0px;
+  border: var(--border-style);
+  border-radius: var(--round);
   font-weight: bold;
   transition-duration: 0.1s;
 }
@@ -148,11 +150,10 @@ hr {
     padding:10px;
     outline:0;
     border:1px solid rgba(0,0,0,0.1);
-    border-radius: 1em;   
+    border-radius: var(--round);   
     font-size: 12px;
     font-weight: bold;
     text-decoration: none;
-    border-radius: 1em;
     background: #666;
     color: white;
     background: #3FAA90;
@@ -166,21 +167,15 @@ hr {
   background: #778fa7;
 }
 
-.licence {
-  max-height: 160px;
-  overflow-y: scroll;
-  margin: 20;
-  border-style: solid;
-  border-color: rgba(0,0,0,0.3);
-  padding: .5em;
-}
-
 .margin-main {
-  margin: 5vh 10vw; 
+  margin: 5vh 10vw;
+  min-height: calc(100vh - var(--footer-height) - var(--header-height) - 10vh);  
 }
 
-
-/* -----Table----- */
+/*.handsOnTable {
+  overflow: hidden;
+}*/
+/* -----HOTable----- */
 .tg  {
   border-collapse:collapse;
   border-spacing:0;
@@ -232,7 +227,7 @@ footer {
   background-color: linen;
   height: 5vh;
   padding: 2vh 10vw;
-  bottom: 0;
+  bottom: 0 !important;
   margin-bottom: 0;
   flex-shrink: 0;
 }
@@ -243,7 +238,7 @@ footer {
   }
 
   header{
-    height: 50px;
+    height: 65px;
   }
 
   nav {
