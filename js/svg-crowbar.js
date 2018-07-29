@@ -14,8 +14,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   window.URL = (window.URL || window.webkitURL);
 
-  if (patternsUsed) { swal("Areas with pattern fills can't be exported (yet)!", `Please use colors if wan't your areas to be appear in the downloaded SVG. I'm working on fixing this`, "error")}
-
   const body = document.body;
 
   const prefix = {
@@ -43,6 +41,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           documents.push(el.contentDocument);
         }
       } catch(err) {
+        swal(err);
         console.log(err);
       }
     });

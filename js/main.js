@@ -72,7 +72,7 @@ Handsontable.dom.addEvent(submitPointsButton, "submit", function(e) {
 
 var linesSampledata = [
   ["Sand", "Silt", "Clay", "Color", "Linestyle", "Strokewidth", "Title"],
-  [0.2,0.8,0,"orangered"], //"5 3 5",2,"dotted line 1"],
+  [0.2,0.8,0,"orangered","5 3 5",2,"dotted line 1"],
   [0.8,0,0.2,],
   [],
   [0.1,0.1,0.8,"slateblue"],
@@ -149,6 +149,9 @@ d3.select("#ternary-plot").call(ternary);
 function checkColumns(columnNames) {
   if (!columns) {
     columns = columnNames.slice(0,3);
+
+    // Add labels to ternary plot
+    if (!labelsAdded) { addVertexLabels({columns: columnNames}); labelsAdded = true;}
   } else {
     if (JSON.stringify(columnNames.slice(0,3)) !== JSON.stringify(columns)) {
       swal("Your columns in Points, Lines and areas don't seem to match", `Your columns you entered first are "${columns}" and for your columns now are "${columnNames.slice(0,3)}". Your data will still be plotted, but it might not appear the way you intended.`, "warning");
@@ -172,9 +175,6 @@ function parsePoints(data) {
   lines = lines.map(arr => arr.filter(entry => entry !== null));
   lines = lines.filter(arr => arr.length !== 0);
 
-  // Add labels to ternary plot
-  if (!labelsAdded) { addVertexLabels({columns: columnsArray}); labelsAdded = true;}
-
   // Construct array of object with properties for drawing
   // Its ugly but it works ¯\_(ツ)_/¯
   const objectsArray = lines.map(line => {
@@ -193,6 +193,8 @@ function parseLinesAreas(data) {
   const columnsArray = lines.shift();
 
   checkColumns(columnsArray);
+
+  // Add labels to ternary plot
 
   lines = lines.map(arr => arr.filter(entry => entry !== null)); // Filter out empty/null entries
   const drawLines = [];
