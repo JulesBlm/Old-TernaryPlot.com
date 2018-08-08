@@ -215,6 +215,10 @@ hr {
   background-color: #fff3cc; 
 }
 
+tbody > tr:first-child > td {
+  background-color: aliceblue !important;
+}
+
 code {
   padding: 2px 4px;
   font-size: 90%;
