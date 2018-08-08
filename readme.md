@@ -9,3 +9,11 @@ Feel free to contact me if you have any questions or comments.
 * Update to d3 v5
 * Use HandsOnTable validators
 * Clean explain page code
+
+## Libraries used
+
+* Daven Quinn's [D3-ternary](https://github.com/davenquinn/d3-ternary)
+* [D3 v3](https://d3js.org/)
+* [SVG Crowbar](https://github.com/NYTimes/svg-crowbar)
+* [Sweet Alert](https://sweetalert.js.org/)
+* [HandsOnTable](https://handsontable.com/)
