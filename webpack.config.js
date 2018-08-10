@@ -24,10 +24,10 @@ module.exports = {
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         // new webpack.ProvidePlugin({Reveal: 'reveal.js',}),
     ],
- optimization: {
-    runtimeChunk: false,
-    splitChunks: {
-      chunks: 'all'
-    }
-  },
+ // optimization: {
+ //    runtimeChunk: false,
+ //    splitChunks: {
+ //      chunks: 'all'
+ //    }
+ //  },
 };
