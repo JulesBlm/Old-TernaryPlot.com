@@ -1,3 +1,4 @@
+//d3.svg, d3.select, d3.scale, d3.dispatch, d3.sum is all we need
 import d3 from "d3";
 import Handsontable from "Handsontable";
 import swal from 'sweetalert';

@@ -6,10 +6,16 @@
   <link rel="stylesheet" href="../css/explain.css">  
 </head>
 <body>
+<script src="../js/d3.min.js"></script>  
 <script>
+console.log("explain 5");
+
 const svg = d3.select("body").append("svg");
 
-graticule = d3.ternary.graticule()
+d3.ternary = parent.d3.ternary;
+
+
+const graticule = d3.ternary.graticule()
   .majorInterval(0.2)
   .minorInterval(0.05);
 
@@ -73,5 +79,3 @@ var _transitions = [
   },  
 ]
 </script>
-</body>
-</html>

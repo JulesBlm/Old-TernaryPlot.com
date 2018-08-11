@@ -1,8 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require("compression-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-    devtool: 'inline-source-map',    
     entry: {
        app: './src/js/main.js',
        explain: './src/js/explain.js'
@@ -19,15 +21,35 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+      alias: {
+        nodePath: path.join(__dirname, 'node_modules'),
+      }
+    },    
     plugins: [
         // Ignore all locale files of moment.js
+        new webpack.ProvidePlugin({
+          Reveal: 'reveal.js',
+        }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        // new webpack.ProvidePlugin({Reveal: 'reveal.js',}),
+        new UglifyJsPlugin({
+            uglifyOptions: {
+              ecma: 8,
+              warnings: false,
+              mangle: false,
+              output: {
+                comments: false,
+                beautify: false,
+              },
+              toplevel: false,
+              nameCache: null,
+              ie8: false,
+              keep_classnames: true,
+              keep_fnames: true,
+              safari10: false,
+            }
+        }),
+        new BundleAnalyzerPlugin(),
+        // new CompressionPlugin({test: /\.js/})
     ],
- // optimization: {
- //    runtimeChunk: false,
- //    splitChunks: {
- //      chunks: 'all'
- //    }
- //  },
 };

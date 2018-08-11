@@ -6,9 +6,14 @@
   <link rel="stylesheet" href="../css/explain.css">
 </head>
 <body>
+<script src="../js/d3.min.js"></script> 
 <script>
+console.log("explain 4");
 
 const svg = d3.select("body").append("svg");
+
+d3.ternary = parent.d3.ternary;
+
 
 graticule = d3.ternary.graticule()
   .majorInterval(0.2)
@@ -56,25 +61,23 @@ var _transitions = [
 
   {
     transitionForward: () => drawLines({values: [[1, 0, 0], [0, 0, 1]], class: "clay"}),
-    transitionBackward: () => console.log(""),
+    transitionBackward: () => console.log("back"),
     index: 0
   },
   {
     transitionForward: () => drawLines({values: [[0, 0.2, 0.8], [0.2, 0, 0.8]], class: "silt"}),
-    transitionBackward: () => console.log(""),
+    transitionBackward: () => console.log("back"),
     index: 1
   },
   {
     transitionForward: () => drawLines({values: [[0.2, 0.8, 0], [0.2, 0, 0.8]], class: "sand"}),
-    transitionBackward: () => console.log(""),
+    transitionBackward: () => console.log("back"),
     index: 2
   },
   {
     transitionForward: () => drawPoint([0.2, 0, 0.8]),
-    transitionBackward: () => console.log(""),
+    transitionBackward: () => console.log("back"),
     index: 3
   },  
 ]
 </script>
-</body>
-</html>
