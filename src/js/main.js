@@ -1,8 +1,15 @@
-//d3.svg, d3.select, d3.scale, d3.dispatch, d3.sum is all we need
+// when updated to d3 v5 only import d3.svg, d3.select, d3.scale, d3.dispatch, d3.sum is all we need
 import d3 from "d3";
 import Handsontable from "Handsontable";
 import swal from 'sweetalert';
 import './ternary.v3';
+
+// If localstorage dont show message
+// if (document.cookie.split(';').filter((item) => item.includes('visited=true')).length) {
+//   document.querySelector("#id").remove();
+// } else {
+//   document.cookie = "visited=true";
+// }
 
 let labelsAdded = false;
 let columns;
@@ -35,8 +42,15 @@ const parse = {
 
     checkColumns(columnsArray);
 
-    // Filter out empty/null entries
-    lines = lines.map(arr => arr.filter(entry => entry !== null));
+    // Remove trailing empty strings and nulls from line array
+    lines.map(line => {
+      while(line[line.length - 1] === null || line[line.length - 1] === ""){  // While the last element is a null or empty string
+        line.pop(); // Remove that last element
+      }
+      return line;
+    })
+
+    // Filter all empty line arrays
     lines = lines.filter(arr => arr.length !== 0);
 
     // Construct array of object with properties for drawing
@@ -57,7 +71,15 @@ const parse = {
     const columnsArray = lines.shift();
 
     checkColumns(columnsArray);
-    lines = lines.map(arr => arr.filter(entry => entry !== null)); // Filter out empty/null entries
+
+    // Remove trailing empty strings and nulls from line array
+    lines.map(line => {
+      while(line[line.length - 1] === null || line[line.length - 1] === ""){  // While the last element is a null or empty string
+        line.pop();                           // Remove that last element
+      }
+      return line;
+    })
+
     const drawLines = [];
 
     let drawLine = [];
@@ -209,12 +231,16 @@ function HandsOnTableCreator(ID, sampleData, placeholder) {
     height: 300,
     width: 500,
     dropdownMenu: true,
-    manualColumnResize: true
+    manualColumnResize: true,
+    persistentState: true
   });  
 }
 
+// Check if there is anything in localstorage
 
-const pointsSampledata = [
+const localStoragePoints = localStorage.getItem("points");
+
+const pointsSampleData = [
   ["Sand", "Silt", "Clay", "Color", "Shape", "Title"],
   [0.3, 0.3, 0.4, "limegreen", , "Sample Nr 1"],
   [1,0,0],
@@ -226,9 +252,18 @@ const pointsSampledata = [
   [0.6,0.2,0.2,"peru","triangle-up"]
 ];
 
-const pointsPlaceholder = ["Variable 1", "Variable 2", "Variable 3", "Color", "Shape", "Title"];
+let pointsData;
+if (localStoragePoints) {
+  pointsData = JSON.parse(localStoragePoints)
+} else {
+  pointsData = pointsSampleData;
+}
 
-const pointsTable = HandsOnTableCreator(document.getElementById("pointsTable"), pointsSampledata, pointsPlaceholder);
+// Handsontable.hooks.persistentStateSave("points");
+
+const pointsPlaceholder = ["Variable 1", "Variable 2", "Variable 3", "Color", "Shape", "Title","Opacity"];
+
+const pointsTable = HandsOnTableCreator(document.getElementById("pointsTable"), pointsData, pointsPlaceholder);
 const submitPointsButton = document.enterPoints;
 
 // Not sure about this part yet

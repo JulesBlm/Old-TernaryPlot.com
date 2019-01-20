@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "The source code for my side project: [TernaryPlot.com](http://www.ternaryplot.com). A single purpose website to quickly and freely genreate ternary plots. A ternary plot is a somewhat obscure diagram often used in geology, soil sciences, metallurgy and chemical engineering. The quickest option available for makint ternary plots was with Excel templates, which in my opinion are inflexible and produce ugly plots. Some R and Python libraries exist for this purpose but these are harder to use and require installing R and Python (of course). That's why I made a tool for personal use, and later decided to develop into something slicker and with more options.",
   "main": "./src/js/main.js",
+  "homepage": "https://github.com/JulesBlm/TernaryPlot.com#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulesBlm/TernaryPlot.git"
+  },
   "directories": {
     "lib": "lib"
   },
@@ -10,11 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --keep-fnames -p --progress --display-error-details",
     "watch": "webpack --progress --watch",
-    "server": "browser-sync start -s -f . --no-notify --port 9000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JulesBlm/TernaryPlot.git"
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -22,20 +23,21 @@
   "bugs": {
     "url": "https://github.com/JulesBlm/TernaryPlot.com/issues"
   },
-  "homepage": "https://github.com/JulesBlm/TernaryPlot.com#readme",
   "devDependencies": {
-    "webpack": "^4.16.5",
+    "compression-webpack-plugin": "^2.0.0",
+    "gh-pages": "^2.0.1",
+    "webpack": "^4.28.4",
     "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-visualizer-plugin": "^0.1.11",
-    "compression-webpack-plugin": "^1.1.11"
+    "webpack-cli": "^3.2.1",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
     "d3": "^3.5.17",
-    "handsontable": "^5.0.0",
+    "handsontable": "^6.2.2",
     "reveal.js": "^3.7.0",
     "reveal_external": "^1.3.0",
-    "reveald3": "^1.4.4",
+    "reveald3": "^1.4.7",
+    "sweet-alert": "^2.0.5",
     "sweetalert": "^2.1.0"
   }
 }

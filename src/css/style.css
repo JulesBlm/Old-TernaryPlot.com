@@ -23,13 +23,10 @@ html, body {
 
 @keyframes pulse {
   0% {
-    font-size: 0.4em;
-  }
-  50% {
-    font-size: 0.7em;
+    display: inline;
   }
   100% {
-    font-size: 0.4em;
+    display: none;
   }
 }
 

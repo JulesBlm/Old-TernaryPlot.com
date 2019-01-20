@@ -55,7 +55,46 @@ header {
   background-color: var(--red);  
   height: var(--header-height);
   box-shadow: 0 1px 15px 0 rgba(192,72,25,0.32);
-  top: 0;  
+  top: 0;
+}
+
+main > a {
+  color: var(--red);
+}
+
+main > a:hover, main > a:active {
+  color: seagreen;
+}
+
+.close {
+  transition: all 0.1s ease;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 5px 10px;
+  background: coral;
+  border-radius: 0 23px 0 4px;
+}
+
+.close:hover {
+  background: coral;
+  color: #fff;
+  opacity: 0.8;
+}
+
+#intro {
+  font-size: 1.2em;
+  background-color: #fffad3;
+  border-radius: 25px;
+  border: 2px solid coral;
+  padding: 10px;
+  position: absolute;
+  transition: all 1s ease-out;
+  top: var(--header-height) + 20px;
+  left: 5vmin;
+  width: 300px;
+  z-index: 100;
+  opacity: 0.8;
 }
 
 nav {
@@ -104,6 +143,27 @@ nav > a[href]:hover {
 select {
   width: 100px;
   float: right;
+}
+
+.donate {
+    background: seagreen;
+    border: none;
+    color: #fff !important;
+    min-width: 166px;
+    padding: 10px 20px;
+    border-radius: 28px;
+    margin: 0 20px;
+    cursor: pointer;
+    transition: .15s ease-out;
+    text-align: center;
+    display: inline-block;    
+}
+
+.donate:hover {
+    background: gold;
+    transform: scale(1.08);
+    color: #000;
+    text-decoration: underline;  
 }
 
 .flex-item {
@@ -240,6 +300,7 @@ footer {
 
   header{
     height: 65px;
+    font-size: 0.8rem;
   }
 
   nav {

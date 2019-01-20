@@ -1,8 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CompressionPlugin = require("compression-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -13,6 +12,11 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist/js')
     },
+    // optimization: {
+    //     splitChunks: {
+    //       chunks: 'all'
+    //     }
+    // },   
     module:{
         rules:[
             {
@@ -32,23 +36,6 @@ module.exports = {
           Reveal: 'reveal.js',
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        new UglifyJsPlugin({
-            uglifyOptions: {
-              ecma: 8,
-              warnings: false,
-              mangle: false,
-              output: {
-                comments: false,
-                beautify: false,
-              },
-              toplevel: false,
-              nameCache: null,
-              ie8: false,
-              keep_classnames: true,
-              keep_fnames: true,
-              safari10: false,
-            }
-        }),
         new BundleAnalyzerPlugin(),
         // new CompressionPlugin({test: /\.js/})
     ],
