@@ -115,6 +115,7 @@ const Draw = {
   defaults : {
       pointColor : "black",
       pointShape : "circle",
+      pointSize : 70,
       lineStyle : "none", //solid
       lineColor : "black",
       lineStrokewidth : "4px",
@@ -144,17 +145,20 @@ const Draw = {
 
     points.enter().append("path")
         .attr("class", "point")
-        .attr("fill",function(point) { return point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : Draw.defaults.pointColor); }) // both color and colour are valid
-        .attr("fill-opacity", function(point) { return point.opacity ?  point.opacity.trim() : 1; }) 
-        .attr("d", symbol.type(function(point) { return point.shape ? (point.shape).trim() : Draw.defaults.pointShape; }))
+        .attr("fill", function(point) { return point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : Draw.defaults.pointColor); }) // both color and colour are valid
+        .attr("fill-opacity", function(point) { return point.opacity ? point.opacity : 1; }) 
+        .attr("d", symbol
+                    .type(function(point) { return point.shape ? (point.shape).trim() : Draw.defaults.pointShape; })
+                    .size(function(point) { return point.size ? point.size : Draw.defaults.pointSize; })
+        )
         .attr("transform", function(point) {
-          const myKeys = Object.keys(point);
+          const myKeys = Object.keys(point); //Move outside?
           myValues = [point[myKeys[0]], point[myKeys[2]], point[myKeys[1]]];
 
           const plotCoords = ternary.point(myValues);
-          return "translate(" + plotCoords[0] + "," + plotCoords[1] + ")";
+          return `translate(${plotCoords[0]},${plotCoords[1]})`;
         })
-        .on("mouseover", handleMouseOver)
+        .on("mouseover", showHelpLines)
         .on("mouseout", function(e) { d3.selectAll(".help-line").remove() })
       .append("title")
         .text( function(point) { 
@@ -184,9 +188,9 @@ const Draw = {
           }
           return ternary.path(drawArray);
         })
-        .attr("stroke-dasharray", function(line) { return line[0].linestyle ?  line[0].linestyle.trim() : Draw.defaults.lineStyle })
+        .attr("stroke-dasharray", function(line) { return line[0].linestyle ?  (line[0].linestyle).trim() : Draw.defaults.lineStyle })
         .attr("stroke", function(line) { return line[0].color ? (line[0].color).trim() : (line[0].colour ? (line[0].colour).trim() : Draw.defaults.lineColor); }) // both color and colour are valid   
-        .attr("stroke-opacity", function(line) { return line[0].opacity ?  line[0].opacity.trim() : 1; })
+        .attr("stroke-opacity", function(line) { return line[0].opacity ?  (line[0].opacity).trim() : 1; })
         .attr("fill-opacity", "0") // So no inside fill shows up inside lines in Adobe Illustrator 
         .attr("stroke-width", function(line) { return line[0].strokewidth ? line[0].strokewidth : Draw.defaults.lineStrokewidth; })
         .append("title") // 🤔 Would there be a way to not append a title if there is none?
@@ -211,7 +215,7 @@ const Draw = {
           return ternary.area(drawArray);
         })
         .attr("z-index", -1)
-        .attr("fill", function(area) { return area[0].color ? (area[0].color).trim() : Draw.defaults.areaColor; })
+        .attr("fill", function(area) { console.log(Draw.defaults.areaColor); return area[0].color ? (area[0].color).trim() : Draw.defaults.areaColor; })
         .attr("fill-opacity", function(area) { return area[0].opacity ?  area[0].opacity : 0.5; })
         .append("title")
           .text( function(area) { return area[0].title ? capitalize((area[0].title).trim()) : undefined; });
@@ -228,7 +232,7 @@ function HandsOnTableCreator(ID, sampleData, placeholder) {
     manualRowMove: true,  
     rowHeaders: true,
     minRows: 100,
-    height: 300,
+    height: 330,
     width: 500,
     dropdownMenu: true,
     manualColumnResize: true,
@@ -237,16 +241,15 @@ function HandsOnTableCreator(ID, sampleData, placeholder) {
 }
 
 // Check if there is anything in localstorage
-
 const localStoragePoints = localStorage.getItem("points");
 
 const pointsSampleData = [
-  ["Sand", "Silt", "Clay", "Color", "Shape", "Title"],
-  [0.3, 0.3, 0.4, "limegreen", , "Sample Nr 1"],
+  ["Sand", "Silt", "Clay", "Color", "Shape", "Size", "Opacity", "Title"],
+  [0.3, 0.3, 0.4, "limegreen", , , 1,"Sample Nr 1"],
   [1,0,0],
   [0,1,0],
   [0,0,1],
-  [0.2,0.5,0.3,"coral"],
+  [0.2,0.5,0.3,"coral",,800,0.5,"Half opacity big point"],
   [0.3, 0.1, 0.6,"magenta","cross"],
   [0.5,0.5,0,"#d1b621","diamond"],
   [0.6,0.2,0.2,"peru","triangle-up"]
@@ -261,7 +264,7 @@ if (localStoragePoints) {
 
 // Handsontable.hooks.persistentStateSave("points");
 
-const pointsPlaceholder = ["Variable 1", "Variable 2", "Variable 3", "Color", "Shape", "Title","Opacity"];
+const pointsPlaceholder = ["Variable 1", "Variable 2", "Variable 3", "Color", "Shape", "Size", "Opacity", "Title"];
 
 const pointsTable = HandsOnTableCreator(document.getElementById("pointsTable"), pointsData, pointsPlaceholder);
 const submitPointsButton = document.enterPoints;
@@ -351,7 +354,7 @@ const ternary = d3.ternary.plot()
 
 d3.select("#ternary-plot").call(ternary);
 
-function handleMouseOver(e) { 
+function showHelpLines(e) { 
   let pointValues = Object.values(e);
   pointValues = [pointValues[0], pointValues[2], pointValues[1]];
 

@@ -7,10 +7,7 @@ Feel free to contact me if you have any questions or comments.
 ## To-do
 
 1. Update to d3 v5
-2. Add option for point radius/size
-4. Default linestyle doesn't work
-3. More default colors, opacities
-2. Add https://www.google.com/search?q=color+picker&oq=color+picker in colour 
+4. Defaults options don't work?
 2. Use HandsOnTable validators
 4. Use HandsOnTable localStorage
 4. Use cookie to not show pop-up everytime and don't show sample data

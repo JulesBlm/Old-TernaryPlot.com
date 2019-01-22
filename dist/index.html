@@ -70,6 +70,7 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
           <option value="red">Red</option>
           <option value="gold">Gold</option>
           <option value="green">Green</option>  
+          <option value="royalblue">Blue</option>
         </select>
       </label>
       <label>
@@ -102,7 +103,8 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
           <option value="black" selected>Black</option> 
           <option value="red">Red</option>
           <option value="gold">Gold</option>
-          <option value="green">Green</option>  
+          <option value="green">Green</option>
+          <option value="royalblue">Blue</option>
         </select>
       </label>
       <label>
@@ -134,16 +136,18 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
           <option value="red">Red</option>
           <option value="gold" selected>Gold</option>
           <option value="green">Green</option>  
+          <option value="royalblue">Blue</option>
         </select>
       </label>
       <label>
         Default Opacity
         <select name="defaultAreaOpacity"> 
+        <option value="0.1" selected>0%</option> 
         <option value="0.2" selected>20%</option> 
         <option value="0.4">40%</option>
         <option value="0.6">60%</option>
         <option value="0.8">80%</option>
-        <option value="1">100&%</option>      
+        <option value="1">100%</option>      
       </select>
       </label>
     </div>
@@ -175,7 +179,7 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
     </tr>
     <tr>
       <td class="tg-yw4l">Color (or colour)</td>
-      <td class="tg-yw4l">A hexadecimal color value like <code>#dcedff</code>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank">named color</a> like <code>blue</code> or <code>orangered</code></td>
+      <td class="tg-yw4l">A hexadecimal color value like <code>#dcedff</code>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank" rel=”noopener noreferrer”>named color</a> like <code>blue</code> or <code>orangered</code>. Tip: try <a href="https://www.google.com/search?q=color+picker&oq=color+picker" target="_blank" rel=”noopener noreferrer”>googling "color picker"</a>.</td>
     </tr>
     <tr>
       <td class="tg-yw4l">Opacity</td>
@@ -185,13 +189,17 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
       <td class="tg-yw4l">Point only: Shape</td>
       <td class="tg-yw4l">Circle, cross, diamond, triangle-down, or triangle-up</td>
     </tr>
+    <tr class="point-only">
+        <td class="tg-yw4l">Point only: Size</td>
+        <td class="tg-yw4l">Integer. Default is 70.</td>
+      </tr>    
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Linestyle</td>
       <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. A list of white space separated length's and percentage's that specify the lengths of alternating dashes and gaps. The values should be separated by commmas! For example: <code>5,15,3</code>. Use <code>none</code> for a solid line.</td>
     </tr>
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Strokewidth</td>
-      <td class="tg-yw4l">The width of the line in pixels. Be warned; anything above 7 will look too chunky. Default is 4 px.</td>
+      <td class="tg-yw4l">The width of the line in pixels. Be warned; anything above <code>7 px</code> will look too chunky. Default is <code>4 px</code>.</td>
     </tr>    
   </table>
 
@@ -201,7 +209,7 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 </div>
 
 <footer>
-<a href="https://github.com/JulesBlm/TernaryPlot.com" target="_blank"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> 2019 Jules Blom © <a class="donate" href="https://paypal.me/BlomJ" target="_blank">Donate</a>
+<a href="https://github.com/JulesBlm/TernaryPlot.com" target="_blank" rel=”noopener noreferrer”><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> 2019 Jules Blom © <a class="donate" href="https://paypal.me/BlomJ" target="_blank">Donate</a>
 </footer>
 
 <script src="js/app.bundle.js"></script>
