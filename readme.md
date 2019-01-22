@@ -6,9 +6,17 @@ Feel free to contact me if you have any questions or comments.
 
 ## To-do
 
-* Update to d3 v5
-* Use HandsOnTable validators
-* Clean explain page code
+1. Update to d3 v5
+2. Add option for point radius/size
+4. Default linestyle doesn't work
+3. More default colors, opacities
+2. Add https://www.google.com/search?q=color+picker&oq=color+picker in colour 
+2. Use HandsOnTable validators
+4. Use HandsOnTable localStorage
+4. Use cookie to not show pop-up everytime and don't show sample data
+3. Bring drawn points to front if areas are plotted over them https://codepen.io/osublake/pen/YXoEQe 
+4. Clean explain page code
+5. Some CSS, give links different color and make tables slightly taller
 
 ## Libraries used
 
