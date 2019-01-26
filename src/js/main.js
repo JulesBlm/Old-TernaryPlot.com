@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-sparse-arrays */
 // when updated to d3 v5 only import d3.svg, d3.select, d3.scale, d3.dispatch, d3.sum is all we need
@@ -122,14 +123,18 @@ const parse = {
     // Construct array of object with properties for drawing
     // Its ugly but it works ¯\_(ツ)_/¯
     const objectsArray = lines.map((line) => {
+      console.log("parse point", {line});
       const point = columnsArray.reduce((result, column, i) => {
         const pointValue = result;
         pointValue[column.toLowerCase()] = line[i];
+        console.log("parse point", {pointValue});
         return pointValue;
       }, {});
+      console.log("parse point", {point});
       return point;
     });
 
+    console.log({objectsArray})
     return objectsArray;
   },
 
@@ -146,6 +151,8 @@ const parse = {
       }
       return line;
     });
+
+    lines = lines.filter(arr => arr.length !== 0); // ???
 
     const drawLines = [];
 
@@ -165,9 +172,9 @@ const parse = {
     const objectsArray = drawLines.map((line) => {
       const lineObjects = line.map((p) => {
         const point = columnsArray.reduce((result, column, i) => {
-          const pointValue = result;
-          pointValue[column.toLowerCase()] = p[i];
-          return pointValue;
+          const linePointValue = result;
+          linePointValue[column.toLowerCase()] = p[i];
+          return linePointValue;
         }, {});
         return point;
       });
@@ -219,9 +226,10 @@ const Draw = {
         .size(point => (point.size ? point.size : Draw.defaults.pointSize)))
       .attr('transform', (point) => {
         const pointValues = Object.values(point);
-        [pointValues[0], pointValues[1], pointValues[2]] = [pointValues[0], pointValues[2], pointValues[1]]; // Swippety swappety third and second
-
-        const plotCoords = ternary.point(pointValues); // Convert to barycentric coordinates
+        const myPointValues = [pointValues[0], pointValues[2], pointValues[1]];
+        //[pointValues[0], pointValues[1], pointValues[2]] = [pointValues[0], pointValues[2], pointValues[1]]; // Swippety swappety third and second
+        const plotCoords = ternary.point(myPointValues); // Convert to barycentric coordinates
+        console.log({plotCoords});
         return `translate(${plotCoords[0]},${plotCoords[1]})`;
       })
       .on('mouseover', showHelpLines)
@@ -307,14 +315,14 @@ const localStoragePoints = localStorage.getItem('points');
 
 const pointsSampleData = [
   ['Sand', 'Silt', 'Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
-  [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
-  [1, 0, 0],
-  [0, 1, 0],
-  [0, 0, 1],
-  [0.2, 0.5, 0.3, 'coral',, 800, 0.5, 'Half opacity big point'],
-  [0.3, 0.1, 0.6, 'magenta', 'cross'],
-  [0.5, 0.5, 0, '#d1b621', 'diamond'],
-  [0.6, 0.2, 0.2, 'peru', 'triangle-up'],
+  [0.3, 0.3, 0.4, 'limegreen', , , 1,'Sample Nr 1'],
+  [1,0,0],
+  [0,1,0],
+  [0,0,1],
+  [0.2,0.5,0.3,'coral',,800,0.5,'Half opacity big point'],
+  [0.3, 0.1, 0.6,'magenta','cross'],
+  [0.5,0.5,0,'#d1b621','diamond'],
+  [0.6,0.2,0.2,'peru','triangle-up']
 ];
 
 let pointsData;
@@ -426,6 +434,8 @@ function clearAll() {
 }
 
 const timeOutTime = 600;
+
+Draw.setListeners();
 
 const clearPointsButton = document.getElementById('clearPoints');
 clearPointsButton.addEventListener('click', clearPoints);
