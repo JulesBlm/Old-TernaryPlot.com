@@ -6,8 +6,9 @@ Feel free to contact me if you have any questions or comments.
 
 ## To-do
 
-1. Update to d3 v5
-4. Defaults options don't work?
+1. Figure out how to decrease bundle size
+2. Update to d3-ternary to d3 v5 and import only necessary modules
+3. Bundle CSS / webpack
 2. Use HandsOnTable validators
 4. Use HandsOnTable localStorage
 4. Use cookie to not show pop-up everytime and don't show sample data

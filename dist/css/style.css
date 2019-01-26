@@ -5,7 +5,7 @@
   --round: 1px;
   --border-style: 1px solid rgba(0,0,0,0.1);;
   --header-height: 75px;
-  --footer-height: 5vh;
+  --footer-height: 50px;
 }
 
 
@@ -149,7 +149,7 @@ select {
     background: seagreen;
     border: none;
     color: #fff !important;
-    min-width: 166px;
+    width: 166px;
     padding: 10px 20px;
     border-radius: 28px;
     margin: 0 20px;
@@ -286,7 +286,7 @@ code {
 footer {
   box-shadow: 1px 0 15px 0 rgba(192,72,25,0.25);  
   background-color: linen;
-  height: 5vh;
+  height: var(--footer-height);
   padding: 2vh 10vw;
   bottom: 0 !important;
   margin-bottom: 0;
@@ -297,6 +297,12 @@ footer {
   .flex-item:first-child {
     min-width: 350px;
   }
+
+  .donate {
+    font-size: 90%;
+    width: 60px;
+    float: right;
+}
 
   header{
     height: 65px;

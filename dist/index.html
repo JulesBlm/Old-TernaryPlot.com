@@ -3,7 +3,7 @@
 <head>
   <title>Ternary Plot Generator</title>
   <meta charset="utf-8">  
-  <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free.">
+  <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For fast creation of ternary phase diagrams.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ternary.css">
@@ -163,7 +163,7 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 
 <div id="params" class="margin-main">
   <h2>Input Parameters</h2>
-  <p>The first row has to contain your column names and these have to be the first three values. These will be entered as vertex labels in the ternary plot. The labels are placed in the following order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points and lines.</p>
+  <p>The first row has to contain your column names and these have to be the first three values. These will be entered as vertex labels in the ternary plot. The labels are placed in counter-clockwise order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points and lines.</p>
   <p>For the values you can use either decimals <code>0.2</code>, <code>0.3</code>, <code>0.5</code> or percentages <code>20</code>, <code>30</code>, <code>50</code>. Mixing these formats between rows is possible. You can't mix formats in one row though! Also be sure to use a dot as a decimal separator.</p>
   <p>Lines and areas are seperated by <em>one</em> empty row. Only the first row of a a line or area style parameters area read. The optional parameters on following rows won't be read.</p>
 
@@ -195,7 +195,7 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
       </tr>    
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Linestyle</td>
-      <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. A list of white space separated length's and percentage's that specify the lengths of alternating dashes and gaps. The values should be separated by commmas! For example: <code>5,15,3</code>. Use <code>none</code> for a solid line.</td>
+      <td class="tg-yw4l">An <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray" target="_blank">SVG stroke-dasharray</a>. A list of length's and percentage's that specify the lengths of alternating dashes and gaps. The values should be separated by commmas or spaces. For example: <code>5,15,3</code> or <code>4 2</code>. Use <code>none</code> for a solid line.</td>
     </tr>
     <tr class="line-only">
       <td class="tg-yw4l">Line only: Strokewidth</td>
@@ -209,7 +209,7 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 </div>
 
 <footer>
-<a href="https://github.com/JulesBlm/TernaryPlot.com" target="_blank" rel=”noopener noreferrer”><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> 2019 Jules Blom © <a class="donate" href="https://paypal.me/BlomJ" target="_blank">Donate</a>
+<a href="https://github.com/JulesBlm/TernaryPlot.com" target="_blank" rel="noopener noreferrer"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> 2019 Jules Blom © <a class="donate" href="https://paypal.me/BlomJ" target="_blank">Donate</a>
 </footer>
 
 <script src="js/app.bundle.js"></script>

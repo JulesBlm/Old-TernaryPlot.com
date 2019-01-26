@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
@@ -35,8 +35,8 @@ module.exports = {
         new webpack.ProvidePlugin({
           Reveal: 'reveal.js',
         }),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        new BundleAnalyzerPlugin(),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+        // new BundleAnalyzerPlugin(),
         // new CompressionPlugin({test: /\.js/})
     ],
 };
