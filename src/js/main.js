@@ -19,7 +19,11 @@ let columns;
 const reserved = ['colour', 'color', 'shape', 'linestyle', 'title', 'opacity'];
 
 function resize(t) {
-  if (window.innerWidth > 600) { t.fit(500, 500); } else { t.fit(window.innerWidth, window.innerHeight); }
+  if (window.innerWidth > 600) {
+    t.fit(500, 500);
+  } else {
+    t.fit(window.innerWidth, window.innerHeight);
+  }
 }
 
 const graticule = d3.ternary.graticule()
@@ -68,7 +72,7 @@ function showHelpLines(e) {
     .selectAll('.line')
     .data(helpLinesArray);
 
-  // I could (should?) use the drawLines function but that one is geared towards the submmittedLines format and this is easier🤗
+  // I could (should?) use the linesToDraw function but that one is geared towards the submmittedLines format and this is easier🤗
   helpLines.enter().append('path')
     .attr('class', 'help-line')
     .attr('d', line => ternary.path(line))
@@ -104,13 +108,13 @@ function checkColumns(columnNames) {
 const parse = {
 
   Points(data) {
-    let lines = data;
-    const columnsArray = lines.shift();
+    let rows = data;
+    const columnsArray = rows.shift();
 
     checkColumns(columnsArray);
 
     // Remove trailing empty strings and nulls from line array
-    lines.map((line) => {
+    rows.map((line) => {
       while (line[line.length - 1] === null || line[line.length - 1] === '') { // While the last element is a null or empty string
         line.pop(); // Remove that last element
       }
@@ -118,58 +122,54 @@ const parse = {
     });
 
     // Filter all empty line arrays
-    lines = lines.filter(arr => arr.length !== 0);
+    rows = rows.filter(arr => arr.length !== 0);
 
     // Construct array of object with properties for drawing
     // Its ugly but it works ¯\_(ツ)_/¯
-    const objectsArray = lines.map((line) => {
-      console.log("parse point", {line});
+    const objectsArray = rows.map((line) => {
       const point = columnsArray.reduce((result, column, i) => {
         const pointValue = result;
         pointValue[column.toLowerCase()] = line[i];
-        console.log("parse point", {pointValue});
         return pointValue;
       }, {});
-      console.log("parse point", {point});
       return point;
     });
 
-    console.log({objectsArray})
     return objectsArray;
   },
 
   LinesAreas(data) {
-    const lines = data;
-    const columnsArray = lines.shift();
+    const rows = data;
+    const columnsArray = rows.shift();
 
     checkColumns(columnsArray);
 
     // Remove trailing empty strings and nulls from line array
-    lines.map((line) => {
+    rows.map((line) => {
       while (line[line.length - 1] === null || line[line.length - 1] === '') { // While the last element is a null or empty string
         line.pop(); // Remove that last element
       }
       return line;
     });
 
-    lines = lines.filter(arr => arr.length !== 0); // ???
-
-    const drawLines = [];
-
+    const linesToDraw = [];
     let drawLine = [];
-    // Loop over lines array
-    for (let i = 0; i < lines.length; i += 1) {
+
+    // Loop over rows array
+    for (let i = 0; i < rows.length; i += 1) {
       // Check if entry is not empty
-      if (lines[i].length !== 0) {
+      const point = rows[i];
+
+      if (point.length !== 0) {
         // Add to drawLine
-        drawLine.push(lines[i]);
-      } else if (lines[i].length === 0) {
-        if (drawLine.length !== 0) { drawLines.push(drawLine); }
-        drawLine = [];
+        drawLine.push(point);
+      } else if (point.length === 0) { // When separator is encountered (an empty row), clear drawLine array to start new one
+        if (drawLine.length !== 0) { linesToDraw.push(drawLine); }
+        drawLine = []; // Reset drawLine
       }
     }
 
-    const objectsArray = drawLines.map((line) => {
+    const objectsArray = linesToDraw.map((line) => {
       const lineObjects = line.map((p) => {
         const point = columnsArray.reduce((result, column, i) => {
           const linePointValue = result;
@@ -180,7 +180,6 @@ const parse = {
       });
       return lineObjects;
     });
-
     return objectsArray;
   },
 };
@@ -229,7 +228,6 @@ const Draw = {
         const myPointValues = [pointValues[0], pointValues[2], pointValues[1]];
         //[pointValues[0], pointValues[1], pointValues[2]] = [pointValues[0], pointValues[2], pointValues[1]]; // Swippety swappety third and second
         const plotCoords = ternary.point(myPointValues); // Convert to barycentric coordinates
-        console.log({plotCoords});
         return `translate(${plotCoords[0]},${plotCoords[1]})`;
       })
       .on('mouseover', showHelpLines)
@@ -310,26 +308,21 @@ function HandsOnTableCreator(ID, sampleData, placeholder) {
   });
 }
 
-// Check if there is anything in localstorage
-const localStoragePoints = localStorage.getItem('points');
+// TODO: Check if there is anything in localstorage
+let pointsData = [];
 
-const pointsSampleData = [
-  ['Sand', 'Silt', 'Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
-  [0.3, 0.3, 0.4, 'limegreen', , , 1,'Sample Nr 1'],
-  [1,0,0],
-  [0,1,0],
-  [0,0,1],
-  [0.2,0.5,0.3,'coral',,800,0.5,'Half opacity big point'],
-  [0.3, 0.1, 0.6,'magenta','cross'],
-  [0.5,0.5,0,'#d1b621','diamond'],
-  [0.6,0.2,0.2,'peru','triangle-up']
-];
-
-let pointsData;
-if (localStoragePoints) {
-  pointsData = JSON.parse(localStoragePoints);
-} else {
-  pointsData = pointsSampleData;
+if (pointsData.length === 0) {
+  pointsData = [
+    ['Sand', 'Silt', 'Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
+    [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
+    [1,0,0],
+    [0,1,0],
+    [0,0,1],
+    [0.2,0.5,0.3,'coral',,800,0.5,'Half opacity big point'],
+    [0.3, 0.1, 0.6,'magenta','cross'],
+    [0.5,0.5,0,'#d1b621','diamond'],
+    [0.6,0.2,0.2,'peru','triangle-up']
+  ];
 }
 
 // Handsontable.hooks.persistentStateSave('points');
@@ -338,19 +331,6 @@ const pointsPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'S
 
 const pointsTable = HandsOnTableCreator(document.getElementById('pointsTable'), pointsData, pointsPlaceholder);
 const submitPointsButton = document.enterPoints;
-
-// Not sure about this part yet
-// pointsTable.updateSettings({
-//   cells: function (row, col) {
-//     var cellProperties = {};
-
-//     if (reserved.includes(pointsTable.getData()[row][col])) {
-//       cellProperties.readOnly = true;
-//     }
-
-//     return cellProperties;
-//   }
-// });
 
 Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
   e.preventDefault();
