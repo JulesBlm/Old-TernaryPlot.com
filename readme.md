@@ -6,12 +6,12 @@ Feel free to contact me if you have any questions or comments.
 
 ## To-do
 
-1. Figure out how to decrease bundle size
+1. !Figure out how to decrease bundle size
 2. Update to d3-ternary to d3 v5 and import only necessary modules
 3. Bundle CSS / webpack
 2. Use HandsOnTable validators
 4. Use HandsOnTable localStorage
-4. Use cookie to not show pop-up everytime and don't show sample data
+4. Use cookie to not show pop-up and don't show sample data on repeat visits
 3. Bring drawn points to front if areas are plotted over them https://codepen.io/osublake/pen/YXoEQe 
 4. Clean explain page code
 5. Some CSS, give links different color and make tables slightly taller

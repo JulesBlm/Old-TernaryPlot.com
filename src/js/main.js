@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-sparse-arrays */
@@ -156,13 +158,9 @@ const parse = {
     let drawLine = [];
 
     // Loop over rows array
-    for (let i = 0; i < rows.length; i += 1) {
-      // Check if entry is not empty
-      const point = rows[i];
-
+    for (const point of rows) {
       if (point.length !== 0) {
-        // Add to drawLine
-        drawLine.push(point);
+        drawLine.push(point); // Add to drawLine
       } else if (point.length === 0) { // When separator is encountered (an empty row), clear drawLine array to start new one
         if (drawLine.length !== 0) { linesToDraw.push(drawLine); }
         drawLine = []; // Reset drawLine
@@ -226,7 +224,6 @@ const Draw = {
       .attr('transform', (point) => {
         const pointValues = Object.values(point);
         const myPointValues = [pointValues[0], pointValues[2], pointValues[1]];
-        //[pointValues[0], pointValues[1], pointValues[2]] = [pointValues[0], pointValues[2], pointValues[1]]; // Swippety swappety third and second
         const plotCoords = ternary.point(myPointValues); // Convert to barycentric coordinates
         return `translate(${plotCoords[0]},${plotCoords[1]})`;
       })
@@ -305,6 +302,7 @@ function HandsOnTableCreator(ID, sampleData, placeholder) {
     dropdownMenu: true,
     manualColumnResize: true,
     persistentState: true,
+    licenseKey: 'non-commercial-and-evaluation',
   });
 }
 
@@ -315,17 +313,15 @@ if (pointsData.length === 0) {
   pointsData = [
     ['Sand', 'Silt', 'Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
     [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
-    [1,0,0],
-    [0,1,0],
-    [0,0,1],
-    [0.2,0.5,0.3,'coral',,800,0.5,'Half opacity big point'],
-    [0.3, 0.1, 0.6,'magenta','cross'],
-    [0.5,0.5,0,'#d1b621','diamond'],
-    [0.6,0.2,0.2,'peru','triangle-up']
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1],
+    [0.2, 0.5, 0.3, 'coral',, 800, 0.5, 'Half opacity big point'],
+    [0.3, 0.1, 0.6, 'magenta', 'cross'],
+    [0.5, 0.5, 0, '#d1b621', 'diamond'],
+    [0.6, 0.2, 0.2, 'peru', 'triangle-up'],
   ];
 }
-
-// Handsontable.hooks.persistentStateSave('points');
 
 const pointsPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Shape', 'Size', 'Opacity', 'Title'];
 
