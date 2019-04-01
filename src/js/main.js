@@ -311,7 +311,7 @@ let pointsData = [];
 
 if (pointsData.length === 0) {
   pointsData = [
-    ['Sand', 'Silt', 'Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
+    ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
     [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
     [1, 0, 0],
     [0, 1, 0],
@@ -336,7 +336,7 @@ Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
 });
 
 const linesSampledata = [
-  ['Sand', 'Silt', 'Clay', 'Color', 'Linestyle', 'Strokewidth', 'Title'],
+  ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Linestyle', 'Strokewidth', 'Title'],
   [0.2, 0.8, 0, 'orangered', '5 3 5', 2, 'dotted line 1'],
   [0.8, 0, 0.2],
   [],
@@ -358,7 +358,7 @@ Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
 });
 
 const areasSampledata = [
-  ['Sand', 'Silt', 'Clay', 'Color', 'Opacity', 'Title'],
+  ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Opacity', 'Title'],
   [0, 0.5, 0.5, 'palegreen', 0.1, 'More than 50% silt'],
   [0.5, 0.5, 0],
   [0, 1, 0],
