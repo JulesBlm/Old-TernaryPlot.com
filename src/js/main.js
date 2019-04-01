@@ -294,7 +294,7 @@ function emptyCellRenderer(instance, td, row, col, prop, value, cellProperties) 
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (!value || value === '') {
-    td.style.background = '#dbdbdb';
+    td.style.background = '#e3e3e3';
   }
 }
 
@@ -323,8 +323,7 @@ function HandsOnTableCreator(ID, sampleData, placeholder, HOTcolumns) {
   
       cellProperties.renderer = "emptyCellRenderer"; // uses lookup map  
       return cellProperties;
-    }
-  
+    },
   });
 }
 
