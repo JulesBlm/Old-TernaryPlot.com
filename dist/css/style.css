@@ -99,17 +99,22 @@ main > a:hover, main > a:active {
 
 nav {
   display: grid;
-  grid-template-columns: [col] 20vw [col] 45vw [col] 15vw [col] 15vw;
+  grid-template-columns: [col] 66vw [col] 17vw [col] 17vw;
   grid-template-rows: [row] var(--header-height);
   align-items: center;
+}
+
+nav:first-child {
+  text-align: left;
 }
 
 nav > a {
   color: #fff;
   text-align: center;
-  transition: all .3s ease;
+  transition: all .25s ease;
   padding: 20px;
   text-decoration: none;
+  font-weight: 500;
 }
 
 nav > a:first-child {
@@ -121,6 +126,7 @@ nav > a[href]:hover {
   transform: scale(1.15);
   text-decoration: underline;
   color: gold;
+  font-weight: 800;
 }
 
 .flex-wrapper {

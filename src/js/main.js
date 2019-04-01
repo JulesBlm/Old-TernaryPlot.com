@@ -231,9 +231,10 @@ const Draw = {
       .on('mouseout', () => { d3.selectAll('.help-line').remove(); })
       .append('title')
       .text((point) => {
-        const myKeys = Object.keys(point);
-        const valuesString = `${capitalize(myKeys[0])}: ${point[myKeys[0]]}, ${capitalize(myKeys[2])}: ${point[myKeys[2]]}, ${capitalize(myKeys[1])}: ${point[myKeys[1]]}`;
-        return point.title ? `${capitalize(point.title.trim())}; ${valuesString}` : valuesString;
+        const entries = Object.entries(point);
+        const valuesString = `${entries[0].join(': ')} \n ${entries[2].join(': ')} \n ${entries[0].join(': ')}`;
+
+        return point.title ? `${capitalize(point.title.trim())} \n ${valuesString}` : valuesString;
       });
   },
 
@@ -288,26 +289,61 @@ const Draw = {
 
 };
 
-function HandsOnTableCreator(ID, sampleData, placeholder) {
+// Function to make empty cells grey
+function emptyCellRenderer(instance, td, row, col, prop, value, cellProperties) {
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
+
+  if (!value || value === '') {
+    td.style.background = '#dbdbdb';
+  }
+}
+
+// maps function to lookup string
+Handsontable.renderers.registerRenderer('emptyCellRenderer', emptyCellRenderer);
+
+function HandsOnTableCreator(ID, sampleData, placeholder, HOTcolumns) {
   return new Handsontable(ID, {
     data: sampleData,
     colHeaders: placeholder,
+    columns: HOTcolumns,
     fixedRowsTop: 1,
     manualColumnMove: true,
     manualRowMove: true,
     rowHeaders: true,
-    minRows: 100,
+    minRows: 60,
     height: 330,
     width: 500,
     dropdownMenu: true,
     manualColumnResize: true,
     persistentState: true,
     licenseKey: 'non-commercial-and-evaluation',
+    cells: function (row, col) {
+      const cellProperties = {};
+      const data = this.instance.getData();
+  
+      cellProperties.renderer = "emptyCellRenderer"; // uses lookup map  
+      return cellProperties;
+    }
+  
   });
 }
 
 // TODO: Check if there is anything in localstorage
 let pointsData = [];
+
+const pointColumns = [
+  {}, //    { validator: 'my.custom' }
+  {},
+  {}, // { type: 'numeric' },
+  {},
+  {
+    type: 'dropdown',
+    source: ['circle', 'cross', 'diamond', 'triangle-down', 'triangle-up'],
+  },
+  {},
+  {},
+  {},
+];
 
 if (pointsData.length === 0) {
   pointsData = [
@@ -325,7 +361,7 @@ if (pointsData.length === 0) {
 
 const pointsPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Shape', 'Size', 'Opacity', 'Title'];
 
-const pointsTable = HandsOnTableCreator(document.getElementById('pointsTable'), pointsData, pointsPlaceholder);
+const pointsTable = HandsOnTableCreator(document.getElementById('pointsTable'), pointsData, pointsPlaceholder, pointColumns);
 const submitPointsButton = document.enterPoints;
 
 Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
@@ -347,7 +383,18 @@ const linesSampledata = [
 
 const linesPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Linestyle', 'Strokewidth', 'Title'];
 
-const linesTable = HandsOnTableCreator(document.getElementById('linesTable'), linesSampledata, linesPlaceholder);
+const linesAreasColumns = [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+];
+
+const linesTable = HandsOnTableCreator(document.getElementById('linesTable'), linesSampledata, linesPlaceholder, linesAreasColumns);
 const submitLinesButton = document.enterLines;
 Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   e.preventDefault();
@@ -373,7 +420,7 @@ const areasSampledata = [
 ];
 const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
 
-const areasTable = HandsOnTableCreator(document.getElementById('areasTable'), areasSampledata, areasPlaceholder);
+const areasTable = HandsOnTableCreator(document.getElementById('areasTable'), areasSampledata, areasPlaceholder, linesAreasColumns);
 const submitAreasButton = document.enterAreas;
 Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
   e.preventDefault();
@@ -477,5 +524,24 @@ clearAllButton.addEventListener('mouseover', () => {
       .attr('stroke-opacity', '1');
   }, timeOutTime);
 });
+
+/* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 */
+// Handsontable.validators.registerValidator('check100', check100);
+
+// (function(Handsontable) {
+//   function check100(values, callback) {
+//     // ...your custom logic of the validator
+//     if (va) {
+//       callback(true);
+//     } else {
+//       callback(false);
+//     }
+//   }
+
+//   // Register an alias
+//   Handsontable.validators.registerValidator('my.custom', customValidator);
+
+// }(Handsontable));
+
 
 window.addEventListener('resize', resize(ternary));
