@@ -12,6 +12,7 @@ import './ternary.v3';
 
 import { capitalize, resize } from './helpers';
 
+// Don't show intro popup within 3 days of a visit
 if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
   document.querySelector('#intro').style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
 } else {
@@ -23,6 +24,22 @@ if (document.cookie.split(';').filter(item => item.includes('visited=true')).len
 let labelsAdded = false;
 let columns;
 const reserved = ['colour', 'color', 'shape', 'linestyle', 'title', 'opacity'];
+
+function clearLabels() {
+  clear('.vertex-label');
+  labelsAdded = false;
+  columns = undefined;
+}
+
+function clear(className) {
+  d3.selectAll(className).remove();
+}
+
+function clearAll() {
+  clear('.ternary-line,.ternary-area,.point');
+  clearLabels();
+}
+
 
 const graticule = d3.ternary.graticule()
   .majorInterval(0.2)
@@ -428,27 +445,12 @@ Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
 
 d3.select('#ternary-plot').call(ternary);
 
-function clearLabels() {
-  clear('.vertex-label');
-  labelsAdded = false;
-  columns = undefined;
-}
-
-function clear(className) {
-  d3.selectAll(className).remove();
-}
-
-function clearAll() {
-  clear('.ternary-line,.ternary-area,.point');
-  clearLabels();
-}
-
 const timeOutTime = 600;
 
 Draw.setListeners();
 
 const clearPointsButton = document.getElementById('clearPoints');
-clearPointsButton.addEventListener('click', clear('.point'));
+clearPointsButton.addEventListener('click', () => clear('.point'));
 clearPointsButton.addEventListener('mouseover', () => {
   d3.selectAll('.point')
     .attr('opacity', '0.4');
@@ -460,7 +462,7 @@ clearPointsButton.addEventListener('mouseover', () => {
 });
 
 const clearLinesButton = document.getElementById('clearLines');
-clearLinesButton.addEventListener('click', clear('.ternary-line'));
+clearLinesButton.addEventListener('click', () => clear('.ternary-line'));
 clearLinesButton.addEventListener('mouseover', () => {
   d3.selectAll('.ternary-line')
     .attr('stroke-opacity', '0.3');
@@ -472,7 +474,7 @@ clearLinesButton.addEventListener('mouseover', () => {
 });
 
 const clearAreasButton = document.getElementById('clearAreas');
-clearAreasButton.addEventListener('click', clear('.ternary-area'));
+clearAreasButton.addEventListener('click', () => clear('.ternary-area'));
 clearAreasButton.addEventListener('mouseover', () => {
   d3.selectAll('.ternary-area')
     .attr('opacity', '0.1');
