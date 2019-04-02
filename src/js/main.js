@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 /* eslint-disable max-len */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
@@ -11,12 +12,13 @@ import './ternary.v3';
 
 import { capitalize, resize } from './helpers';
 
-// If localstorage dont show message
-// if (document.cookie.split(';').filter((item) => item.includes('visited=true')).length) {
-//   document.querySelector('#id').remove();
-// } else {
-//   document.cookie = 'visited=true';
-// }
+if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
+  document.querySelector('#intro').style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
+} else {
+  let now = new Date();
+  now.setDate(now.getDate() + 3);
+  document.cookie = `visited=true;expires=${now}`;
+}
 
 let labelsAdded = false;
 let columns;
@@ -63,7 +65,7 @@ function showHelpLines(e) {
   const helpLines = ternary.plot()
     .selectAll('.line')
     .data(helpLinesArray);
- 
+
   // I could (should?) use the linesToDraw function but that one is geared towards the submmittedLines format and this is easier🤗
   helpLines.enter().append('path')
     .attr('class', 'help-line')
@@ -292,7 +294,7 @@ function emptyCellRenderer(instance, td, row, col, prop, value, cellProperties) 
 Handsontable.renderers.registerRenderer('emptyCellRenderer', emptyCellRenderer);
 
 function HandsOnTableCreator(ID, sampleData, placeholder, HOTcolumns) {
-  return new Handsontable(ID, {
+  return new Handsontable(document.getElementById(ID), {
     data: sampleData,
     colHeaders: placeholder,
     columns: HOTcolumns,
@@ -316,20 +318,19 @@ function HandsOnTableCreator(ID, sampleData, placeholder, HOTcolumns) {
   });
 }
 
-// TODO: Check if there is anything in localstorage
 let pointsData = [];
 
 const pointColumns = [
-  {}, //    { validator: 'my.custom' }
-  {},
-  {}, // { type: 'numeric' },
+  { type: 'numeric' }, // { validator: 'my.custom' }
+  { type: 'numeric' },
+  { type: 'numeric' },
   {},
   {
     type: 'dropdown',
     source: ['circle', 'cross', 'diamond', 'triangle-down', 'triangle-up'],
   },
-  {},
-  {},
+  { type: 'numeric' },
+  { type: 'numeric' },
   {},
 ];
 
@@ -349,7 +350,7 @@ if (pointsData.length === 0) {
 
 const pointsPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Shape', 'Size', 'Opacity', 'Title'];
 
-const pointsTable = HandsOnTableCreator(document.getElementById('pointsTable'), pointsData, pointsPlaceholder, pointColumns);
+const pointsTable = HandsOnTableCreator('pointsTable', pointsData, pointsPlaceholder, pointColumns);
 const submitPointsButton = document.enterPoints;
 
 Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
@@ -372,16 +373,16 @@ const linesSampledata = [
 const linesPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Linestyle', 'Strokewidth', 'Title'];
 
 const linesColumns = [
+  { type: 'numeric' },
+  { type: 'numeric' },
+  { type: 'numeric' },
   {},
   {},
-  {},
-  {},
-  {},
-  {},
+  { type: 'numeric' },
   {},
 ];
 
-const linesTable = HandsOnTableCreator(document.getElementById('linesTable'), linesSampledata, linesPlaceholder, linesColumns);
+const linesTable = HandsOnTableCreator('linesTable', linesSampledata, linesPlaceholder, linesColumns);
 const submitLinesButton = document.enterLines;
 Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   e.preventDefault();
@@ -408,15 +409,15 @@ const areasSampledata = [
 const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
 
 const areasColumns = [
+  { type: 'numeric' }, // { validator: 'my.custom' }
+  { type: 'numeric' },
+  { type: 'numeric' },
   {},
-  {},
-  {},
-  {},
-  {},
+  { type: 'numeric' },
   {},
 ];
 
-const areasTable = HandsOnTableCreator(document.getElementById('areasTable'), areasSampledata, areasPlaceholder, areasColumns);
+const areasTable = HandsOnTableCreator('areasTable', areasSampledata, areasPlaceholder, areasColumns);
 const submitAreasButton = document.enterAreas;
 Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
   e.preventDefault();
@@ -529,5 +530,19 @@ clearAllButton.addEventListener('mouseover', () => {
 
 // }(Handsontable));
 
+// document.querySelector('#savePoints').addEventListener('click', () => {
+//   pointsTable.runHooks('persistantStateSave', 'pointTable', pointsTable.getData());
+//   console.log("Save points")
+// });
+
+// document.querySelector('#saveLines').addEventListener('click', () => {
+//   linesTable.runHooks('persistantStateSave', 'linesTable', linesTable.getData());
+//   console.log("Save lines")
+// });
+
+// document.querySelector('#saveAreas').addEventListener('click', () => {
+//   areasTable.runHooks('persistantStateSave', 'areasTable', areasTable.getData());
+//   console.log("Save areas")
+// });
 
 window.addEventListener('resize', resize(ternary));

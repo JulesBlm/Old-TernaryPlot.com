@@ -11,11 +11,12 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/js'),
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //   },
-  // },
+  devServer: {
+    contentBase: path.join(__dirname, '/dist/'),
+    publicPath: '/dist/',
+    compress: true,
+    port: 4004,
+  },
   module: {
     rules: [
       {
