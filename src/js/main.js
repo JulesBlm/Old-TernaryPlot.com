@@ -9,6 +9,8 @@ import Handsontable from 'handsontable';
 import swal from 'sweetalert';
 import './ternary.v3';
 
+import { capitalize, resize } from './helpers';
+
 // If localstorage dont show message
 // if (document.cookie.split(';').filter((item) => item.includes('visited=true')).length) {
 //   document.querySelector('#id').remove();
@@ -20,14 +22,6 @@ let labelsAdded = false;
 let columns;
 const reserved = ['colour', 'color', 'shape', 'linestyle', 'title', 'opacity'];
 
-function resize(t) {
-  if (window.innerWidth > 600) {
-    t.fit(500, 500);
-  } else {
-    t.fit(window.innerWidth, window.innerHeight);
-  }
-}
-
 const graticule = d3.ternary.graticule()
   .majorInterval(0.2)
   .minorInterval(0.05);
@@ -37,10 +31,6 @@ const ternary = d3.ternary.plot()
   .call(d3.ternary.scalebars())
   .call(d3.ternary.neatline())
   .call(graticule);
-
-function capitalize(word) {
-  return word.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase());
-}
 
 function showHelpLines(e) {
   let pointValues = Object.values(e);
@@ -73,7 +63,7 @@ function showHelpLines(e) {
   const helpLines = ternary.plot()
     .selectAll('.line')
     .data(helpLinesArray);
-
+ 
   // I could (should?) use the linesToDraw function but that one is geared towards the submmittedLines format and this is easier🤗
   helpLines.enter().append('path')
     .attr('class', 'help-line')
@@ -228,11 +218,11 @@ const Draw = {
         return `translate(${plotCoords[0]},${plotCoords[1]})`;
       })
       .on('mouseover', showHelpLines)
-      .on('mouseout', () => { d3.selectAll('.help-line').remove(); })
+      .on('mouseout', () => { clear('.help-line'); })
       .append('title')
       .text((point) => {
         const entries = Object.entries(point);
-        const valuesString = `${entries[0].join(': ')} \n ${entries[2].join(': ')} \n ${entries[0].join(': ')}`;
+        const valuesString = `${entries[0].join(': ')} \n ${entries[2].join(': ')} \n ${entries[1].join(': ')}`;
 
         return point.title ? `${capitalize(point.title.trim())} \n ${valuesString}` : valuesString;
       });
@@ -293,8 +283,8 @@ const Draw = {
 function emptyCellRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
-  if (!value || value === '') {
-    td.style.background = '#e3e3e3';
+  if (value === null || value === '') {
+    td.style.background = '#efefef';
   }
 }
 
@@ -317,11 +307,10 @@ function HandsOnTableCreator(ID, sampleData, placeholder, HOTcolumns) {
     manualColumnResize: true,
     persistentState: true,
     licenseKey: 'non-commercial-and-evaluation',
-    cells: function (row, col) {
+    cells(row, col) {
       const cellProperties = {};
-      const data = this.instance.getData();
-  
-      cellProperties.renderer = "emptyCellRenderer"; // uses lookup map  
+      // const data = this.instance.getData();
+      cellProperties.renderer = 'emptyCellRenderer'; // uses lookup map
       return cellProperties;
     },
   });
@@ -382,8 +371,7 @@ const linesSampledata = [
 
 const linesPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Linestyle', 'Strokewidth', 'Title'];
 
-const linesAreasColumns = [
-  {},
+const linesColumns = [
   {},
   {},
   {},
@@ -393,7 +381,7 @@ const linesAreasColumns = [
   {},
 ];
 
-const linesTable = HandsOnTableCreator(document.getElementById('linesTable'), linesSampledata, linesPlaceholder, linesAreasColumns);
+const linesTable = HandsOnTableCreator(document.getElementById('linesTable'), linesSampledata, linesPlaceholder, linesColumns);
 const submitLinesButton = document.enterLines;
 Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   e.preventDefault();
@@ -419,7 +407,16 @@ const areasSampledata = [
 ];
 const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
 
-const areasTable = HandsOnTableCreator(document.getElementById('areasTable'), areasSampledata, areasPlaceholder, linesAreasColumns);
+const areasColumns = [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+];
+
+const areasTable = HandsOnTableCreator(document.getElementById('areasTable'), areasSampledata, areasPlaceholder, areasColumns);
 const submitAreasButton = document.enterAreas;
 Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
   e.preventDefault();
@@ -431,28 +428,18 @@ Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
 d3.select('#ternary-plot').call(ternary);
 
 function clearLabels() {
-  d3.selectAll('.vertex-label').remove();
+  clear('.vertex-label');
   labelsAdded = false;
   columns = undefined;
 }
 
-function clearPoints() {
-  d3.selectAll('.point').remove();
-}
-
-function clearLines() {
-  d3.selectAll('.ternary-line').remove();
-}
-
-function clearAreas() {
-  d3.selectAll('.ternary-area').remove();
+function clear(className) {
+  d3.selectAll(className).remove();
 }
 
 function clearAll() {
-  clearLines();
-  clearPoints();
+  clear('.ternary-line,.ternary-area,.point');
   clearLabels();
-  clearAreas();
 }
 
 const timeOutTime = 600;
@@ -460,7 +447,7 @@ const timeOutTime = 600;
 Draw.setListeners();
 
 const clearPointsButton = document.getElementById('clearPoints');
-clearPointsButton.addEventListener('click', clearPoints);
+clearPointsButton.addEventListener('click', clear('.point'));
 clearPointsButton.addEventListener('mouseover', () => {
   d3.selectAll('.point')
     .attr('opacity', '0.4');
@@ -472,7 +459,7 @@ clearPointsButton.addEventListener('mouseover', () => {
 });
 
 const clearLinesButton = document.getElementById('clearLines');
-clearLinesButton.addEventListener('click', clearLines);
+clearLinesButton.addEventListener('click', clear('.ternary-line'));
 clearLinesButton.addEventListener('mouseover', () => {
   d3.selectAll('.ternary-line')
     .attr('stroke-opacity', '0.3');
@@ -484,14 +471,14 @@ clearLinesButton.addEventListener('mouseover', () => {
 });
 
 const clearAreasButton = document.getElementById('clearAreas');
-clearAreasButton.addEventListener('click', clearAreas); // .remove() );
+clearAreasButton.addEventListener('click', clear('.ternary-area'));
 clearAreasButton.addEventListener('mouseover', () => {
   d3.selectAll('.ternary-area')
-    .attr('fill-opacity', '0.1');
+    .attr('opacity', '0.1');
 
   setTimeout(() => {
     d3.selectAll('.ternary-area')
-      .attr('fill-opacity', '1');
+      .attr('opacity', '1');
   }, timeOutTime);
 });
 
@@ -512,19 +499,19 @@ const clearAllButton = document.getElementById('clearAll');
 clearAllButton.addEventListener('click', clearAll);
 clearAllButton.addEventListener('mouseover', () => {
   d3.selectAll('.ternary-line,.vertex-label,.ternary-area,.point')
-    .attr('fill-opacity', '0.3')
+    .attr('opacity', '0.3')
     .attr('text-decoration', 'line-through')
     .attr('stroke-opacity', '0.3');
 
   setTimeout(() => {
     d3.selectAll('.ternary-line,.vertex-label,.ternary-area,.point')
-      .attr('fill-opacity', '1')
+      .attr('opacity', '1')
       .attr('text-decoration', 'none')
       .attr('stroke-opacity', '1');
   }, timeOutTime);
 });
 
-/* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 */
+/* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 and between 0 to 1.0 for opacity */
 // Handsontable.validators.registerValidator('check100', check100);
 
 // (function(Handsontable) {
