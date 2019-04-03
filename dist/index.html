@@ -49,7 +49,7 @@
 <h1>TernaryPlot.com</h1>
 <span class="close" onclick="this.parentNode.style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear;'; ">X</span>
 <p>
-This site lets you create a ternary plot quickly and easily! Don’t know what ternary plot is? No problem, just check the <a href=“explain.html” about=“_blank”>explanation page</a>. <a id="sampledata">Load some sample data</a> and try clicking all the “plot” buttons below for a quick example of a ternary plot. Check the <a href="#params">How To Use section</a> below for all the details on how to plot points, lines, and areas. Happy ternary plotting!
+This site lets you create a ternary plot quickly and easily! Don’t know what ternary plot is? No problem, just check the <a href=“explain.html” about=“_blank”>explanation page</a>. <br> Some some sample data is loaded into the tables to show you it works. Try clicking all the “plot” buttons below for a quick example of a ternary plot. Check the <a href="#params">'How To Use' section</a> below for all the details on how to plot points, lines, and areas. Happy ternary plotting!
 </p>
 </div>
 
@@ -58,11 +58,11 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
   <div class="flex-item" >
     <svg id="ternary-plot"></svg>
     <div class="buttons">
+      <input type="button" id="clearTables" value="Clear Input Tables">
       <input type="button" id="clearLabels" value="Clear Labels">
       <input type="button" id="clearAll" value="Clear All">
       <a id="download" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27js/svg-crowbar.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download SVG</a>
-      <!-- http://bl.ocks.org/vicapow/758fce6aa4c5195d24be <button id='pngdownload'>Download PNG</button>      a.href = canvas.toDataURL("image/png"); -->  
-
+      <!-- http://bl.ocks.org/vicapow/758fce6aa4c5195d24be <button id='pngdownload'>Download PNG</button>      a.href = canvas.toDataURL("image/png"); --> 
     </div>
   </div>
 
@@ -95,8 +95,8 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 
     <div class="handsOnTable" id="pointsTable"></div>
     <form name="enterPoints" class="add-items">
-      <input type="submit" name="add" value="+ Plot Points">
-      <input type="button" id="clearPoints" value="- Clear Points">
+      <input type="submit" class="plot" name="add" value="+ Plot Points">
+      <input type="button" class="clear" id="clearPoints" value="- Clear Points">
       <!-- <input type="button" id="savePoints" value="Save Points"> -->
     </form>
   </div>
@@ -128,8 +128,8 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 
     <div class="handsOnTable" id="linesTable"></div>
     <form name="enterLines" class="add-items">
-      <input type="submit" value="+ Plot Lines">
-      <input type="button"  id="clearLines" value="- Clear Lines">
+      <input type="submit" class="plot" value="+ Plot Lines">
+      <input type="button" class="clear" id="clearLines" value="- Clear Lines">
       <!-- <input type="button" id="saveLines" value="Save Lines"> -->
     </form>
   </div>
@@ -163,8 +163,8 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 
   <div class="handsOnTable" id="areasTable"></div>
     <form name="enterAreas" class="add-items">
-      <input type="submit" value="+ Plot Areas">
-      <input type="button" id="clearAreas" value="- Clear Areas">
+      <input type="submit" class="plot" value="+ Plot Areas">
+      <input type="button" class="clear" id="clearAreas" value="- Clear Areas">
       <!-- <input type="button" id="saveAreas" value="Save Areas"> -->
     </form>
   </div> 
@@ -178,8 +178,8 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
   <p>For the values you can use either decimals <code>0.2</code>, <code>0.3</code>, <code>0.5</code> or percentages <code>20</code>, <code>30</code>, <code>50</code>. Mixing these formats between rows is possible. You can't mix formats in one row though! Also be sure to use a dot as a decimal separator.</p>
   <p><span class="underline">Different lines and areas are seperated by <em>one</em> empty row.</span> Only the first row of a a line or area style parameters area read. The optional parameters on following rows won't be read.</p>
 
-  <!-- <h3>Save for next time</h3>
-  <p>Normally your entered values are <span class="underline">NOT</span> saved when you leave this page. Hit the Save buttons to save the values you entered in local storage and they will automatically reappear the next time you visit.</p> -->
+  <h3>Save for next time</h3>
+  <p>Your entered values are saved automatically. So when you come back to this page later, you'll be asked wether you want to reload these values.</p>
 
   <h3>Optional Keywords</h3>
   <table class="tg">

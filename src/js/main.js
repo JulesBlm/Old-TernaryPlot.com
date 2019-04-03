@@ -445,15 +445,41 @@ let areasData = [
 // Check if there is something in localStorage
 if (localStorage.getItem('pointsTable')) {
   const storagePrompt = swal('You\'ve been here before!', 'Do you wan\'t to load your previously entered data into the tables?', {
-    buttons: ['No, show sample data', 'Yes'],
+    buttons: {
+      sample: {
+        text: 'No, show sample data',
+        value: null,
+        visible: true,
+        className: 'show-sample',
+        closeModal: true,
+      },
+      empty: {
+        text: 'No, empty the tables',
+        value: 'empty',
+        visible: true,
+        className: 'show-empty',
+        closeModal: true,
+      },
+      load: {
+        text: 'Yes, load previous data',
+        value: 'ok',
+        visible: true,
+        className: 'load-old',
+        closeModal: true,
+      },
+    },
   });
   // Ask wether to load localStorage data or to load sample data
   storagePrompt.then((result) => {
-    if (result) {
+    if (result === 'ok') {
       // console.log('USE LOCALSTORAGE DATA');
       pointsData = JSON.parse(localStorage.getItem('pointsTable'));
       linesData = JSON.parse(localStorage.getItem('linesTable'));
       areasData = JSON.parse(localStorage.getItem('areasTable'));
+    } else if (result === 'empty') {
+      pointsData = [];
+      linesData = [];
+      areasData = [];
     }
     // console.log("Loading data into table", pointsData);
     pointsTable.loadData(pointsData);
@@ -537,6 +563,14 @@ clearAllButton.addEventListener('mouseover', () => {
       .attr('stroke-opacity', '1');
   }, timeOutTime);
 });
+
+const clearTablesButton = document.getElementById('clearTables');
+clearTablesButton.addEventListener('click', () => {
+  pointsTable.loadData([]);
+  linesTable.loadData([]);
+  areasTable.loadData([]);
+});
+
 
 /* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 and between 0 to 1.0 for opacity */
 // Handsontable.validators.registerValidator('check100', check100);

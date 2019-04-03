@@ -47,8 +47,25 @@ h1 {
   text-align: left;
 }
 
+.show-sample {
+  background-color: salmon;
+}
+
+.show-empty {
+  background-color: LIGHTSALMON;
+}
+
+.load-old {
+  background-color: #B0F566;
+}
+
 .underline {
   text-decoration: underline;
+}
+
+#clearTables {
+  border: 1px solid crimson;
+  margin-right: 20px;
 }
 
 header {
