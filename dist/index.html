@@ -58,9 +58,9 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
   <div class="flex-item" >
     <svg id="ternary-plot"></svg>
     <div class="buttons">
-      <input type="button" id="clearTables" value="Clear Input Tables">
-      <input type="button" id="clearLabels" value="Clear Labels">
-      <input type="button" id="clearAll" value="Clear All">
+      <input type="button" id="clearAllTables" value="Clear Input Tables">
+      <input type="button" id="clearLabels" value="Remove Labels">
+      <input type="button" id="clearAll" value="Remove All">
       <a id="download" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27js/svg-crowbar.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download SVG</a>
       <!-- http://bl.ocks.org/vicapow/758fce6aa4c5195d24be <button id='pngdownload'>Download PNG</button>      a.href = canvas.toDataURL("image/png"); --> 
     </div>
@@ -96,7 +96,8 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
     <div class="handsOnTable" id="pointsTable"></div>
     <form name="enterPoints" class="add-items">
       <input type="submit" class="plot" name="add" value="+ Plot Points">
-      <input type="button" class="clear" id="clearPoints" value="- Clear Points">
+      <input type="button" class="clear" id="clearPoints" value="- Remove Points">
+      <input type="button" class="clear-table" id="clearPointsTable" value="Clear This Table">
       <!-- <input type="button" id="savePoints" value="Save Points"> -->
     </form>
   </div>
@@ -129,7 +130,8 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
     <div class="handsOnTable" id="linesTable"></div>
     <form name="enterLines" class="add-items">
       <input type="submit" class="plot" value="+ Plot Lines">
-      <input type="button" class="clear" id="clearLines" value="- Clear Lines">
+      <input type="button" class="clear" id="clearLines" value="- Remove Lines">
+      <input type="button" class="clear-table" id="clearLinesTable" value="Clear This Table">
       <!-- <input type="button" id="saveLines" value="Save Lines"> -->
     </form>
   </div>
@@ -164,7 +166,8 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
   <div class="handsOnTable" id="areasTable"></div>
     <form name="enterAreas" class="add-items">
       <input type="submit" class="plot" value="+ Plot Areas">
-      <input type="button" class="clear" id="clearAreas" value="- Clear Areas">
+      <input type="button" class="clear" id="clearAreas" value="- Remove Areas">
+      <input type="button" class="clear-table" id="clearAreasTable" value="Clear This Table">
       <!-- <input type="button" id="saveAreas" value="Save Areas"> -->
     </form>
   </div> 

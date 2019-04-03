@@ -564,13 +564,27 @@ clearAllButton.addEventListener('mouseover', () => {
   }, timeOutTime);
 });
 
-const clearTablesButton = document.getElementById('clearTables');
-clearTablesButton.addEventListener('click', () => {
+const clearAllTablesButton = document.getElementById('clearAllTables');
+clearAllTablesButton.addEventListener('click', () => {
   pointsTable.loadData([]);
   linesTable.loadData([]);
   areasTable.loadData([]);
 });
 
+const clearPointsTablesButton = document.getElementById('clearPointsTable');
+clearPointsTablesButton.addEventListener('click', () => {
+  pointsTable.loadData([]);
+});
+
+const clearLinesTablesButton = document.getElementById('clearLinesTable');
+clearLinesTablesButton.addEventListener('click', () => {
+  linesTable.loadData([]);
+});
+
+const clearAreasTablesButton = document.getElementById('clearAreasTable');
+clearAreasTablesButton.addEventListener('click', () => {
+  areasTable.loadData([]);
+});
 
 /* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 and between 0 to 1.0 for opacity */
 // Handsontable.validators.registerValidator('check100', check100);
