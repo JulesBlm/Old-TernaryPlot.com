@@ -16,7 +16,7 @@ import { capitalize, resize } from './helpers';
 if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
   document.querySelector('#intro').style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
 } else {
-  let now = new Date();
+  const now = new Date();
   now.setDate(now.getDate() + 3);
   document.cookie = `visited=true;expires=${now}`;
 }
@@ -25,21 +25,20 @@ let labelsAdded = false;
 let columns;
 const reserved = ['colour', 'color', 'shape', 'linestyle', 'title', 'opacity'];
 
+function clear(className) {
+  d3.selectAll(className).remove();
+}
+
 function clearLabels() {
   clear('.vertex-label');
   labelsAdded = false;
   columns = undefined;
 }
 
-function clear(className) {
-  d3.selectAll(className).remove();
-}
-
 function clearAll() {
   clear('.ternary-line,.ternary-area,.point');
   clearLabels();
 }
-
 
 const graticule = d3.ternary.graticule()
   .majorInterval(0.2)
@@ -299,8 +298,8 @@ const Draw = {
 };
 
 // Function to make empty cells grey
-function emptyCellRenderer(instance, td, row, col, prop, value, cellProperties) {
-  Handsontable.renderers.TextRenderer.apply(this, arguments);
+function emptyCellRenderer(instance, td, row, col, prop, value) { // cellProperties
+  Handsontable.renderers.TextRenderer.apply(this, arguments); //
 
   if (value === null || value === '') {
     td.style.background = '#efefef';
@@ -310,9 +309,8 @@ function emptyCellRenderer(instance, td, row, col, prop, value, cellProperties) 
 // maps function to lookup string
 Handsontable.renderers.registerRenderer('emptyCellRenderer', emptyCellRenderer);
 
-function HandsOnTableCreator(ID, sampleData, placeholder, HOTcolumns) {
+function createHandsOnTable(ID, placeholder, HOTcolumns) {
   return new Handsontable(document.getElementById(ID), {
-    data: sampleData,
     colHeaders: placeholder,
     columns: HOTcolumns,
     fixedRowsTop: 1,
@@ -324,7 +322,6 @@ function HandsOnTableCreator(ID, sampleData, placeholder, HOTcolumns) {
     width: 500,
     dropdownMenu: true,
     manualColumnResize: true,
-    persistentState: true,
     licenseKey: 'non-commercial-and-evaluation',
     cells(row, col) {
       const cellProperties = {};
@@ -332,10 +329,12 @@ function HandsOnTableCreator(ID, sampleData, placeholder, HOTcolumns) {
       cellProperties.renderer = 'emptyCellRenderer'; // uses lookup map
       return cellProperties;
     },
+    afterChange() {
+      const storageKey = ID;
+      if (this.getData()[0][0]) { localStorage[storageKey] = JSON.stringify(this.getData()); }
+    },
   });
 }
-
-let pointsData = [];
 
 const pointColumns = [
   { type: 'numeric' }, // { validator: 'my.custom' }
@@ -351,23 +350,9 @@ const pointColumns = [
   {},
 ];
 
-if (pointsData.length === 0) {
-  pointsData = [
-    ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
-    [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 1],
-    [0.2, 0.5, 0.3, 'coral',, 800, 0.5, 'Half opacity big point'],
-    [0.3, 0.1, 0.6, 'magenta', 'cross'],
-    [0.5, 0.5, 0, '#d1b621', 'diamond'],
-    [0.6, 0.2, 0.2, 'peru', 'triangle-up'],
-  ];
-}
-
 const pointsPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Shape', 'Size', 'Opacity', 'Title'];
 
-const pointsTable = HandsOnTableCreator('pointsTable', pointsData, pointsPlaceholder, pointColumns);
+const pointsTable = createHandsOnTable('pointsTable', pointsPlaceholder, pointColumns);
 const submitPointsButton = document.enterPoints;
 
 Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
@@ -376,16 +361,6 @@ Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
   const parsedPoints = parse.Points(pointsTable.getData());
   Draw.Points(parsedPoints);
 });
-
-const linesSampledata = [
-  ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Linestyle', 'Strokewidth', 'Title'],
-  [0.2, 0.8, 0, 'orangered', '5 3 5', 2, 'dotted line 1'],
-  [0.8, 0, 0.2],
-  [],
-  [0.1, 0.1, 0.8, 'slateblue'],
-  [0.4, 0.1, 0.5],
-  [0, 0, 1],
-];
 
 const linesPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Linestyle', 'Strokewidth', 'Title'];
 
@@ -399,7 +374,7 @@ const linesColumns = [
   {},
 ];
 
-const linesTable = HandsOnTableCreator('linesTable', linesSampledata, linesPlaceholder, linesColumns);
+const linesTable = createHandsOnTable('linesTable', linesPlaceholder, linesColumns);
 const submitLinesButton = document.enterLines;
 Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   e.preventDefault();
@@ -409,7 +384,49 @@ Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   Draw.Lines(parsedLines);
 });
 
-const areasSampledata = [
+const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
+
+const areasColumns = [
+  { type: 'numeric' }, // { validator: 'my.custom' }
+  { type: 'numeric' },
+  { type: 'numeric' },
+  {},
+  { type: 'numeric' },
+  {},
+];
+
+const areasTable = createHandsOnTable('areasTable', areasPlaceholder, areasColumns);
+const submitAreasButton = document.enterAreas;
+Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
+  e.preventDefault();
+
+  const parsedAreas = parse.LinesAreas(areasTable.getData());
+  Draw.Areas(parsedAreas);
+});
+
+let pointsData = [
+  ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
+  [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
+  [1, 0, 0],
+  [0, 1, 0],
+  [0, 0, 1],
+  [0.2, 0.5, 0.3, 'coral',, 800, 0.5, 'Half opacity big point'],
+  [0.3, 0.1, 0.6, 'magenta', 'cross'],
+  [0.5, 0.5, 0, '#d1b621', 'diamond'],
+  [0.6, 0.2, 0.2, 'peru', 'triangle-up'],
+];
+
+let linesData = [
+  ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Linestyle', 'Strokewidth', 'Title'],
+  [0.2, 0.8, 0, 'orangered', '5 3 5', 2, 'dotted line 1'],
+  [0.8, 0, 0.2],
+  [],
+  [0.1, 0.1, 0.8, 'slateblue'],
+  [0.4, 0.1, 0.5],
+  [0, 0, 1],
+];
+
+let areasData = [
   ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Opacity', 'Title'],
   [0, 0.5, 0.5, 'palegreen', 0.1, 'More than 50% silt'],
   [0.5, 0.5, 0],
@@ -423,25 +440,32 @@ const areasSampledata = [
   [0.5, 0, 0.5],
   [0, 0, 1],
 ];
-const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
 
-const areasColumns = [
-  { type: 'numeric' }, // { validator: 'my.custom' }
-  { type: 'numeric' },
-  { type: 'numeric' },
-  {},
-  { type: 'numeric' },
-  {},
-];
-
-const areasTable = HandsOnTableCreator('areasTable', areasSampledata, areasPlaceholder, areasColumns);
-const submitAreasButton = document.enterAreas;
-Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
-  e.preventDefault();
-
-  const parsedAreas = parse.LinesAreas(areasTable.getData());
-  Draw.Areas(parsedAreas);
-});
+/* TODO: Code this part better */
+// Check if there is something in localStorage
+if (localStorage.getItem('pointsTable')) {
+  const storagePrompt = swal('You\'ve been here before!', 'Do you wan\'t to load your previously entered data into the tables?', {
+    buttons: ['No, show sample data', 'Yes'],
+  });
+  // Ask wether to load localStorage data or to load sample data
+  storagePrompt.then((result) => {
+    if (result) {
+      // console.log('USE LOCALSTORAGE DATA');
+      pointsData = JSON.parse(localStorage.getItem('pointsTable'));
+      linesData = JSON.parse(localStorage.getItem('linesTable'));
+      areasData = JSON.parse(localStorage.getItem('areasTable'));
+    }
+    // console.log("Loading data into table", pointsData);
+    pointsTable.loadData(pointsData);
+    linesTable.loadData(linesData);
+    areasTable.loadData(areasData);
+  });
+} else {
+  // First time here so load sample data
+  pointsTable.loadData(pointsData);
+  linesTable.loadData(linesData);
+  areasTable.loadData(areasData);
+}
 
 d3.select('#ternary-plot').call(ternary);
 

@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
@@ -13,7 +14,8 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, '/dist/'),
-    publicPath: '/dist/',
+    watchContentBase: true,
+    publicPath: '/dist/js',
     compress: true,
     port: 4004,
   },
@@ -31,10 +33,12 @@ module.exports = {
     },
   },
   plugins: [
-    // Ignore all locale files of moment.js
+    // new BundleAnalyzerPlugin(),
+    // Make Reveal a global variable
     new webpack.ProvidePlugin({
       Reveal: 'reveal.js',
     }),
+    // Ignore all locale files of moment.js
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // new CompressionPlugin({test: /\.js/})
   ],

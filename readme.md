@@ -6,14 +6,13 @@ Feel free to contact me if you have any questions or comments.
 
 ## To-do
 
-1. !Figure out how to decrease bundle size
+1. !Figure out how to decrease bundle size, use hot-builder to build custom HandsOnTable package
 2. Use HandsOnTable validators
 2. Clean up code and split main.js into multiple files, use less global variables
-4. Use HandsOnTable localStorage / persistant state
 2. Update to d3-ternary to d3 v5 and import only necessary modules
 2. Lock columns titles and use columns properties in HandsOnTable
-3. Bundle CSS / webpack
 3. Bring drawn points to front if areas are plotted over them https://codepen.io/osublake/pen/YXoEQe 
+3. Bundle CSS / webpack
 4. Clean explain page code
 2. Make option to add rows
 
