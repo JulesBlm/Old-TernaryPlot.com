@@ -46,7 +46,7 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
     colHeaders: placeholder,
     columns: HOTcolumns,
     fixedRowsTop: 1,
-    manualColumnMove: true,
+    // manualColumnMove: true,
     manualRowMove: true,
     rowHeaders: true,
     minRows: 60,
@@ -67,6 +67,7 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
     },
   });
 }
+
 
 const pointColumns = [
   { type: 'numeric' },
@@ -101,7 +102,10 @@ const linesColumns = [
   { type: 'numeric' },
   { type: 'numeric' },
   {},
-  {},
+  {
+    type: 'dropdown',
+    source: ['dotted', 'dot-dash', 'dot-dot-dash', 'short-dashed', 'medium-dashed', 'long-dashed'],
+  },
   { type: 'numeric' },
   {},
 ];
@@ -149,7 +153,7 @@ let pointsData = [
 
 let linesData = [
   ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Linestyle', 'Strokewidth', 'Title'],
-  [0.2, 0.8, 0, 'orangered', '5 3 5', 2, 'dotted line 1'],
+  [0.2, 0.8, 0, 'orangered', 'dot-dash', 2, 'Dotted line #1'],
   [0.8, 0, 0.2],
   [],
   [0.1, 0.1, 0.8, 'slateblue'],

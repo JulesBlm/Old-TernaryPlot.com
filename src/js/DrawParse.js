@@ -241,6 +241,15 @@ const Draw = {
       .selectAll('.line')
       .data(d);
 
+    const strokedashDict = {
+      'dotted': '3 2',
+      'dot-dash': '10 3 4 3',
+      'dot-dot-dash': '10 3 4 3 4 3',
+      'short-dashed': 4,
+      'medium-dashed': 17,
+      'long-dashed': 26,
+    };
+
     // 🤔I think there must be a way to do this 'better' with Object methods
     paths.enter().append('path')
       .attr('class', 'ternary-line')
@@ -253,7 +262,7 @@ const Draw = {
         });
         return ternary.path(drawArray);
       })
-      .attr('stroke-dasharray', line => (line[0].linestyle ? (line[0].linestyle).trim() : Draw.defaults.lineStyle))
+      .attr('stroke-dasharray', line => (line[0].linestyle ? strokedashDict[line[0].linestyle] : Draw.defaults.lineStyle)) // (line[0].linestyle).trim()
       .attr('stroke', line => (line[0].color ? (line[0].color).trim() : (line[0].colour ? (line[0].colour).trim() : Draw.defaults.lineColor))) // both color and colour are valid
       .attr('stroke-opacity', line => (line[0].opacity ? (line[0].opacity).trim() : 1))
       .attr('fill-opacity', '0') // So no inside fill shows up inside lines in Adobe Illustrator
