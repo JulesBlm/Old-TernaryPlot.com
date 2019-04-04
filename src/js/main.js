@@ -8,9 +8,8 @@
 import d3 from 'd3';
 import Handsontable from 'handsontable';
 import swal from 'sweetalert';
-import './ternary.v3';
-
-import { capitalize, resize } from './helpers';
+// import './ternary.v3';
+import { Draw, Parse, clearLabels } from './DrawParse';
 
 // Don't show intro popup within 3 days of a visit
 if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
@@ -21,281 +20,14 @@ if (document.cookie.split(';').filter(item => item.includes('visited=true')).len
   document.cookie = `visited=true;expires=${now}`;
 }
 
-let labelsAdded = false;
-let columns;
-const reserved = ['colour', 'color', 'shape', 'linestyle', 'title', 'opacity'];
-
 function clear(className) {
   d3.selectAll(className).remove();
-}
-
-function clearLabels() {
-  clear('.vertex-label');
-  labelsAdded = false;
-  columns = undefined;
 }
 
 function clearAll() {
   clear('.ternary-line,.ternary-area,.point');
   clearLabels();
 }
-
-const graticule = d3.ternary.graticule()
-  .majorInterval(0.2)
-  .minorInterval(0.05);
-
-const ternary = d3.ternary.plot()
-  .call(resize, [500, 500])
-  .call(d3.ternary.scalebars())
-  .call(d3.ternary.neatline())
-  .call(graticule);
-
-function showHelpLines(e) {
-  let pointValues = Object.values(e);
-  pointValues = [pointValues[0], pointValues[2], pointValues[1]];
-
-  // Its ugly but it works is my motto for programming
-  const helpLinesArray = [
-    [pointValues,
-      [
-        0,
-        parseFloat(pointValues[0]) + parseFloat(pointValues[1]),
-        parseFloat(pointValues[2])],
-    ],
-    [pointValues,
-      [
-        parseFloat(pointValues[0]),
-        0,
-        parseFloat(pointValues[1]) + parseFloat(pointValues[2]),
-      ],
-    ],
-    [pointValues,
-      [
-        parseFloat(pointValues[0]) + parseFloat(pointValues[2]),
-        parseFloat(pointValues[1]),
-        0,
-      ],
-    ],
-  ];
-
-  const helpLines = ternary.plot()
-    .selectAll('.line')
-    .data(helpLinesArray);
-
-  // I could (should?) use the linesToDraw function but that one is geared towards the submmittedLines format and this is easier🤗
-  helpLines.enter().append('path')
-    .attr('class', 'help-line')
-    .attr('d', line => ternary.path(line))
-    .attr('stroke-dasharray', '3, 3, 3')
-    .attr('stroke', 'black')
-    .attr('stroke-width', '1px')
-    .attr('z-index', '-1');
-}
-
-function addVertexLabels(f) {
-  const cols = (f.columns).slice(0, 3);
-  ternary.call(d3.ternary.vertexLabels(cols));
-}
-
-// Check if lines column names match with previous column names
-function checkColumns(columnNames) {
-  if (!columns) {
-    columns = columnNames.slice(0, 3);
-
-    // Add labels to ternary plot
-    if (!labelsAdded) { addVertexLabels({ columns: columnNames }); labelsAdded = true; }
-  } else if (JSON.stringify(columnNames.slice(0, 3)) !== JSON.stringify(columns)) {
-    swal('Your columns in Points, Lines and areas don\'t seem to match', `Your columns you entered first are '${columns}' and for your columns now are '${columnNames.slice(0, 3)}'. Your data will still be plotted, but it might not appear the way you intended.`, 'warning');
-  }
-  // Check for reserved keywords in column names
-  columnNames.some((key) => {
-    if (reserved.includes(key)) {
-      return swal('Reserved column name', `You can't use any of the following names as your columns names: ${reserved.join(', ')}`, 'error');
-    }
-  });
-}
-
-const parse = {
-
-  Points(data) {
-    let rows = data;
-    const columnsArray = rows.shift();
-
-    checkColumns(columnsArray);
-
-    // Remove trailing empty strings and nulls from line array
-    rows.map((line) => {
-      while (line[line.length - 1] === null || line[line.length - 1] === '') { // While the last element is a null or empty string
-        line.pop(); // Remove that last element
-      }
-      return line;
-    });
-
-    // Filter all empty line arrays
-    rows = rows.filter(arr => arr.length !== 0);
-
-    // Construct array of object with properties for drawing
-    // Its ugly but it works ¯\_(ツ)_/¯
-    const objectsArray = rows.map((line) => {
-      const point = columnsArray.reduce((result, column, i) => {
-        const pointValue = result;
-        pointValue[column.toLowerCase()] = line[i];
-        return pointValue;
-      }, {});
-      return point;
-    });
-
-    return objectsArray;
-  },
-
-  LinesAreas(data) {
-    const rows = data;
-    const columnsArray = rows.shift();
-
-    checkColumns(columnsArray);
-
-    // Remove trailing empty strings and nulls from line array
-    rows.map((line) => {
-      while (line[line.length - 1] === null || line[line.length - 1] === '') { // While the last element is a null or empty string
-        line.pop(); // Remove that last element
-      }
-      return line;
-    });
-
-    const linesToDraw = [];
-    let drawLine = [];
-
-    // Loop over rows array
-    for (const point of rows) {
-      if (point.length !== 0) {
-        drawLine.push(point); // Add to drawLine
-      } else if (point.length === 0) { // When separator is encountered (an empty row), clear drawLine array to start new one
-        if (drawLine.length !== 0) { linesToDraw.push(drawLine); }
-        drawLine = []; // Reset drawLine
-      }
-    }
-
-    const objectsArray = linesToDraw.map((line) => {
-      const lineObjects = line.map((p) => {
-        const point = columnsArray.reduce((result, column, i) => {
-          const linePointValue = result;
-          linePointValue[column.toLowerCase()] = p[i];
-          return linePointValue;
-        }, {});
-        return point;
-      });
-      return lineObjects;
-    });
-    return objectsArray;
-  },
-};
-
-const Draw = {
-
-  defaults: {
-    pointColor: 'black',
-    pointShape: 'circle',
-    pointSize: 70,
-    lineStyle: 'none', // solid
-    lineColor: 'black',
-    lineStrokewidth: '4px',
-    areaColor: 'gold',
-    areaOpacity: 0.2,
-  },
-
-  setListeners() {
-    document.querySelector('select[name=\'defaultColorPoints\']').onchange = (event) => { Draw.defaults.pointColor = event.target.value; };
-    document.querySelector('select[name=\'defaultShape\']').onchange = (event) => { Draw.defaults.pointShape = event.target.value; };
-
-    document.querySelector('select[name=\'defaultColorLines\']').onchange = (event) => { Draw.defaults.lineColor = event.target.value; };
-    document.querySelector('select[name=\'defaultLineStyle\']').onchange = (event) => { Draw.defaults.lineStyle = event.target.value; };
-
-    document.querySelector('select[name=\'defaultColorAreas\']').onchange = (event) => { Draw.defaults.areaColor = event.target.value; };
-    document.querySelector('select[name=\'defaultAreaOpacity\']').onchange = (event) => { Draw.defaults.areaOpacity = event.target.value; };
-  },
-
-  Points(d) {
-    const values = d.slice([0, 3]);
-    const symbol = d3.svg.symbol();
-
-    const points = ternary.plot()
-      .selectAll('.point')
-      .data(values);
-
-    points.enter().append('path')
-      .attr('class', 'point')
-      .attr('fill', point => (point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : Draw.defaults.pointColor))) // both color and colour are valid
-      .attr('fill-opacity', point => (point.opacity ? point.opacity : 1))
-      .attr('d', symbol
-        .type(point => (point.shape ? (point.shape).trim() : Draw.defaults.pointShape))
-        .size(point => (point.size ? point.size : Draw.defaults.pointSize)))
-      .attr('transform', (point) => {
-        const pointValues = Object.values(point);
-        const myPointValues = [pointValues[0], pointValues[2], pointValues[1]];
-        const plotCoords = ternary.point(myPointValues); // Convert to barycentric coordinates
-        return `translate(${plotCoords[0]},${plotCoords[1]})`;
-      })
-      .on('mouseover', showHelpLines)
-      .on('mouseout', () => { clear('.help-line'); })
-      .append('title')
-      .text((point) => {
-        const entries = Object.entries(point);
-        const valuesString = `${entries[0].join(': ')} \n ${entries[2].join(': ')} \n ${entries[1].join(': ')}`;
-
-        return point.title ? `${capitalize(point.title.trim())} \n ${valuesString}` : valuesString;
-      });
-  },
-
-  Lines(d) {
-    const paths = ternary.plot()
-      .selectAll('.line')
-      .data(d);
-
-    // 🤔I think there must be a way to do this 'better' with Object methods
-    paths.enter().append('path')
-      .attr('class', 'ternary-line')
-      .attr('d', (line) => {
-        const drawArray = [];
-        // Loop over each point in line and add to drawarray because d3 path wants it that way
-        line.forEach((point) => {
-          const pointValues = Object.values(point);
-          drawArray.push([pointValues[0], pointValues[2], pointValues[1]]); // d3.ternary wants the values swapped ¯\_(ツ)_/¯
-        });
-        return ternary.path(drawArray);
-      })
-      .attr('stroke-dasharray', line => (line[0].linestyle ? (line[0].linestyle).trim() : Draw.defaults.lineStyle))
-      .attr('stroke', line => (line[0].color ? (line[0].color).trim() : (line[0].colour ? (line[0].colour).trim() : Draw.defaults.lineColor))) // both color and colour are valid
-      .attr('stroke-opacity', line => (line[0].opacity ? (line[0].opacity).trim() : 1))
-      .attr('fill-opacity', '0') // So no inside fill shows up inside lines in Adobe Illustrator
-      .attr('stroke-width', line => (line[0].strokewidth ? line[0].strokewidth : Draw.defaults.lineStrokewidth))
-      .append('title') // 🤔 Would there be a way to not append a title if there is none?
-      .text(line => (line[0].title ? capitalize((line[0].title).trim()) : undefined)); // Object.values(e).slice(0,3).join(', ')
-  },
-
-  // Takes in data entered in the Areas Table and draws them onto the Ternary Plot
-  Areas(d) {
-    const paths = ternary.plot()
-      .selectAll('.area')
-      .data(d);
-
-    paths.enter().append('path')
-      .attr('class', 'ternary-area')
-      .attr('d', (line) => {
-        const drawArray = [];
-        line.forEach((point) => {
-          const pointValues = Object.values(point);
-          drawArray.push([pointValues[0], pointValues[2], pointValues[1]]); // d3.ternary wants the values swapped ¯\_(ツ)_/¯
-        });
-        return ternary.area(drawArray);
-      })
-      .attr('z-index', -1)
-      .attr('fill', area => (area[0].color ? (area[0].color).trim() : Draw.defaults.areaColor))
-      .attr('fill-opacity', area => (area[0].opacity ? area[0].opacity : 0.5))
-      .append('title')
-      .text(area => (area[0].title ? capitalize((area[0].title).trim()) : undefined));
-  },
-
-};
 
 // Function to make empty cells grey
 function emptyCellRenderer(instance, td, row, col, prop, value) { // cellProperties
@@ -323,7 +55,7 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
     dropdownMenu: true,
     manualColumnResize: true,
     licenseKey: 'non-commercial-and-evaluation',
-    cells(row, col) {
+    cells() { // row, col
       const cellProperties = {};
       // const data = this.instance.getData();
       cellProperties.renderer = 'emptyCellRenderer'; // uses lookup map
@@ -337,9 +69,9 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
 }
 
 const pointColumns = [
-  { type: 'numeric' }, // { validator: 'my.custom' }
-  { type: 'numeric' },
-  { type: 'numeric' },
+  {},
+  {},
+  {},
   {},
   {
     type: 'dropdown',
@@ -358,16 +90,16 @@ const submitPointsButton = document.enterPoints;
 Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
   e.preventDefault();
 
-  const parsedPoints = parse.Points(pointsTable.getData());
+  const parsedPoints = Parse.Points(pointsTable.getData());
   Draw.Points(parsedPoints);
 });
 
 const linesPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Linestyle', 'Strokewidth', 'Title'];
 
 const linesColumns = [
-  { type: 'numeric' },
-  { type: 'numeric' },
-  { type: 'numeric' },
+  {},
+  {},
+  {},
   {},
   {},
   { type: 'numeric' },
@@ -379,7 +111,7 @@ const submitLinesButton = document.enterLines;
 Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   e.preventDefault();
 
-  const parsedLines = parse.LinesAreas(linesTable.getData());
+  const parsedLines = Parse.LinesAreas(linesTable.getData());
 
   Draw.Lines(parsedLines);
 });
@@ -387,9 +119,9 @@ Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
 const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
 
 const areasColumns = [
-  { type: 'numeric' }, // { validator: 'my.custom' }
-  { type: 'numeric' },
-  { type: 'numeric' },
+  {},
+  {},
+  {},
   {},
   { type: 'numeric' },
   {},
@@ -399,8 +131,7 @@ const areasTable = createHandsOnTable('areasTable', areasPlaceholder, areasColum
 const submitAreasButton = document.enterAreas;
 Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
   e.preventDefault();
-
-  const parsedAreas = parse.LinesAreas(areasTable.getData());
+  const parsedAreas = Parse.LinesAreas(areasTable.getData());
   Draw.Areas(parsedAreas);
 });
 
@@ -472,7 +203,6 @@ if (localStorage.getItem('pointsTable')) {
   // Ask wether to load localStorage data or to load sample data
   storagePrompt.then((result) => {
     if (result === 'ok') {
-      // console.log('USE LOCALSTORAGE DATA');
       pointsData = JSON.parse(localStorage.getItem('pointsTable'));
       linesData = JSON.parse(localStorage.getItem('linesTable'));
       areasData = JSON.parse(localStorage.getItem('areasTable'));
@@ -481,7 +211,6 @@ if (localStorage.getItem('pointsTable')) {
       linesData = [];
       areasData = [];
     }
-    // console.log("Loading data into table", pointsData);
     pointsTable.loadData(pointsData);
     linesTable.loadData(linesData);
     areasTable.loadData(areasData);
@@ -492,8 +221,6 @@ if (localStorage.getItem('pointsTable')) {
   linesTable.loadData(linesData);
   areasTable.loadData(areasData);
 }
-
-d3.select('#ternary-plot').call(ternary);
 
 const timeOutTime = 600;
 
@@ -564,26 +291,38 @@ clearAllButton.addEventListener('mouseover', () => {
   }, timeOutTime);
 });
 
+function warnEmptyTable(tables, tableString) {
+  const removeCheck = swal(`This will remove all values you have entered into ${tableString}`, 'There\'s no going back once you click OK!',
+    {
+      buttons: ['Cancel', 'OK, remove values'],
+      icon: 'warning',
+    });
+
+  removeCheck.then((result) => {
+    if (result) {
+      tables.forEach(table => table.loadData([]));
+    }
+  });
+}
+
 const clearAllTablesButton = document.getElementById('clearAllTables');
 clearAllTablesButton.addEventListener('click', () => {
-  pointsTable.loadData([]);
-  linesTable.loadData([]);
-  areasTable.loadData([]);
+  warnEmptyTable([pointsTable, linesTable, areasTable], 'all tables.');
 });
 
 const clearPointsTablesButton = document.getElementById('clearPointsTable');
 clearPointsTablesButton.addEventListener('click', () => {
-  pointsTable.loadData([]);
+  warnEmptyTable([pointsTable], 'the points table.');
 });
 
 const clearLinesTablesButton = document.getElementById('clearLinesTable');
 clearLinesTablesButton.addEventListener('click', () => {
-  linesTable.loadData([]);
+  warnEmptyTable([linesTable], 'the lines table.');
 });
 
 const clearAreasTablesButton = document.getElementById('clearAreasTable');
 clearAreasTablesButton.addEventListener('click', () => {
-  areasTable.loadData([]);
+  warnEmptyTable([areasTable], 'the areas table.');
 });
 
 /* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 and between 0 to 1.0 for opacity */
@@ -603,20 +342,3 @@ clearAreasTablesButton.addEventListener('click', () => {
 //   Handsontable.validators.registerValidator('my.custom', customValidator);
 
 // }(Handsontable));
-
-// document.querySelector('#savePoints').addEventListener('click', () => {
-//   pointsTable.runHooks('persistantStateSave', 'pointTable', pointsTable.getData());
-//   console.log("Save points")
-// });
-
-// document.querySelector('#saveLines').addEventListener('click', () => {
-//   linesTable.runHooks('persistantStateSave', 'linesTable', linesTable.getData());
-//   console.log("Save lines")
-// });
-
-// document.querySelector('#saveAreas').addEventListener('click', () => {
-//   areasTable.runHooks('persistantStateSave', 'areasTable', areasTable.getData());
-//   console.log("Save areas")
-// });
-
-window.addEventListener('resize', resize(ternary));

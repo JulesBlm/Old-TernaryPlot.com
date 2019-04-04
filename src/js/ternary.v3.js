@@ -8,7 +8,7 @@
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 (function() {
-  var _plotBounds, angles, cos30, line, path, randomid;
+  var _plotBounds; var angles; var cos30; var line; var path; var randomid;
 
   path = void 0;
 
@@ -16,7 +16,7 @@
 
   cos30 = Math.sqrt(3) / 2;
 
-  tickValues = [.2, .4, .6, .8, 1]
+  tickValues = [.2, .4, .6, .8, 1];
 
   randomid = function() {
     var i, j, pos, possible, text;
@@ -44,7 +44,7 @@
   /* ----- Graticules ----- */
   d3.ternary.graticule = function() {
     var graticule, majorInterval, majorTicks, minorInterval, minorTicks;
-    
+   
     majorInterval = 0.1; //Stepsize for lines
     minorInterval = null;
 
@@ -100,7 +100,7 @@
         draw = function() {
           // console.log("plot.rule(i)", plot.rule(i));
           axis.scale(plot.scales[i]);
-          selA.attr("d", plot.rule(i))
+          selA.attr("d", plot.rule(i));
 
           return selB.attr("d", plot.rule(i));
         };
@@ -114,7 +114,7 @@
               .data(gratAxes)
               .enter().append("g")
                 .attr("class", "graticule")
-                .attr("clip-path", "url(#axesClip)")
+                // .attr("clip-path", "url(#axesClip)")
                 .each(axisGraticule);
     };
 
@@ -289,7 +289,7 @@
       sel.enter().append("text").text(function(d) { return d.label;})
         .attr("dy", ".35em")
         .attr("text-anchor", "middle")
-        .attr("class", function(d) { return "vertex-label " + d.label.toLowerCase();} )
+        .attr("class", function(d) { return "vertex-label " + d.label.toLowerCase();} );
 
       draw = function() {
         return sel.attr({
@@ -316,11 +316,11 @@
       var el;
       return el = plot.node().append("use")
         .attr("class", "neatline")
-        .attr("xlink:href", "#bounds")
+        .attr("xlink:href", "#bounds");
       };
-    
+
     return neatline;
-  }
+  };
 
   _plotBounds = function(plot) {
     var _, a, domains, draw, el, i, j, points, v;
@@ -391,7 +391,7 @@
     axes = null;
     plot = null;
     defs = null;
-    shouldClip = true;
+    shouldClip = false;
     callOnCreate = [];
     
     scales = [0, 1, 2].map(function() {
@@ -666,4 +666,4 @@
 
 }).call(this);
 
-module.exports = d3.ternary
+module.exports = d3.ternary;
