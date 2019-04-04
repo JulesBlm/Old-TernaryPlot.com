@@ -69,9 +69,9 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
 }
 
 const pointColumns = [
-  {},
-  {},
-  {},
+  { type: 'numeric' },
+  { type: 'numeric' },
+  { type: 'numeric' },
   {},
   {
     type: 'dropdown',
@@ -97,9 +97,9 @@ Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
 const linesPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Linestyle', 'Strokewidth', 'Title'];
 
 const linesColumns = [
-  {},
-  {},
-  {},
+  { type: 'numeric' },
+  { type: 'numeric' },
+  { type: 'numeric' },
   {},
   {},
   { type: 'numeric' },
@@ -119,9 +119,9 @@ Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
 const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
 
 const areasColumns = [
-  {},
-  {},
-  {},
+  { type: 'numeric' },
+  { type: 'numeric' },
+  { type: 'numeric' },
   {},
   { type: 'numeric' },
   {},
@@ -207,9 +207,9 @@ if (localStorage.getItem('pointsTable')) {
       linesData = JSON.parse(localStorage.getItem('linesTable'));
       areasData = JSON.parse(localStorage.getItem('areasTable'));
     } else if (result === 'empty') {
-      pointsData = [];
-      linesData = [];
-      areasData = [];
+      pointsData = [pointsPlaceholder];
+      linesData = [linesPlaceholder];
+      areasData = [areasPlaceholder];
     }
     pointsTable.loadData(pointsData);
     linesTable.loadData(linesData);
@@ -300,7 +300,23 @@ function warnEmptyTable(tables, tableString) {
 
   removeCheck.then((result) => {
     if (result) {
-      tables.forEach(table => table.loadData([]));
+      tables.forEach((table) => {
+        let dataToLoad;
+        switch (table) {
+          case pointsTable:
+            dataToLoad = pointsPlaceholder;
+            break;
+          case linesTable:
+            dataToLoad = linesPlaceholder;
+            break;
+          case areasTable:
+            dataToLoad = areasPlaceholder;
+            break;
+          default:
+            dataToLoad = [];
+        }
+        table.loadData([dataToLoad]);
+      });
     }
   });
 }

@@ -9,6 +9,7 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 1. !Figure out how to decrease bundle size, use hot-builder to build custom HandsOnTable package
 2. Use HandsOnTable validators
 3. Show if labels are added
+3. Make linestyle a dropdown with a dictionary matching keywords like 'dashed, dotted, longstripes' to matching stroke dash arrays
 3. Don't make top row of numeric columns numeric type
 3. Better CSS,allow tables to become wider on very wide screens
 2. Clean up code and split main.js into multiple files, use less global variables

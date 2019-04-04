@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
 import d3 from 'd3';
 import swal from 'sweetalert';
@@ -290,4 +292,4 @@ const Draw = {
 d3.select('#ternary-plot').call(ternary);
 window.addEventListener('resize', resize(ternary));
 
-export { Parse, Draw, labelsAdded, columns, clearLabels };
+export { Parse, Draw, clearLabels };
