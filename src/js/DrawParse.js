@@ -230,7 +230,7 @@ const Draw = {
         .text((point) => {
           const entries = Object.entries(point);
           if (entries) {
-            const valuesString = `${entries[0].join(': ')} \n ${entries[2].join(': ')} \n ${entries[1].join(': ')}`;
+            const valuesString = `${entries[0].join(': ')}\n${entries[2].join(': ')}\n${entries[1].join(': ')}`;
             return point.title ? `${capitalize(point.title.trim())} \n ${valuesString}` : valuesString;
           }
         });

@@ -338,7 +338,7 @@ footer {
   }
 
   nav {
-    grid-template-columns: [col] 30vw [col] 10vw [col] 30vw [col] 30vw;
+    grid-template-columns: [col] 40vw [col] 35vw [col] 25vw;
     grid-template-rows: [row] 50px;
     align-items: center;
   }

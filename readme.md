@@ -8,6 +8,7 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 
 1. !Figure out how to decrease bundle size, use hot-builder to build custom HandsOnTable package
 2. Use HandsOnTable validators
+3. Show warning when top row is not right
 3. Show if labels are added
 3. Make linestyle a dropdown with a dictionary matching keywords like 'dashed, dotted, longstripes' to matching stroke dash arrays
 3. Don't make top row of numeric columns numeric type
