@@ -90,6 +90,7 @@ const submitPointsButton = document.enterPoints;
 
 Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
   e.preventDefault();
+  clear('.point');
 
   const parsedPoints = Parse.Points(pointsTable.getData());
   Draw.Points(parsedPoints);
@@ -114,9 +115,8 @@ const linesTable = createHandsOnTable('linesTable', linesPlaceholder, linesColum
 const submitLinesButton = document.enterLines;
 Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   e.preventDefault();
-
+  clear('.ternary-line');
   const parsedLines = Parse.LinesAreas(linesTable.getData());
-
   Draw.Lines(parsedLines);
 });
 
@@ -135,6 +135,7 @@ const areasTable = createHandsOnTable('areasTable', areasPlaceholder, areasColum
 const submitAreasButton = document.enterAreas;
 Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
   e.preventDefault();
+  clear('.ternary-area');
   const parsedAreas = Parse.LinesAreas(areasTable.getData());
   Draw.Areas(parsedAreas);
 });
