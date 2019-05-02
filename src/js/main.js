@@ -11,9 +11,12 @@ import swal from 'sweetalert';
 // import './ternary.v3';
 import { Draw, Parse, clearLabels } from './DrawParse';
 
+import '../css/style.scss';
+import 'handsontable/dist/handsontable.full.min.css';
+
 // Don't show intro popup within 3 days of a visit
 if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
-  document.querySelector('#intro').style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
+  document.querySelector('#intro').remove(); //style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
 } else {
   const now = new Date();
   now.setDate(now.getDate() + 3);

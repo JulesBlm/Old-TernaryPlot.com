@@ -216,7 +216,7 @@ const Draw = {
       .attr('fill', point => (point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : Draw.defaults.pointColor))) // both color and colour are valid
       .attr('fill-opacity', point => (point.opacity ? point.opacity : 1))
       .attr('d', symbol
-        .type(point => (point.shape ? (point.shape).trim() : Draw.defaults.pointShape))
+        .type(point => (point.shape ? (point.shape).trim() : Draw.defaults.pointShape)) //use this?
         .size(point => (point.size ? point.size : Draw.defaults.pointSize)))
       .attr('transform', (point) => {
         const pointValues = Object.values(point);
@@ -242,7 +242,7 @@ const Draw = {
       .data(d);
 
     const strokedashDict = {
-      'dotted': '3 2',
+      'dotted':'3 2',
       'dot-dash': '10 3 4 3',
       'dot-dot-dash': '10 3 4 3 4 3',
       'short-dashed': 4,

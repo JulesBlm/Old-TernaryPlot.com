@@ -26,24 +26,26 @@
   "devDependencies": {
     "compression-webpack-plugin": "^2.0.0",
     "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "webpack": "^4.29.6",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.30.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.3.1",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
-    "core-js": "^2.6.5",
     "d3": "^3.5.17",
-    "handsontable": "^7.0.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "handsontable": "7.0.2",
     "hot-builder": "^4.0.0",
     "reveal.js": "^3.8.0",
     "reveal_external": "^1.3.0",
-    "reveald3": "^1.4.7",
+    "reveald3": "^1.5.4",
     "sweet-alert": "^2.0.5",
     "sweetalert": "^2.1.2"
   }

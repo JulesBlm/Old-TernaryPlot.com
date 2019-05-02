@@ -4,11 +4,10 @@
   <title>Ternary Plot Generator</title>
   <meta charset="utf-8">  
   <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For fast creation of ternary phase diagrams.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimal-ui">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ternary.css">
   <link href="css/handsontable.full.min.css" rel="stylesheet" media="screen">
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
@@ -35,7 +34,7 @@
 
 <header>
   <nav>
-    <a><span class="underline">Ternary plot maker</span> <span id="alpha">Now 20% less bugs!</span></a>
+    <a><span class="underline">Ternary plot maker</span></a>
     <a href="explain.html">What is a Ternary Plot?</a>
     <a href="about.html">About</a>
   </nav>
@@ -58,9 +57,9 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
   <div class="flex-item" >
     <svg id="ternary-plot"></svg>
     <div class="buttons">
-      <input type="button" id="clearAllTables" value="Clear Input Tables">
-      <input type="button" id="clearLabels" value="Remove Labels">
-      <input type="button" id="clearAll" value="Remove All">
+      <input type="button" id="clearAllTables" aria-label="Clear Input Tables"  value="Clear Input Tables">
+      <input type="button" id="clearLabels" aria-label="Remove Labels" value="Remove Labels">
+      <input type="button" id="clearAll" aria-label="Remove All" value="Remove All">
       <a id="download" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27js/svg-crowbar.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download SVG</a>
       <!-- http://bl.ocks.org/vicapow/758fce6aa4c5195d24be <button id='pngdownload'>Download PNG</button>      a.href = canvas.toDataURL("image/png"); --> 
     </div>
@@ -95,9 +94,9 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 
     <div class="handsOnTable" id="pointsTable"></div>
     <form name="enterPoints" class="add-items">
-      <input type="submit" class="plot" name="add" value="+ Plot Points">
-      <input type="button" class="clear" id="clearPoints" value="- Remove Points">
-      <input type="button" class="clear-table" id="clearPointsTable" value="Clear This Table">
+      <input type="submit" class="plot" name="add" aria-label="Plot points" value="+ Plot Points">
+      <input type="button" class="clear" id="clearPoints" aria-label="Remove points" value="- Remove Points">
+      <input type="button" class="clear-table" id="clearPointsTable" aria-label="Clear points table" value="Clear This Table">
       <!-- <input type="button" id="savePoints" value="Save Points"> -->
     </form>
   </div>
@@ -129,9 +128,9 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 
     <div class="handsOnTable" id="linesTable"></div>
     <form name="enterLines" class="add-items">
-      <input type="submit" class="plot" value="+ Plot Lines">
-      <input type="button" class="clear" id="clearLines" value="- Remove Lines">
-      <input type="button" class="clear-table" id="clearLinesTable" value="Clear This Table">
+      <input type="submit" class="plot" aria-label="Plot lines" value="+ Plot Lines">
+      <input type="button" class="clear" id="clearLines" aria-label="Remove lines from table" value="- Remove Lines">
+      <input type="button" class="clear-table" id="clearLinesTable" aria-label="Clear lines table" value="Clear This Table">
       <!-- <input type="button" id="saveLines" value="Save Lines"> -->
     </form>
   </div>
@@ -165,9 +164,9 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 
   <div class="handsOnTable" id="areasTable"></div>
     <form name="enterAreas" class="add-items">
-      <input type="submit" class="plot" value="+ Plot Areas">
-      <input type="button" class="clear" id="clearAreas" value="- Remove Areas">
-      <input type="button" class="clear-table" id="clearAreasTable" value="Clear This Table">
+      <input type="submit" class="plot" aria-label="Plot areas" value="+ Plot Areas">
+      <input type="button" class="clear" id="clearAreas" aria-label="Remove areas from chart" value="- Remove Areas">
+      <input type="button" class="clear-table" id="clearAreasTable" aria-label="Clear areas table" value="Clear This Table">
       <!-- <input type="button" id="saveAreas" value="Save Areas"> -->
     </form>
   </div> 
@@ -198,7 +197,7 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
     </tr>
     <tr>
       <td class="tg-yw4l">Color (colour works too)</td>
-      <td class="tg-yw4l">A hexadecimal color value like <code>#dcedff</code>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank" rel="noopener noreferrer">named color</a> like <code>blue</code> or <code>orangered</code>. Tip: try <a href="https://www.google.com/search?q=color+picker&oq=color+picker" target="_blank" rel=”noopener noreferrer”>googling "color picker"</a>.</td>
+      <td class="tg-yw4l">A hexadecimal color value like <code>#dcedff</code>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank" rel="noopener noreferrer">named color</a> like <code>blue</code> or <code>orangered</code>. Tip: try <a href="https://www.google.com/search?q=color+picker&oq=color+picker" target="_blank" rel="noopener noreferrer">googling "color picker"</a>.</td>
     </tr>
     <tr>
       <td class="tg-yw4l">Opacity</td>
@@ -228,7 +227,7 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 </div>
 
 <footer>
-<a href="https://github.com/JulesBlm/TernaryPlot.com" target="_blank" rel="noopener noreferrer"><img height="25" width="25" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> 2019 Jules Blom © <a class="donate" href="https://paypal.me/BlomJ" target="_blank">Donate</a>
+<a href="https://github.com/JulesBlm/TernaryPlot.com" aria-label="github icon" target="_blank" rel="noopener noreferrer"><img height="25" width="25" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> 2019 © <a class="donate" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate</a>
 </footer>
 <script src="js/app.bundle.js"></script>
 </body>
