@@ -12,13 +12,14 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/js'),
+    publicPath: path.resolve(__dirname, '/js'),
   },
+  devtool: 'source-map',
   devServer: {
-    contentBase: path.join(__dirname, '/dist/'),
+    hot: true,
+    contentBase: path.resolve(__dirname, 'dist'),
     watchContentBase: true,
-    publicPath: '/dist/js',
-    compress: true,
-    port: 4004,
+    port: 4000,
   },
   module: {
     rules: [

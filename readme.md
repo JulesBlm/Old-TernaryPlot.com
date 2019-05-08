@@ -6,20 +6,18 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 
 ## To-do
 
-1. !Figure out how to decrease bundle size, use hot-builder to build custom HandsOnTable package
+1. Decrease bundle size
+    * use hot-builder to build lightweigh HandsOnTable package
+    * Update d3-ternary to d3 v5 and import only necessary modules
 2. Use HandsOnTable validators
 3. Show warning when top row is not right
 4. Show if labels are added
-5. Make linestyle a dropdown with a dictionary matching keywords like 'dashed, dotted, longstripes' to matching stroke dash arrays
 6. Don't make top row of numeric columns numeric type
-7. Better CSS,allow tables to become wider on very wide screens
-8. Clean up code and split main.js into multiple files, use less global variables
+7. Better CSS, allow tables to become wider on very wide screens
 9. Don't use ID so many times to select buttons for eventlisteners.
-10. Update to d3-ternary to d3 v5 and import only necessary modules
 11. Use [d3 selection raise](https://github.com/d3/d3-selection#selection_raise) to bring points in front of areas on hover
 12. Lock columns titles and use columns properties in HandsOnTable
 13. Bring drawn points to front if areas are plotted over them https://codepen.io/osublake/pen/YXoEQe 
-14. Bundle CSS / webpack
 15. Clean explain page code
 16. Make option to add rows
 

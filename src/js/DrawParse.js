@@ -193,13 +193,13 @@ const Draw = {
   },
 
   setListeners() {
-    document.querySelector('select[name=\'defaultColorPoints\']').onchange = (event) => { Draw.defaults.pointColor = event.target.value; };
+    document.querySelector('#defaultColorPoints').onchange = (event) => { Draw.defaults.pointColor = event.target.value; };
     document.querySelector('select[name=\'defaultShape\']').onchange = (event) => { Draw.defaults.pointShape = event.target.value; };
 
-    document.querySelector('select[name=\'defaultColorLines\']').onchange = (event) => { Draw.defaults.lineColor = event.target.value; };
+    document.querySelector('#defaultColorLines').onchange = (event) => { Draw.defaults.lineColor = event.target.value; };
     document.querySelector('select[name=\'defaultLineStyle\']').onchange = (event) => { Draw.defaults.lineStyle = event.target.value; };
 
-    document.querySelector('select[name=\'defaultColorAreas\']').onchange = (event) => { Draw.defaults.areaColor = event.target.value; };
+    document.querySelector('#defaultColorAreas').onchange = (event) => { Draw.defaults.areaColor = event.target.value; };
     document.querySelector('select[name=\'defaultAreaOpacity\']').onchange = (event) => { Draw.defaults.areaOpacity = event.target.value; };
   },
 
@@ -216,7 +216,7 @@ const Draw = {
       .attr('fill', point => (point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : Draw.defaults.pointColor))) // both color and colour are valid
       .attr('fill-opacity', point => (point.opacity ? point.opacity : 1))
       .attr('d', symbol
-        .type(point => (point.shape ? (point.shape).trim() : Draw.defaults.pointShape)) //use this?
+        .type(point => (point.shape ? (point.shape).trim() : Draw.defaults.pointShape)) // use this?
         .size(point => (point.size ? point.size : Draw.defaults.pointSize)))
       .attr('transform', (point) => {
         const pointValues = Object.values(point);
@@ -242,7 +242,7 @@ const Draw = {
       .data(d);
 
     const strokedashDict = {
-      'dotted':'3 2',
+      'dotted': '3 2',
       'dot-dash': '10 3 4 3',
       'dot-dot-dash': '10 3 4 3 4 3',
       'short-dashed': 4,
