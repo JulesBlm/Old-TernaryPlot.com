@@ -1,3 +1,86 @@
+/* ------ Ternary ------ */
+div {
+  overflow: visible !important;
+}
+
+iframe {
+  height: 600px !important;
+}
+
+#bounds {
+  fill: none;
+  stroke-width: 3px;
+  stroke: black;
+}
+
+.ternary-circle{
+  stroke:#c00;
+  fill:#fff;
+}
+
+.ternary-line{
+  fill: rgba(255,255,255,0.0);
+  border-style: dotted;
+}
+
+.ternary-line:hover {
+  opacity: 0.6
+}
+
+.mouseover-line{
+  fill: rgba(255,255,255,0.0);
+  border-style: dotted;
+}
+
+.ternary-tick{
+  fill:none;
+  stroke:#aaa;
+}
+
+.minor{
+  stroke:#fefefe;	
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 210;
+}
+
+.tick text {
+  font-size: 0.8em;
+}
+
+path.domain {
+  display: none;
+}
+
+.graticule path {
+  stroke: #f8f8f8;
+}
+
+.graticule path.major ,.tick line {
+  stroke: #e9e9e9;
+  stroke-width: 2px;
+}
+
+.neatline {
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}
+
+.point {
+  z-index: 50;
+}
+
+.point:hover {
+  opacity: 0.6;
+}
+
+tspan {
+  font-weight: bold;
+}
+
 .sand {
   background-color: sandybrown;
   fill: sandybrown;
