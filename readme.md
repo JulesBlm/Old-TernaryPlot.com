@@ -8,11 +8,10 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 
 1. Decrease bundle size
     * use hot-builder to build lightweigh HandsOnTable package
-    * Update d3-ternary to d3 v5 and import only necessary modules
+    * Rewrite d3-ternary to d3 v5 and import only necessary modules
 2. Use HandsOnTable validators
-3. Show warning when top row is not right
-4. Show if labels are added
-6. Don't make top row of numeric columns numeric type
+3. Show warning when top row is not entered correctly
+6. Don't make top row of numeric columns numeric type so cell won't turn red for column titles
 7. Better CSS, allow tables to become wider on very wide screens
 9. Don't use ID so many times to select buttons for eventlisteners.
 11. Use [d3 selection raise](https://github.com/d3/d3-selection#selection_raise) to bring points in front of areas on hover

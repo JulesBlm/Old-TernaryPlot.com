@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-  <title>Ternary Plot Generator</title>
+  <title>Ternary Plot Generator - Quickly create ternary diagrams</title>
   <meta charset="utf-8">  
   <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For fast creation of ternary phase diagrams.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimal-ui">
@@ -158,14 +158,14 @@ This site lets you create a ternary plot quickly and easily! Don’t know what t
 <div id="params" class="margin-main">
   <h2>How To Use</h2>
   <h3>Input Parameters</h3>
-  <p>The first row has to contain your column names. Your variable names <span class="underline"> have to be the first three values</span>. These first three will be entered as axis labels in the ternary plot. The axis labels are placed in counter-clockwise order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points, lines and areas.</p>
-  <p>Other parameters, like color, opacity or shape also have to named to in the top row. If you are confused, try reloading the page and taking a good look at the sample data!</p>
-  <p>For the values you can use either decimals <code>0.2</code>, <code>0.3</code>, <code>0.5</code> or percentages <code>20</code>, <code>30</code>, <code>50</code>. <span class="underline">But do not enter the percentage symbol (%)!.</span> Mixing these formats between rows is possible. You can't mix formats in one row though!</p>
+  <p>The first row has to contain your column names. Your variable names <span class="underline"> have to be the first three values of this first row</span>. These first three will be entered as axis labels in the ternary plot. <br>The axis labels are placed in counter-clockwise order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points, lines and areas. You will get a warning when these are not consistent between the points, lines, and areas tables.</p>
+  <p>Other parameters, like color, opacity or shape also have to be named to in the top row. If you are confused, try reloading the page and taking a good look at the sample data!</p>
+  <p>For the values you can use either decimals <code>0.2</code>, <code>0.3</code>, <code>0.5</code> or percentages <code>20</code>, <code>30</code>, <code>50</code>. Mixing these formats between rows is possible. You can't mix formats in one row though!</p>  <span class="underline">Also do not enter the percentage symbol (%)!</span>
   <p>You <span class="underline">have to enter three values</span> for a point, line or area to be plotted, and the three can't sum to more than 100%.</p>
   <p><span class="underline">Different lines and areas are seperated by <em>one</em> empty row.</span> Only the first row of a a line or area style parameters area read. The optional parameters on following rows won't be read.</p>
 
   <h3>Save for next time</h3>
-  <p>Your entered values are saved automatically. So when you come back to this page later, you'll be asked wether you want to reload these values.</p>
+  <p>Your entered values are saved automatically locally in your browser storage. So when you come back to this page later, you'll be asked wether you want to reload these values.</p>
 
   <h3>Optional Keywords</h3>
   <table class="tg">
