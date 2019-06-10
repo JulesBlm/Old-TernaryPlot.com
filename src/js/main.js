@@ -16,8 +16,13 @@ import 'handsontable/dist/handsontable.full.min.css';
 
 // Don't show intro popup within 3 days of a visit
 if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
-  document.querySelector('#intro').remove(); //style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
+  document.querySelector('#intro').remove(); // style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
 } else {
+  const removeIntroButton = document.getElementById('closeIntro');
+  removeIntroButton.addEventListener('click', () => {
+    removeIntroButton.parentElement.remove();
+  });
+
   const now = new Date();
   now.setDate(now.getDate() + 3);
   document.cookie = `visited=true;expires=${now}`;
@@ -180,6 +185,12 @@ let areasData = [
   [0, 0, 1],
 ];
 
+const loadDataToTables = () => {
+  pointsTable.loadData(pointsData);
+  linesTable.loadData(linesData);
+  areasTable.loadData(areasData);
+};
+
 /* TODO: Code this part better */
 // Check if there is something in localStorage
 if (localStorage.getItem('pointsTable')) {
@@ -219,20 +230,20 @@ if (localStorage.getItem('pointsTable')) {
       linesData = [linesPlaceholder];
       areasData = [areasPlaceholder];
     }
-    pointsTable.loadData(pointsData);
-    linesTable.loadData(linesData);
-    areasTable.loadData(areasData);
+    loadDataToTables();
   });
 } else {
   // First time here so load sample data
-  pointsTable.loadData(pointsData);
-  linesTable.loadData(linesData);
-  areasTable.loadData(areasData);
+  loadDataToTables();
 }
 
 const timeOutTime = 600;
 
 Draw.setListeners();
+
+/* function (id) => (action) =>
+document.getElementById(id)
+*/
 
 const clearPointsButton = document.getElementById('clearPoints');
 clearPointsButton.addEventListener('click', () => clear('.point'));
@@ -348,6 +359,8 @@ const clearAreasTablesButton = document.getElementById('clearAreasTable');
 clearAreasTablesButton.addEventListener('click', () => {
   warnEmptyTable([areasTable], 'the areas table.');
 });
+
+// onclick="this.parentNode.style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear;'; "
 
 /* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 and between 0 to 1.0 for opacity */
 // Handsontable.validators.registerValidator('check100', check100);

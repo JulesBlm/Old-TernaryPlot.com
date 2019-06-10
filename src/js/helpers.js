@@ -3,7 +3,7 @@ function capitalize(word) {
 }
 
 function resize(t) {
-  if (window.innerWidth > 600) {
+  if (window.innerWidth > 550) {
     t.fit(500, 500);
   } else {
     t.fit(window.innerWidth, window.innerHeight);

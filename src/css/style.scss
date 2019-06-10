@@ -157,6 +157,7 @@ h1 {
 header {
   background-color: var(--red);  
   height: var(--header-height);
+  width: 100%;
   box-shadow: 0 1px 15px 0 rgba(192,72,25,0.32);
   top: 0;
 }
@@ -169,34 +170,37 @@ main > a:hover, main > a:active {
   color: seagreen;
 }
 
-.close {
-  transition: all 0.1s ease;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  padding: 5px 10px;
-  background: var(--red);
-  border-radius: 0 23px 0 4px;
+#intro {
+  background-color: #fffad3;
+  border: 2px solid #e56565;
+  transition: all 0.3s ease-out;
+  z-index: 100;
+
+  div {
+    padding: 5px 30px;
+  }
+
+  a { 
+    color: var(--red);
+  }
 }
 
-.close:hover {
+#closeIntro {
+  position: sticky;
+  float: right;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  font-size: 1.5em;
+  transition: all 0.1s ease;
+  padding: 8px 14px;
+  background: var(--red);
+  border-radius: 0 0 10% 10%;
+}
+
+#closeIntro:hover {
   background: coral;
   color: #fff;
-  opacity: 0.8;
-}
-
-#intro {
-  font-size: 1.2em;
-  background-color: #fffad3;
-  border-radius: 25px;
-  border: 2px solid #e56565;
-  padding: 10px;
-  position: absolute;
-  transition: all 1s ease-out;
-  top: var(--header-height) + 20px;
-  left: 5vmin;
-  width: 300px;
-  z-index: 100;
   opacity: 0.8;
 }
 
@@ -254,14 +258,28 @@ select {
   float: right;
 }
 
+
+.inline-donate {
+  background: seagreen;
+  border-radius: 28px;
+  padding: 5px 5px !important;
+  color: white !important;
+}
+
+.inline-donate:hover {
+  background: gold;
+  transform: scale(1.08);
+  color: rgb(0, 0, 0) !important;;
+}
+
 .donate {
     background: seagreen;
     border: none;
     color: #fff !important;
-    width: 166px;
-    padding: 10px 20px;
+    width: 166px !important;
+    padding: 10px 20px !important;
     border-radius: 28px;
-    margin: 0 20px;
+    margin: 0 20px !important;
     cursor: pointer;
     transition: .15s ease-out;
     text-align: center;
@@ -413,11 +431,13 @@ footer {
 
   .donate {
     font-size: 90%;
-    width: 60px;
+    width: 80px;
     float: right;
-}
+  }
 
-  header{
+  header {
+    width: 100%;
+    flex-shrink: 0;
     height: 65px;
     font-size: 0.8rem;
   }
