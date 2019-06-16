@@ -14,7 +14,7 @@ import { Draw, Parse, clearLabels } from './DrawParse';
 import '../css/style.scss';
 import 'handsontable/dist/handsontable.full.min.css';
 
-// Don't show intro popup within 3 days of a visit
+// Don't show intro popup within 2 days of a visit
 if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
   document.querySelector('#intro').remove(); // style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
 } else {
@@ -24,7 +24,7 @@ if (document.cookie.split(';').filter(item => item.includes('visited=true')).len
   });
 
   const now = new Date();
-  now.setDate(now.getDate() + 3);
+  now.setDate(now.getDate() + 2);
   document.cookie = `visited=true;expires=${now}`;
 }
 
@@ -46,6 +46,8 @@ function emptyCellRenderer(instance, td, row, col, prop, value) { // cellPropert
   }
 }
 
+const initialTableSize = (window.innerWidth > 500) ? 500 : window.innerWidth - 20;
+
 // maps function to lookup string
 Handsontable.renderers.registerRenderer('emptyCellRenderer', emptyCellRenderer);
 
@@ -59,7 +61,7 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
     rowHeaders: true,
     minRows: 60,
     height: 330,
-    width: 500,
+    width: initialTableSize,
     dropdownMenu: true,
     manualColumnResize: true,
     licenseKey: 'non-commercial-and-evaluation',
@@ -91,9 +93,11 @@ const pointColumns = [
   {},
 ];
 
-const pointsPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Shape', 'Size', 'Opacity', 'Title'];
 
-const pointsTable = createHandsOnTable('pointsTable', pointsPlaceholder, pointColumns);
+const pointsPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Shape', 'Size', 'Opacity', 'Title'];
+const pointsLabels = pointsPlaceholder.slice(0, 3);
+
+const pointsTable = createHandsOnTable('pointsTable', pointsLabels, pointColumns);
 const submitPointsButton = document.enterPoints;
 
 Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
@@ -105,6 +109,7 @@ Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
 });
 
 const linesPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Linestyle', 'Strokewidth', 'Title'];
+const linesLabels = linesPlaceholder.slice(0, 3);
 
 const linesColumns = [
   { type: 'numeric' },
@@ -119,7 +124,7 @@ const linesColumns = [
   {},
 ];
 
-const linesTable = createHandsOnTable('linesTable', linesPlaceholder, linesColumns);
+const linesTable = createHandsOnTable('linesTable', linesLabels, linesColumns);
 const submitLinesButton = document.enterLines;
 Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   e.preventDefault();
@@ -129,6 +134,7 @@ Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
 });
 
 const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
+const areaLabels = areasPlaceholder.slice(0, 3);
 
 const areasColumns = [
   { type: 'numeric' },
@@ -139,7 +145,7 @@ const areasColumns = [
   {},
 ];
 
-const areasTable = createHandsOnTable('areasTable', areasPlaceholder, areasColumns);
+const areasTable = createHandsOnTable('areasTable', areaLabels, areasColumns);
 const submitAreasButton = document.enterAreas;
 Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
   e.preventDefault();
@@ -194,7 +200,12 @@ const loadDataToTables = () => {
 /* TODO: Code this part better */
 // Check if there is something in localStorage
 if (localStorage.getItem('pointsTable')) {
-  const storagePrompt = swal('You\'ve been here before!', 'Do you wan\'t to load your previously entered data into the tables?', {
+  const hereBeforeMessage = document.createElement('div');
+  hereBeforeMessage.innerHTML = '<p>If you have found this site to be useful consider<a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a><a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buying me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a></p><p><strong>Do you wan\'t to load your previously entered data into the tables? </strong></p>';
+
+  const storagePrompt = swal({
+    title: 'You\'ve been here before!',
+    content: hereBeforeMessage,
     buttons: {
       sample: {
         text: 'No, show sample data',

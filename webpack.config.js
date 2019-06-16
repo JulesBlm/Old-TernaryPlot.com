@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
@@ -38,7 +37,6 @@ module.exports = {
     },
   },
   plugins: [
-    // new BundleAnalyzerPlugin(),
     // Make Reveal a global variable
     new webpack.ProvidePlugin({
       Reveal: 'reveal.js',

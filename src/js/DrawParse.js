@@ -10,8 +10,12 @@ const graticule = d3.ternary.graticule()
   .majorInterval(0.2)
   .minorInterval(0.05);
 
+const initialPlotSize = (window.innerWidth > 500) ? [500, 500] : [window.innerWidth, window.innerWidth];
+
+// console.log({initialPlotSize})
+
 const ternary = d3.ternary.plot()
-  .call(resize, [500, 500])
+  .call(resize, initialPlotSize)
   .call(d3.ternary.scalebars())
   .call(d3.ternary.neatline())
   .call(graticule);
@@ -45,7 +49,7 @@ function checkColumns(columnNames) {
   }
   // Check for reserved keywords in column names
   columnNames.some((key) => {
-    if (reserved.includes(key)) {
+    if (reserved.includes(key.toLowerCase())) {
       return swal('Reserved column name', `You can't use any of the following names as your columns names: ${reserved.join(', ')}`, 'error');
     }
   });
@@ -193,14 +197,16 @@ const Draw = {
   },
 
   setListeners() {
-    document.querySelector('#defaultColorPoints').onchange = (event) => { Draw.defaults.pointColor = event.target.value; };
-    document.querySelector('select[name=\'defaultShape\']').onchange = (event) => { Draw.defaults.pointShape = event.target.value; };
+    document.querySelector('#defaultColorPoints').onchange = ({ target }) => { Draw.defaults.pointColor = target.value; };
+    document.querySelector('select[name=\'defaultShape\']').onchange = ({ target }) => { Draw.defaults.pointShape = target.value; };
+    document.querySelector('#defaultPointsize').onchange = ({ target }) => { Draw.defaults.pointSize = target.value; };
 
-    document.querySelector('#defaultColorLines').onchange = (event) => { Draw.defaults.lineColor = event.target.value; };
-    document.querySelector('select[name=\'defaultLineStyle\']').onchange = (event) => { Draw.defaults.lineStyle = event.target.value; };
+    document.querySelector('#defaultColorLines').onchange = ({ target }) => { Draw.defaults.lineColor = target.value; };
+    document.querySelector('select[name=\'defaultLineStyle\']').onchange = ({ target }) => { Draw.defaults.lineStyle = target.value; };
+    document.querySelector('#defaultLinewidth').onchange = ({ target }) => { Draw.defaults.lineStrokewidth = target.value; };
 
-    document.querySelector('#defaultColorAreas').onchange = (event) => { Draw.defaults.areaColor = event.target.value; };
-    document.querySelector('select[name=\'defaultAreaOpacity\']').onchange = (event) => { Draw.defaults.areaOpacity = event.target.value; };
+    document.querySelector('#defaultColorAreas').onchange = ({ target }) => { Draw.defaults.areaColor = target.value; };
+    document.querySelector('select[name=\'defaultAreaOpacity\']').onchange = ({ target }) => { Draw.defaults.areaOpacity = target.value; };
   },
 
   Points(d) {
@@ -230,7 +236,7 @@ const Draw = {
         .text((point) => {
           const entries = Object.entries(point);
           if (entries) {
-            const valuesString = `${entries[0].join(': ')}\n${entries[2].join(': ')}\n${entries[1].join(': ')}`;
+            const valuesString = `${entries[0].join(': ')}\n${entries[1].join(': ')}\n${entries[2].join(': ')}`;
             return point.title ? `${capitalize(point.title.trim())} \n ${valuesString}` : valuesString;
           }
         });
@@ -268,9 +274,7 @@ const Draw = {
       .attr('fill-opacity', '0') // So no inside fill shows up inside lines in Adobe Illustrator
       .attr('stroke-width', line => (line[0].strokewidth ? line[0].strokewidth : Draw.defaults.lineStrokewidth))
       .append('title') // 🤔 Would there be a way to not append a title if there is none?
-      .text((line) => {
-        return (line[0].title ? capitalize((line[0].title).trim()) : undefined);
-      }); // Object.values(e).slice(0,3).join(', ')
+      .text(line => (line[0].title ? capitalize((line[0].title).trim()) : undefined)); // Object.values(e).slice(0,3).join(', ')
   },
 
   // Takes in data entered in the Areas Table and draws them onto the Ternary Plot
