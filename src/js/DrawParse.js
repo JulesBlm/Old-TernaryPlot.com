@@ -48,7 +48,7 @@ function checkColumns(columnNames) {
     swal('Your columns in Points, Lines and areas don\'t seem to match', `Your columns you entered first are '${columns}' and for your columns now are '${columnNames.slice(0, 3)}'. Your data will still be plotted, but it might not appear the way you intended.`, 'warning');
   }
   // Check for reserved keywords in column names
-  columnNames.some((key) => {
+  columns.some((key) => {
     if (reserved.includes(key.toLowerCase())) {
       return swal('Reserved column name', `You can't use any of the following names as your columns names: ${reserved.join(', ')}`, 'error');
     }

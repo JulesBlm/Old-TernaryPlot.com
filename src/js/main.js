@@ -201,7 +201,7 @@ const loadDataToTables = () => {
 // Check if there is something in localStorage
 if (localStorage.getItem('pointsTable')) {
   const hereBeforeMessage = document.createElement('div');
-  hereBeforeMessage.innerHTML = '<p>If you have found this site to be useful consider<a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a><a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buying me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a></p><p><strong>Do you wan\'t to load your previously entered data into the tables? </strong></p>';
+  hereBeforeMessage.innerHTML = '<p>If you have found this site to be useful consider<a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a><a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buying me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a></p><hr><p><strong>Do you wan\'t to load your previously entered data into the tables? </strong></p>';
 
   const storagePrompt = swal({
     title: 'You\'ve been here before!',
