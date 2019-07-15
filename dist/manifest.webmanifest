@@ -1,0 +1,9 @@
+{
+  "name": "TernaryPlot.com",
+  "short_name": "TernaryPlot.com",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#fa8072",
+  "background_color": "#ffffff",
+  "description": "App to easily create ternary diagrams!"
+}

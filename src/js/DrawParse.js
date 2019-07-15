@@ -45,7 +45,17 @@ function checkColumns(columnNames) {
     // Add labels to ternary plot
     if (!labelsAdded) { addVertexLabels({ columns: columnNames }); labelsAdded = true; }
   } else if (JSON.stringify(columnNames.slice(0, 3)) !== JSON.stringify(columns)) {
-    swal('Your columns in Points, Lines and areas don\'t seem to match', `Your columns you entered first are '${columns}' and for your columns now are '${columnNames.slice(0, 3)}'. Your data will still be plotted, but it might not appear the way you intended.`, 'warning');
+    const labelsMessage = document.createElement('div');
+    labelsMessage.innerHTML = `The current columns names are '${columns}' and you're now trying to plot data with columns '${columnNames.slice(0, 3)}'. Your data will still be plotted, but it might not appear the way you intended. <br> Try clicking the <input type="button" id="specialClearLabels" aria-label="Remove Labels" value="Remove Labels"> button and plotting again.`;
+   
+    swal({
+      title: 'Your columns names entered in the Points, Lines and Areas tables don\'t seem to match',
+      content: labelsMessage,
+      icon: 'warning',
+    });
+
+    const specialClearLabel = document.getElementById('specialClearLabels');
+    specialClearLabel.addEventListener('click', clearLabels);
   }
   // Check for reserved keywords in column names
   columns.some((key) => {

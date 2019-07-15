@@ -6,6 +6,8 @@
   <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For fast creation of ternary phase diagrams.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimal-ui">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+
   <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
@@ -60,7 +62,7 @@
     <svg id="ternary-plot"></svg>
     <div class="buttons">
       <input type="button" id="clearAllTables" aria-label="Clear Input Tables"  value="Clear Input Tables">
-      <input type="button" id="clearLabels" aria-label="Remove Labels" value="Remove Labels">
+      <input type="button" class="clearLabels" aria-label="Remove Labels" value="Remove Labels">
       <input type="button" id="clearAll" aria-label="Remove All" value="Remove All">
       <a id="download" href="javascript:javascript: (function () %7B var e %3D document.createElement(%27script%27)%3B e.setAttribute(%27src%27, %27js/svg-crowbar.js%27)%3B e.setAttribute(%27class%27, %27svg-crowbar%27)%3B document.body.appendChild(e)%3B %7D)()%3B">Download SVG</a>
       <!-- http://bl.ocks.org/vicapow/758fce6aa4c5195d24be <button id='pngdownload'>Download PNG</button>      a.href = canvas.toDataURL("image/png"); --> 
@@ -178,14 +180,14 @@
 
   <h2>How To Use</h2>
   <h3>Input Parameters</h3>
-  <p>The first row has to contain your column names. Your variable names <span class="underline">have to be the first three values of this first row</span>. These first three will be entered as axis labels in the ternary plot. <br>The axis labels are placed in counter-clockwise order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points, lines and areas. You will get a warning when these are not consistent between the points, lines, and areas tables.</p>
+  <p>The top row has to contain your column names. Your variable names <span class="underline">have to be the first three values of this first row</span>. These first three will be entered as axis labels in the ternary plot. <br>The axis labels are placed in counter-clockwise order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points, lines and areas. You will get a warning when the column names are not consistent between the points, lines, and areas tables.</p>
   <p>Other parameters, like color, opacity or shape also have to be named to in the top row. If you are confused, try reloading the page and taking a good look at the sample data!</p>
-  <p>For the values you can use either decimals <code>0.2</code>, <code>0.3</code>, <code>0.5</code> or percentages <code>20</code>, <code>30</code>, <code>50</code>. Mixing these formats between rows is possible. You can't mix formats in one row though!  <span class="underline">Also do not enter the percentage symbol (%)!</span></p>
-  <p>You <span class="underline">have to enter three values</span> for a point, line or area to be plotted, and the three can't sum to more than 100%.</p>
+  <p>For the values you can use either decimals <code>0.2</code>, <code>0.3</code>, <code>0.5</code> or percentages <code>20</code>, <code>30</code>, <code>50</code>. Mixing these formats between rows is possible. You can't mix formats in one row though! <span class="underline">Also do not enter the percentage symbol (%)!</span></p>
+  <p>You <span class="underline">have to enter three values</span> for a point, line or area to be plotted, and the three can't sum to more than 1 (or 100%).</p>
   <p><span class="underline">Different lines and areas are seperated by <em>one</em> empty row.</span> Only the first row of a a line or area style parameters area read. The optional parameters on following rows won't be read.</p>
 
   <h3>Save for next time</h3>
-  <p>Your entered values are saved automatically locally in your browser storage. So when you come back to this page later, you'll be asked whether you want to reload these values. This tool runs completely on the client-side using Javascript, so your data never leaves your computer. Your values <span class="underline">are not</span> transmitted to any server and are only stored locally on your machine.</p>
+  <p>Your entered values are saved automatically locally in your browser storage. So when you come back to this page later, you'll be asked whether you want to reload these values. This tool runs completely on the client-side using Javascript, so your data never leaves your computer. Your values are not transmitted to any server and are only stored locally on your machine.</p>
   
   <h3>Optional Keywords</h3>
   <table class="tg">

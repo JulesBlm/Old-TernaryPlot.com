@@ -8,11 +8,14 @@
 import d3 from 'd3';
 import Handsontable from 'handsontable';
 import swal from 'sweetalert';
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 // import './ternary.v3';
 import { Draw, Parse, clearLabels } from './DrawParse';
 
 import '../css/style.scss';
 import 'handsontable/dist/handsontable.full.min.css';
+
+OfflinePluginRuntime.install();
 
 // Don't show intro popup within 2 days of a visit
 if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
@@ -56,12 +59,11 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
     colHeaders: placeholder,
     columns: HOTcolumns,
     fixedRowsTop: 1,
-    // manualColumnMove: true,
-    manualRowMove: true,
     rowHeaders: true,
     minRows: 60,
     height: 330,
     width: initialTableSize,
+    manualRowMove: true,
     dropdownMenu: true,
     manualColumnResize: true,
     licenseKey: 'non-commercial-and-evaluation',
@@ -292,17 +294,20 @@ clearAreasButton.addEventListener('mouseover', () => {
   }, timeOutTime);
 });
 
-const clearLabelsButton = document.getElementById('clearLabels');
-clearLabelsButton.addEventListener('click', clearLabels);
-// Show linethrough vertex labels for short while when hovering over clear Labels button
-clearLabelsButton.addEventListener('mouseover', () => {
-  d3.selectAll('.vertex-label')
-    .attr('text-decoration', 'line-through');
+const clearLabelsButtons = document.querySelectorAll('.clearLabels');
+clearLabelsButtons.forEach((clearLabelsButton) => {
+  clearLabelsButton.addEventListener('click', clearLabels);
 
-  setTimeout(() => {
+  // Show linethrough vertex labels for short while when hovering over clear Labels button
+  clearLabelsButton.addEventListener('mouseover', () => {
     d3.selectAll('.vertex-label')
-      .attr('text-decoration', 'none');
-  }, timeOutTime);
+      .attr('text-decoration', 'line-through');
+
+    setTimeout(() => {
+      d3.selectAll('.vertex-label')
+        .attr('text-decoration', 'none');
+    }, timeOutTime);
+  });
 });
 
 const clearAllButton = document.getElementById('clearAll');

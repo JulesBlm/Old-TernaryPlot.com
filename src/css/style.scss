@@ -1,4 +1,4 @@
-.bmc-button img{
+.bmc-button img {
   width: 27px !important;
   margin-bottom: 1px !important;
   box-shadow: none !important;
@@ -6,7 +6,8 @@
   vertical-align: middle !important;
 }
 
-.bmc-button{line-height: 36px !important;
+.bmc-button{
+  line-height: 36px !important;
   height:37px !important;
   text-decoration: none !important;
   display:inline-flex !important;
@@ -25,7 +26,18 @@
   box-sizing: border-box !important;
   -o-transition: 0.3s all linear !important;
   -webkit-transition: 0.3s all linear !important;
-  -moz-transition: 0.3s all linear !important;-ms-transition: 0.3s all linear !important;transition: 0.3s all linear !important;}.bmc-button:hover, .bmc-button:active, .bmc-button:focus {-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;text-decoration: none !important;box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;opacity: 0.85 !important;color:#ffffff !important;}
+  -moz-transition: 0.3s all linear !important;
+  -ms-transition: 0.3s all linear !important;
+  transition: 0.3s all linear !important;
+}
+
+.bmc-button:hover, .bmc-button:active, .bmc-button:focus {
+  -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+  text-decoration: none !important;
+  box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+  opacity: 0.85 !important;
+  color:#ffffff !important;
+}
 
 /* ------ Ternary ------ */
 .ternary-circle{
@@ -388,8 +400,13 @@ hr {
 }
 
 .margin-main {
-  margin: 5vh 10vw;
-  min-height: calc(100vh - var(--footer-height) - var(--header-height) - 10vh);  
+  margin: 5vh auto;
+  min-height: calc(100vh - var(--footer-height) - var(--header-height) - 10vh);
+  max-width: 1200px;
+}
+
+#intro p {
+  max-width: 1200px;
 }
 
 /* -----HOTable----- */
@@ -464,7 +481,6 @@ footer {
   }
 
   header {
-    // width: 550px; // TEMPORARILY!
     width: 100%;
     flex-shrink: 0;
     height: 65px;

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OfflinePlugin = require('offline-plugin');
 // const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
@@ -24,10 +25,19 @@ module.exports = {
     rules: [
       {
         test: /\.scss|css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader!sass-loader',
-        }),
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it uses publicPath in webpackOptions.output
+              publicPath: '../',
+              hmr: process.env.NODE_ENV === 'development',
+            },
+          },
+          'css-loader',
+          'sass-loader',
+        ],
       },
     ],
   },
@@ -43,7 +53,10 @@ module.exports = {
     }),
     // Ignore all locale files of moment.js
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new ExtractTextPlugin('../css/style.css'),
+    new MiniCssExtractPlugin({
+      filename: '../css/style.css',
+    }),
+    new OfflinePlugin(),
     // new CompressionPlugin({test: /\.js/})
   ],
 };
