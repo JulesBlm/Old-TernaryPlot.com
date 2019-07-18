@@ -10,4 +10,20 @@ function resize(t) {
   }
 }
 
-export { capitalize, resize };
+function removeTrailingElements(line) {
+  while (line[line.length - 1] === null || line[line.length - 1] === '') { // While the last element is a null or empty string
+    line.pop(); // Remove that last element
+  }
+  return line;
+}
+
+function getDrawArray(line) {
+  const drawArray = [];
+  line.forEach((point) => {
+    const pointValues = Object.values(point);
+    drawArray.push([pointValues[0], pointValues[2], pointValues[1]]); // d3.ternary wants the values swapped ¯\_(ツ)_/¯
+  });
+  return drawArray;
+}
+
+export { capitalize, resize, removeTrailingElements, getDrawArray };

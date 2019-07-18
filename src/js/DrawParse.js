@@ -1,10 +1,13 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
 /* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
 import d3 from 'd3';
 import swal from 'sweetalert';
 import './ternary.v3';
-import { resize, capitalize } from './helpers';
+import {
+ resize, capitalize, removeTrailingElements, getDrawArray,
+} from './helpers';
 
 const graticule = d3.ternary.graticule()
   .majorInterval(0.2)
@@ -46,8 +49,7 @@ function checkColumns(columnNames) {
     if (!labelsAdded) { addVertexLabels({ columns: columnNames }); labelsAdded = true; }
   } else if (JSON.stringify(columnNames.slice(0, 3)) !== JSON.stringify(columns)) {
     const labelsMessage = document.createElement('div');
-    labelsMessage.innerHTML = `The current columns names are '${columns}' and you're now trying to plot data with columns '${columnNames.slice(0, 3)}'. Your data will still be plotted, but it might not appear the way you intended. <br> Try clicking the <input type="button" id="specialClearLabels" aria-label="Remove Labels" value="Remove Labels"> button and plotting again.`;
-   
+    labelsMessage.innerHTML = `The current labels are '${columns}' and you're now trying to plot data with columns '${columnNames.slice(0, 3)}'. Your data will still be plotted, but it might not appear the way you intended. <br> Try clicking the <input type="button" id="specialClearLabels" aria-label="Remove Labels" value="Remove Labels"> button and plotting again.`;
     swal({
       title: 'Your columns names entered in the Points, Lines and Areas tables don\'t seem to match',
       content: labelsMessage,
@@ -111,19 +113,16 @@ const Parse = {
 
   Points(data) {
     let rows = data;
-    const columnsArray = rows.shift();
+    let columnsArray = rows.shift();
 
     checkColumns(columnsArray);
 
     // Remove trailing empty strings and nulls from line array
-    rows.map((line) => {
-      while (line[line.length - 1] === null || line[line.length - 1] === '') { // While the last element is a null or empty string
-        line.pop(); // Remove that last element
-      }
-      return line;
-    });
+    rows.map(line => removeTrailingElements(line));
 
     // Remove trailing empty strings and nulls from columns array
+    columnsArray = removeTrailingElements(columnsArray);
+
     while (columnsArray[columnsArray.length - 1] === null || columnsArray[columnsArray.length - 1] === '') { // While the last element is a null or empty string
       columnsArray.pop(); // Remove that last element
     }
@@ -136,8 +135,7 @@ const Parse = {
     const objectsArray = rows.map((line) => {
       const point = columnsArray.reduce((result, column, i) => {
         const pointValue = result;
-        pointValue[column.toLowerCase()] = line[i];
-        // console.log('2. point value', pointValue);
+        pointValue[column.toString().toLowerCase()] = line[i];
         return pointValue;
       }, {});
       return point;
@@ -148,27 +146,21 @@ const Parse = {
 
   LinesAreas(data) {
     const rows = data;
-    const columnsArray = rows.shift();
+    let columnsArray = rows.shift();
 
     checkColumns(columnsArray);
 
     // Remove trailing empty strings and nulls from line array
-    rows.map((line) => {
-      while (line[line.length - 1] === null || line[line.length - 1] === '') { // While the last element is a null or empty string
-        line.pop(); // Remove that last element
-      }
-      return line;
-    });
+    rows.map(line => removeTrailingElements(line));
 
     // Remove trailing empty strings and nulls from columns array
-    while (columnsArray[columnsArray.length - 1] === null || columnsArray[columnsArray.length - 1] === '') { // While the last element is a null or empty string
-      columnsArray.pop(); // Remove that last element
-    }
+    columnsArray = removeTrailingElements(columnsArray);
 
     const linesToDraw = [];
     let drawLine = [];
 
     // Loop over rows array
+    // rows.forEach(point => {})
     for (const point of rows) {
       if (point.length !== 0) {
         drawLine.push(point); // Add to drawLine
@@ -206,6 +198,7 @@ const Draw = {
     areaOpacity: 0.2,
   },
 
+  // Set listeners for selection of default draw properties
   setListeners() {
     document.querySelector('#defaultColorPoints').onchange = ({ target }) => { Draw.defaults.pointColor = target.value; };
     document.querySelector('select[name=\'defaultShape\']').onchange = ({ target }) => { Draw.defaults.pointShape = target.value; };
@@ -270,12 +263,7 @@ const Draw = {
     paths.enter().append('path')
       .attr('class', 'ternary-line')
       .attr('d', (line) => {
-        const drawArray = [];
-        // Loop over each point in line and add to drawarray because d3 path wants it that way
-        line.forEach((point) => {
-          const pointValues = Object.values(point);
-          drawArray.push([pointValues[0], pointValues[2], pointValues[1]]); // d3.ternary wants the values swapped ¯\_(ツ)_/¯
-        });
+        const drawArray = getDrawArray(line);
         return ternary.path(drawArray);
       })
       .attr('stroke-dasharray', line => (line[0].linestyle ? strokedashDict[line[0].linestyle] : Draw.defaults.lineStyle)) // (line[0].linestyle).trim()
@@ -284,7 +272,7 @@ const Draw = {
       .attr('fill-opacity', '0') // So no inside fill shows up inside lines in Adobe Illustrator
       .attr('stroke-width', line => (line[0].strokewidth ? line[0].strokewidth : Draw.defaults.lineStrokewidth))
       .append('title') // 🤔 Would there be a way to not append a title if there is none?
-      .text(line => (line[0].title ? capitalize((line[0].title).trim()) : undefined)); // Object.values(e).slice(0,3).join(', ')
+        .text(line => (line[0].title ? capitalize(((line[0].title)).toString().trim()) : '')); // Object.values(e).slice(0,3).join(', ')
   },
 
   // Takes in data entered in the Areas Table and draws them onto the Ternary Plot
@@ -296,11 +284,7 @@ const Draw = {
     paths.enter().append('path')
       .attr('class', 'ternary-area')
       .attr('d', (line) => {
-        const drawArray = [];
-        line.forEach((point) => {
-          const pointValues = Object.values(point);
-          drawArray.push([pointValues[0], pointValues[2], pointValues[1]]); // d3.ternary wants the values swapped ¯\_(ツ)_/¯
-        });
+        const drawArray = getDrawArray(line);
         return ternary.area(drawArray);
       })
       .attr('z-index', -1)
