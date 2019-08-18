@@ -25,28 +25,27 @@
   },
   "devDependencies": {
     "compression-webpack-plugin": "^3.0.0",
-    "css-loader": "^3.0.0",
-    "eslint": "^6.0.1",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "mini-css-extract-plugin": "^0.7.0",
+    "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5",
-    "webpack-dev-server": "^3.7.2",
+    "sass-loader": "^7.2.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
     "d3": "^3.5.17",
-    "handsontable": "7.1.0",
+    "handsontable": "^7.1.1",
     "offline-plugin": "^5.0.7",
     "reveal.js": "^3.8.0",
     "reveal_external": "^1.3.0",
     "reveald3": "^1.5.4",
-    "sweet-alert": "^2.0.5",
     "sweetalert": "^2.1.2"
   }
 }

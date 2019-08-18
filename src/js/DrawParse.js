@@ -123,10 +123,6 @@ const Parse = {
     // Remove trailing empty strings and nulls from columns array
     columnsArray = removeTrailingElements(columnsArray);
 
-    while (columnsArray[columnsArray.length - 1] === null || columnsArray[columnsArray.length - 1] === '') { // While the last element is a null or empty string
-      columnsArray.pop(); // Remove that last element
-    }
-
     // Filter all empty line arrays
     rows = rows.filter(arr => arr.length !== 0);
 
@@ -160,7 +156,7 @@ const Parse = {
     let drawLine = [];
 
     // Loop over rows array
-    // rows.forEach(point => {})
+    // TODO: Use a more functional approach for this with .forEach(point => {}) or .map(point => {})
     for (const point of rows) {
       if (point.length !== 0) {
         drawLine.push(point); // Add to drawLine
@@ -212,8 +208,8 @@ const Draw = {
     document.querySelector('select[name=\'defaultAreaOpacity\']').onchange = ({ target }) => { Draw.defaults.areaOpacity = target.value; };
   },
 
-  Points(d) {
-    const values = d.slice([0, 3]);
+  Points(tableValues) {
+    const values = tableValues.slice([0, 3]); // Take only first three columns of table
     const symbol = d3.svg.symbol();
 
     const points = ternary.plot()
@@ -245,10 +241,10 @@ const Draw = {
         });
   },
 
-  Lines(d) {
+  Lines(tableValues) {
     const paths = ternary.plot()
       .selectAll('.line')
-      .data(d);
+      .data(tableValues);
 
     const strokedashDict = {
       'dotted': '3 2',
@@ -276,10 +272,10 @@ const Draw = {
   },
 
   // Takes in data entered in the Areas Table and draws them onto the Ternary Plot
-  Areas(d) {
+  Areas(tableValues) {
     const paths = ternary.plot()
       .selectAll('.area')
-      .data(d);
+      .data(tableValues);
 
     paths.enter().append('path')
       .attr('class', 'ternary-area')
@@ -291,7 +287,7 @@ const Draw = {
       .attr('fill', area => (area[0].color ? (area[0].color).trim() : Draw.defaults.areaColor))
       .attr('fill-opacity', area => (area[0].opacity ? area[0].opacity : 0.5))
       .append('title')
-      .text(area => (area[0].title ? capitalize((area[0].title).trim()) : undefined));
+       .text(area => (area[0].title ? capitalize((area[0].title).toString().trim()) : undefined));
   },
 
 };

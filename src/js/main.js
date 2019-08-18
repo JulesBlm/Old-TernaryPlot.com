@@ -95,6 +95,7 @@ const pointColumns = [
   {},
 ];
 
+/* Points Table */
 
 const pointsPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Shape', 'Size', 'Opacity', 'Title'];
 const pointsLabels = pointsPlaceholder.slice(0, 3);
@@ -109,6 +110,8 @@ Handsontable.dom.addEvent(submitPointsButton, 'submit', (e) => {
   const parsedPoints = Parse.Points(pointsTable.getData());
   Draw.Points(parsedPoints);
 });
+
+/* Lines Table */
 
 const linesPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Linestyle', 'Strokewidth', 'Title'];
 const linesLabels = linesPlaceholder.slice(0, 3);
@@ -135,6 +138,8 @@ Handsontable.dom.addEvent(submitLinesButton, 'submit', (e) => {
   Draw.Lines(parsedLines);
 });
 
+/* Lines Table */
+
 const areasPlaceholder = ['Variable 1', 'Variable 2', 'Variable 3', 'Color', 'Opacity', 'Title'];
 const areaLabels = areasPlaceholder.slice(0, 3);
 
@@ -156,44 +161,9 @@ Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
   Draw.Areas(parsedAreas);
 });
 
-let pointsData = [
-  ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
-  [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
-  [1, 0, 0],
-  [0, 1, 0],
-  [0, 0, 1],
-  [0.2, 0.5, 0.3, 'coral',, 800, 0.5, 'Half opacity big point'],
-  [0.3, 0.1, 0.6, 'magenta', 'cross'],
-  [0.5, 0.5, 0, '#d1b621', 'diamond'],
-  [0.6, 0.2, 0.2, 'peru', 'triangle-up'],
-];
+/* Load sample or no data */
 
-let linesData = [
-  ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Linestyle', 'Strokewidth', 'Title'],
-  [0.2, 0.8, 0, 'orangered', 'dot-dash', 2, 'Dotted line #1'],
-  [0.8, 0, 0.2],
-  [],
-  [0.1, 0.1, 0.8, 'slateblue'],
-  [0.4, 0.1, 0.5],
-  [0, 0, 1],
-];
-
-let areasData = [
-  ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Opacity', 'Title'],
-  [0, 0.5, 0.5, 'palegreen', 0.1, 'More than 50% silt'],
-  [0.5, 0.5, 0],
-  [0, 1, 0],
-  [],
-  [0.5, 0, 0.5, 'moccasin', 0.4, 'More than 50% sand'],
-  [0.5, 0.5, 0],
-  [1, 0, 0],
-  [],
-  [0, 0.5, 0.5, 'coral', 0.3, 'More than 50% clay'],
-  [0.5, 0, 0.5],
-  [0, 0, 1],
-];
-
-const loadDataToTables = () => {
+const loadDataToTables = (pointsData, linesData, areasData) => {
   pointsTable.loadData(pointsData);
   linesTable.loadData(linesData);
   areasTable.loadData(areasData);
@@ -234,28 +204,69 @@ if (localStorage.getItem('pointsTable')) {
   });
   // Ask wether to load localStorage data or to load sample data
   storagePrompt.then((result) => {
+
     if (result === 'ok') {
-      pointsData = JSON.parse(localStorage.getItem('pointsTable'));
-      linesData = JSON.parse(localStorage.getItem('linesTable'));
-      areasData = JSON.parse(localStorage.getItem('areasTable'));
+      const pointsData = JSON.parse(localStorage.getItem('pointsTable'));
+      const linesData = JSON.parse(localStorage.getItem('linesTable'));
+      const areasData = JSON.parse(localStorage.getItem('areasTable'));
+      loadDataToTables(pointsData, linesData, areasData);
     } else if (result === 'empty') {
-      pointsData = [pointsPlaceholder];
-      linesData = [linesPlaceholder];
-      areasData = [areasPlaceholder];
+      const pointsData = [pointsPlaceholder];
+      const linesData = [linesPlaceholder];
+      const areasData = [areasPlaceholder];
+      loadDataToTables(pointsData, linesData, areasData);
     }
-    loadDataToTables();
   });
 } else {
   // First time here so load sample data
-  loadDataToTables();
+  const pointsData = [
+    ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
+    [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1],
+    [0.2, 0.5, 0.3, 'coral',, 800, 0.5, 'Half opacity big point'],
+    [0.3, 0.1, 0.6, 'magenta', 'cross'],
+    [0.5, 0.5, 0, '#d1b621', 'diamond'],
+    [0.6, 0.2, 0.2, 'peru', 'triangle-up'],
+  ];
+  const linesData = [
+    ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Linestyle', 'Strokewidth', 'Title'],
+    [0.2, 0.8, 0, 'orangered', 'dot-dash', 2, 'Dotted line #1'],
+    [0.8, 0, 0.2],
+    [],
+    [0.1, 0.1, 0.8, 'slateblue'],
+    [0.4, 0.1, 0.5],
+    [0, 0, 1],
+  ];
+  const areasData = [
+    ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Opacity', 'Title'],
+    [0, 0.5, 0.5, 'palegreen', 0.1, 'More than 50% silt'],
+    [0.5, 0.5, 0],
+    [0, 1, 0],
+    [],
+    [0.5, 0, 0.5, 'moccasin', 0.4, 'More than 50% sand'],
+    [0.5, 0.5, 0],
+    [1, 0, 0],
+    [],
+    [0, 0.5, 0.5, 'coral', 0.3, 'More than 50% clay'],
+    [0.5, 0, 0.5],
+    [0, 0, 1],
+  ];
+
+  loadDataToTables(pointsData, linesData, areasData);
 }
 
 const timeOutTime = 600;
 
 Draw.setListeners();
 
-/* function (id) => (action) =>
-document.getElementById(id)
+/*
+const setListenerAction = (id) => (event) => (action) => {
+  const element = document.getElementById(id)
+  console.log(element)
+  events.forEach((event, i) => element.addEventListener(event, actions[i]) )
+}
 */
 
 const clearPointsButton = document.getElementById('clearPoints');
@@ -376,7 +387,6 @@ clearAreasTablesButton.addEventListener('click', () => {
   warnEmptyTable([areasTable], 'the areas table.');
 });
 
-// onclick="this.parentNode.style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear;'; "
 
 /* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 and between 0 to 1.0 for opacity */
 // Handsontable.validators.registerValidator('check100', check100);
