@@ -4,12 +4,12 @@ The source code for my side project: [TernaryPlot.com](http://www.ternaryplot.co
 
 Feel free to contact me if you have any questions or comments. Pull requests are
 
-## To-do
+## To Do
 
+0. Generate legend feature
 1. Decrease bundle size
-    * use hot-builder to build lightweigh HandsOnTable package
     * Rewrite d3-ternary to d3 v5 and import only necessary d3 modules
-2. Use HandsOnTable validators
+2. Use HandsOnTable validators to validate input
 3. Show warning when top row is not entered correctly
 6. Don't make top row of numeric columns numeric type so cell won't turn red for column titles
 7. Better CSS, allow tables to become wider on very wide screens
