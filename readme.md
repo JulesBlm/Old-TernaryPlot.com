@@ -1,14 +1,15 @@
-# Ternary plot maker
+# TernaryPlot.com
 
 The source code for my side project: [TernaryPlot.com](http://www.ternaryplot.com). A single purpose website to quickly and freely generate ternary plots. A ternary plot is a somewhat obscure diagram often used in geology, soil sciences, metallurgy, biolody and chemical engineering. The quickest option available for makint ternary plots was with Excel templates, which in my opinion are inflexible and produce ugly plots. Some R and Python libraries exist for this purpose but these are harder to use and require installing R and Python (of course). That's why I made a tool for personal use, and later decided to develop into something slicker and with more options.
 
-Feel free to contact me if you have any questions or comments. Pull requests are
+Feel free to contact me if you have any questions or comments. Pull requests are very welcome!
 
 ## To Do
 
-0. Generate legend feature
+0. Button to generate legend from point, lines, areas, that have a title
 1. Decrease bundle size
     * Rewrite d3-ternary to d3 v5 and import only necessary d3 modules
+1. Add a slider like [this Observable](https://observablehq.com/@yurivish/ternary-slider)
 2. Use HandsOnTable validators to validate input
 3. Show warning when top row is not entered correctly
 6. Don't make top row of numeric columns numeric type so cell won't turn red for column titles
@@ -17,7 +18,7 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 11. Use [d3 selection raise](https://github.com/d3/d3-selection#selection_raise) to bring points in front of areas on hover
 12. Lock columns titles and use columns properties in HandsOnTable
 13. Bring drawn points to front if areas are plotted over them https://codepen.io/osublake/pen/YXoEQe 
-15. Clean explain page code
+15. Clean explain page code, maybe use MDX-slide?
 16. Make option to add rows
 
 
