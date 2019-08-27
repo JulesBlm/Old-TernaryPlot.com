@@ -9,7 +9,7 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 0. Button to generate legend from point, lines, areas, that have a title
 1. Decrease bundle size
     * Rewrite d3-ternary to d3 v5 and import only necessary d3 modules
-1. Add a slider like [this Observable](https://observablehq.com/@yurivish/ternary-slider)
+1. Add a slider like [this Observable](https://observablehq.com/@yurivish/ternary-slider), and add said slider to explanation page
 2. Use HandsOnTable validators to validate input
 3. Show warning when top row is not entered correctly
 6. Don't make top row of numeric columns numeric type so cell won't turn red for column titles
