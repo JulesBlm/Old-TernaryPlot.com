@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable no-eval */
 /* eslint-disable max-len */
 /* eslint-disable no-restricted-syntax */
@@ -18,7 +19,7 @@ import 'handsontable/dist/handsontable.full.min.css';
 OfflinePluginRuntime.install();
 
 // Don't show intro popup within 2 days of a visit
-if (document.cookie.split(';').filter(item => item.includes('visited=true')).length) {
+if (document.cookie.split(';').filter((item) => item.includes('visited=true')).length) {
   document.querySelector('#intro').remove(); // style = 'visibility: hidden; opacity: 0;transition: visibility 0s linear 0.15s, opacity 0.15s linear';
 } else {
   const removeIntroButton = document.getElementById('closeIntro');
@@ -169,56 +170,8 @@ const loadDataToTables = (pointsData, linesData, areasData) => {
   areasTable.loadData(areasData);
 };
 
-/* TODO: Code this part better */
-// Check if there is something in localStorage
-if (localStorage.getItem('pointsTable')) {
-  const hereBeforeMessage = document.createElement('div');
-  hereBeforeMessage.innerHTML = '<p>If you have found this site to be useful consider<a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a><a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buying me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a></p><hr><p><strong>Do you wan\'t to load your previously entered data into the tables? </strong></p>';
 
-  const storagePrompt = swal({
-    title: 'You\'ve been here before!',
-    content: hereBeforeMessage,
-    buttons: {
-      sample: {
-        text: 'No, show sample data',
-        value: null,
-        visible: true,
-        className: 'show-sample',
-        closeModal: true,
-      },
-      empty: {
-        text: 'No, empty the tables',
-        value: 'empty',
-        visible: true,
-        className: 'show-empty',
-        closeModal: true,
-      },
-      load: {
-        text: 'Yes, load previous data',
-        value: 'ok',
-        visible: true,
-        className: 'load-old',
-        closeModal: true,
-      },
-    },
-  });
-  // Ask wether to load localStorage data or to load sample data
-  storagePrompt.then((result) => {
-
-    if (result === 'ok') {
-      const pointsData = JSON.parse(localStorage.getItem('pointsTable'));
-      const linesData = JSON.parse(localStorage.getItem('linesTable'));
-      const areasData = JSON.parse(localStorage.getItem('areasTable'));
-      loadDataToTables(pointsData, linesData, areasData);
-    } else if (result === 'empty') {
-      const pointsData = [pointsPlaceholder];
-      const linesData = [linesPlaceholder];
-      const areasData = [areasPlaceholder];
-      loadDataToTables(pointsData, linesData, areasData);
-    }
-  });
-} else {
-  // First time here so load sample data
+const loadSampleData = () => {
   const pointsData = [
     ['1. Sand', '2. Silt', '3. Clay', 'Color', 'Shape', 'Size', 'Opacity', 'Title'],
     [0.3, 0.3, 0.4, 'limegreen', , , 1, 'Sample Nr 1'],
@@ -253,9 +206,76 @@ if (localStorage.getItem('pointsTable')) {
     [0.5, 0, 0.5],
     [0, 0, 1],
   ];
-
   loadDataToTables(pointsData, linesData, areasData);
+};
+
+/* TODO: Code this part better */
+// Check if there is something in localStorage
+if (localStorage.getItem('pointsTable')) {
+  const hereBeforeMessage = document.createElement('div');
+  hereBeforeMessage.innerHTML = `
+    <p>If you have found this site to be useful consider</p>
+    <div class='donate-buttons'>
+      <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a>
+      <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI">
+        <img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buying me a coffee">
+        <span style="margin-left:5px">Buy me a coffee</span>
+      </a>
+    </div>
+    <hr>
+    <p>
+      <strong>Do you wan't to load your previously entered data into the tables?</strong>
+    </p>
+  `;
+
+  const storagePrompt = swal({
+    title: 'You\'ve been here before!',
+    content: hereBeforeMessage,
+    buttons: {
+      sample: {
+        text: 'No, show sample data',
+        value: null,
+        visible: true,
+        className: 'show-sample',
+        closeModal: true,
+      },
+      empty: {
+        text: 'No, empty the tables',
+        value: 'empty',
+        visible: true,
+        className: 'show-empty',
+        closeModal: true,
+      },
+      load: {
+        text: 'Yes, load previous data',
+        value: 'ok',
+        visible: true,
+        className: 'load-old',
+        closeModal: true,
+      },
+    },
+  });
+  // Ask wether to load localStorage data or to load sample data
+  storagePrompt.then((result) => {
+    if (result === 'ok') {
+      const pointsData = JSON.parse(localStorage.getItem('pointsTable'));
+      const linesData = JSON.parse(localStorage.getItem('linesTable'));
+      const areasData = JSON.parse(localStorage.getItem('areasTable'));
+      loadDataToTables(pointsData, linesData, areasData);
+    } else if (result === 'empty') {
+      const pointsData = [pointsPlaceholder];
+      const linesData = [linesPlaceholder];
+      const areasData = [areasPlaceholder];
+      loadDataToTables(pointsData, linesData, areasData);
+    } else if (!result) {
+      loadSampleData();
+    }
+  });
+} else {
+  // First time here so load sample data
+  loadSampleData();
 }
+
 
 const timeOutTime = 600;
 
