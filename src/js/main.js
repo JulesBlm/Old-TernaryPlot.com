@@ -209,7 +209,6 @@ const loadSampleData = () => {
   loadDataToTables(pointsData, linesData, areasData);
 };
 
-/* TODO: Code this part better */
 // Check if there is something in localStorage
 if (localStorage.getItem('pointsTable')) {
   const hereBeforeMessage = document.createElement('div');
@@ -280,6 +279,52 @@ if (localStorage.getItem('pointsTable')) {
 const timeOutTime = 600;
 
 Draw.setListeners();
+
+/* function makeLegend() {
+  console.group("gen Legend");
+  const parsedPoints = Parse.Points(pointsTable.getData());
+  // get title and marker/symbol
+  const pointLegenditems = parsedPoints
+    .filter(({ title }) => title)
+    .map(({ title, shape }) => ({ title, shape: shape || "circle" })); // TODO default shape instead of circle
+
+  const parsedLines = Parse.LinesAreas(linesTable.getData())
+  const lineLegenditems = parsedLines
+    .filter(({ title }) => title)
+    .map(({ title, linestyle }) => ({ title, linestyle: linestyle || "none" })); // TODO default linestyle instead of none
+
+  const parsedAreas = Parse.LinesAreas(areasTable.getData());
+  const areaLegenditems = parsedAreas
+    .filter(({ title }) => title)
+    .map(({ title, color, opacity }) => ({ title, color: color || "black", opacity: opacity || 1 })); // TODO default color instead of black
+
+  const legendItems = [...pointLegenditems, ...lineLegenditems, ...areaLegenditems];
+
+  // !!SELECT EXISTING LEGEND IF ALREADY MAKELEGENDEDED
+  const legend = d3.select("#ternary-plot").append("g")
+    .attr("class", "legend")
+    .attr("transform", "translate(5, 10)");
+
+  console.log(legendItems)
+
+  legend.append("text")
+    .attr("text-decoration", "underline")
+    .text("Legend");
+
+  const legendSpacingY = 20;
+
+  console.log(legendItems)
+
+  legend.selectAll("text")
+    .data(legendItems)
+    .enter().append("text") 
+    .attr("transform", (_d, index) => {console.log(_d, index); return `translate(0,${(index + 1) * legendSpacingY})`})
+    .text((d) => d.title)
+    .attr("font-size", "1em");
+} */
+
+// const makeLegendButton = document.getElementById('makeLegend');
+// makeLegendButton.addEventListener('click', () => makeLegend());
 
 /*
 const setListenerAction = (id) => (event) => (action) => {

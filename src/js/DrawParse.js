@@ -27,7 +27,7 @@ const ternary = d3.ternary.plot()
 let labelsAdded = false;
 let columns;
 
-const reserved = ['colour', 'color', 'shape', 'linestyle', 'title', 'opacity'];
+const reserved = ['colour', 'color', 'shape', 'linestyle', 'title', 'opacity', 'strokewidth', 'opacity'];
 
 function addVertexLabels(f) {
   const cols = (f.columns).slice(0, 3);
@@ -60,36 +60,34 @@ function checkColumns(columnNames) {
     specialClearLabel.addEventListener('click', clearLabels);
   }
   // Check for reserved keywords in column names
-  columns.some((key) => {
-    if (reserved.includes(key.toLowerCase())) {
-      return swal('Reserved column name', `You can't use any of the following names as your columns names: ${reserved.join(', ')}`, 'error');
-    }
-  });
+  columns
+    .filter((key) => reserved.includes(key.toLowerCase()))
+    .some(() => { return swal('Reserved column name', `You can't use any of the following names as your columns names (i.e. the first three columns): ${reserved.join(', ')}`, 'error'); });
 }
 
 function showHelpLines(e) {
-  let pointValues = Object.values(e);
-  pointValues = [pointValues[0], pointValues[2], pointValues[1]];
+  const [a, b, c] = Object.values(e);
+  const pointValues = [a, c, b];
 
   // Its ugly but it works is my motto for programming
   const helpLinesArray = [
     [pointValues,
       [
         0,
-        parseFloat(pointValues[0]) + parseFloat(pointValues[1]),
-        parseFloat(pointValues[2])],
+        parseFloat(a) + parseFloat(c),
+        parseFloat(b)],
     ],
     [pointValues,
       [
-        parseFloat(pointValues[0]),
+        parseFloat(a),
         0,
-        parseFloat(pointValues[1]) + parseFloat(pointValues[2]),
+        parseFloat(c) + parseFloat(b),
       ],
     ],
     [pointValues,
       [
-        parseFloat(pointValues[0]) + parseFloat(pointValues[2]),
-        parseFloat(pointValues[1]),
+        parseFloat(a) + parseFloat(b),
+        parseFloat(c),
         0,
       ],
     ],
@@ -102,7 +100,7 @@ function showHelpLines(e) {
   // I could (should?) use the linesToDraw function but that one is geared towards the submmittedLines format and this is easier🤗
   helpLines.enter().append('path')
     .attr('class', 'help-line')
-    .attr('d', line => ternary.path(line))
+    .attr('d', (line) => ternary.path(line))
     .attr('stroke-dasharray', '3, 3, 3')
     .attr('stroke', 'black')
     .attr('stroke-width', '1px')
@@ -118,14 +116,15 @@ const Parse = {
     checkColumns(columnsArray);
 
     // Remove trailing empty strings and nulls from line array
-    rows.map(line => removeTrailingElements(line));
+    rows.map((line) => removeTrailingElements(line));
 
     // Remove trailing empty strings and nulls from columns array
     columnsArray = removeTrailingElements(columnsArray);
 
     // Filter all empty line arrays
-    rows = rows.filter(arr => arr.length !== 0);
+    rows = rows.filter((arr) => arr.length !== 0);
 
+    // TODO: Rewrite this monster
     // Construct array of object with properties for drawing
     // Its ugly but it works ¯\_(ツ)_/¯
     const objectsArray = rows.map((line) => {
@@ -147,7 +146,7 @@ const Parse = {
     checkColumns(columnsArray);
 
     // Remove trailing empty strings and nulls from line array
-    rows.map(line => removeTrailingElements(line));
+    rows.map((line) => removeTrailingElements(line));
 
     // Remove trailing empty strings and nulls from columns array
     columnsArray = removeTrailingElements(columnsArray);
@@ -156,7 +155,7 @@ const Parse = {
     let drawLine = [];
 
     // Loop over rows array
-    // TODO: Use a more functional approach for this with .forEach(point => {}) or .map(point => {})
+    // TODO: Use a more functional approach for this with .reduce(point => {}) or .map(point => {})
     for (const point of rows) {
       if (point.length !== 0) {
         drawLine.push(point); // Add to drawLine
@@ -218,26 +217,24 @@ const Draw = {
 
     points.enter().append('path')
       .attr('class', 'point')
-      .attr('fill', point => (point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : Draw.defaults.pointColor))) // both color and colour are valid
-      .attr('fill-opacity', point => (point.opacity ? point.opacity : 1))
+      .attr('fill', (point) => (point.color ? (point.color).trim() : (point.colour ? (point.colour).trim() : Draw.defaults.pointColor))) // both color and colour are valid
+      .attr('fill-opacity', ({ opacity }) => (opacity || 1))
       .attr('d', symbol
-        .type(point => (point.shape ? (point.shape).trim() : Draw.defaults.pointShape)) // use this?
-        .size(point => (point.size ? point.size : Draw.defaults.pointSize)))
+        .type(({ shape }) => (shape ? (shape).trim() : Draw.defaults.pointShape)) // use this?
+        .size(({ size }) => (size || Draw.defaults.pointSize)))
       .attr('transform', (point) => {
-        const pointValues = Object.values(point);
-        const myPointValues = [pointValues[0], pointValues[2], pointValues[1]];
-        const plotCoords = ternary.point(myPointValues); // Convert to barycentric coordinates
-        return `translate(${plotCoords[0]},${plotCoords[1]})`;
+        const [a, b, c] = Object.values(point);
+        const myPointValues = [a, c, b];
+        const [plotCoordA, plotCoordB] = ternary.point(myPointValues); // Convert to barycentric coordinates
+        return `translate(${plotCoordA},${plotCoordB})`;
       })
       .on('mouseover', showHelpLines)
       .on('mouseout', () => { d3.selectAll('.help-line').remove(); })
       .append('title')
         .text((point) => {
-          const entries = Object.entries(point);
-          if (entries) {
-            const valuesString = `${entries[0].join(': ')}\n${entries[1].join(': ')}\n${entries[2].join(': ')}`;
-            return point.title ? `${capitalize(point.title.trim())} \n ${valuesString}` : valuesString;
-          }
+          const [a, b, c] = Object.entries(point);
+          const valuesString = `${a.join(': ')}\n${b.join(': ')}\n${c.join(': ')}`;
+          return point.title ? `${capitalize(point.title.trim())}\n${valuesString}` : valuesString;
         });
   },
 
@@ -262,13 +259,14 @@ const Draw = {
         const drawArray = getDrawArray(line);
         return ternary.path(drawArray);
       })
-      .attr('stroke-dasharray', line => (line[0].linestyle ? strokedashDict[line[0].linestyle] : Draw.defaults.lineStyle)) // (line[0].linestyle).trim()
-      .attr('stroke', line => (line[0].color ? (line[0].color).trim() : (line[0].colour ? (line[0].colour).trim() : Draw.defaults.lineColor))) // both color and colour are valid
-      .attr('stroke-opacity', line => (line[0].opacity ? (line[0].opacity).trim() : 1))
+      .attr('stroke-dasharray', ([{ linestyle }]) => (linestyle ? strokedashDict[linestyle] : Draw.defaults.lineStyle)) // (line[0].linestyle).trim()
+      .attr('stroke', ([firstPoint]) => (firstPoint.color ? (firstPoint.color).trim() : (firstPoint[0].colour ? (firstPoint[0].colour).trim() : Draw.defaults.lineColor))) // both color and colour are valid
+      .attr('stroke-opacity', ([{ opacity }]) => (opacity ? (opacity).trim() : 1))
       .attr('fill-opacity', '0') // So no inside fill shows up inside lines in Adobe Illustrator
-      .attr('stroke-width', line => (line[0].strokewidth ? line[0].strokewidth : Draw.defaults.lineStrokewidth))
-      .append('title') // 🤔 Would there be a way to not append a title if there is none?
-        .text(line => (line[0].title ? capitalize(((line[0].title)).toString().trim()) : '')); // Object.values(e).slice(0,3).join(', ')
+      .attr('stroke-width', ([{ strokewidth }]) => (strokewidth || Draw.defaults.lineStrokewidth))
+      .filter(([{ title }]) => title)
+      .append('title')
+        .text(([{ title }]) => capitalize((title).toString().trim())); // Object.values(e).slice(0,3).join(', ')
   },
 
   // Takes in data entered in the Areas Table and draws them onto the Ternary Plot
@@ -284,10 +282,11 @@ const Draw = {
         return ternary.area(drawArray);
       })
       .attr('z-index', -1)
-      .attr('fill', area => (area[0].color ? (area[0].color).trim() : Draw.defaults.areaColor))
-      .attr('fill-opacity', area => (area[0].opacity ? area[0].opacity : 0.5))
+      .attr('fill', ([firstLine]) => (firstLine.color ? (firstLine.color).trim() : (firstLine.colour ? (firstLine.colour).trim() : Draw.defaults.lineColor))) // both color and colour are valid
+      .attr('fill-opacity', ([{ opacity }]) => (opacity || 0.5))
+      .filter(([{ title }]) => title)
       .append('title')
-       .text(area => (area[0].title ? capitalize((area[0].title).toString().trim()) : undefined));
+        .text(([{ title }]) => capitalize((title).toString().trim() ));
   },
 
 };

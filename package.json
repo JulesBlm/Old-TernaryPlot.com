@@ -1,6 +1,6 @@
 {
   "name": "ternaryplot.com",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "The source code for my side project: [TernaryPlot.com](http://www.ternaryplot.com). A single purpose website to quickly and freely genreate ternary plots. A ternary plot is a somewhat obscure diagram often used in geology, soil sciences, metallurgy and chemical engineering. The quickest option available for making ternary plots was with Excel templates, which in my opinion are inflexible and produce ugly plots. Some R and Python libraries exist for this purpose but these are harder to use and require installing R and Python (of course). That's why I made this tool for personal use, and later decided to develop into something slicker and with more options.",
   "main": "./src/js/main.js",
   "homepage": "https://github.com/JulesBlm/TernaryPlot.com#readme",
@@ -26,17 +26,17 @@
   "devDependencies": {
     "compression-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
-    "eslint": "^6.2.2",
+    "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
-    "sass-loader": "^7.3.1",
+    "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {

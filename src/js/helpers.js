@@ -1,5 +1,5 @@
 function capitalize(word) {
-  return word.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase());
+  return word.toLowerCase().replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
 }
 
 function resize(t) {
@@ -20,8 +20,8 @@ function removeTrailingElements(line) {
 function getDrawArray(line) {
   const drawArray = [];
   line.forEach((point) => {
-    const pointValues = Object.values(point);
-    drawArray.push([pointValues[0], pointValues[2], pointValues[1]]); // d3.ternary wants the values swapped ¯\_(ツ)_/¯
+    const [a, b, c] = Object.values(point);
+    drawArray.push([a, c, b]); // d3.ternary wants the values swapped ¯\_(ツ)_/¯
   });
   return drawArray;
 }
