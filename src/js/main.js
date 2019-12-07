@@ -330,7 +330,7 @@ Draw.setListeners();
 const setListenerAction = (id) => (event) => (action) => {
   const element = document.getElementById(id)
   console.log(element)
-  events.forEach((event, i) => element.addEventListener(event, actions[i]) )
+  events.forEach((event, i) => element.addEventListener(event, (actions)()) )
 }
 */
 
