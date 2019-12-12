@@ -260,7 +260,9 @@ const Draw = {
         return ternary.path(drawArray);
       })
       .attr('stroke-dasharray', ([{ linestyle }]) => (linestyle ? strokedashDict[linestyle] : Draw.defaults.lineStyle)) // (line[0].linestyle).trim()
-      .attr('stroke', ([firstPoint]) => (firstPoint.color ? (firstPoint.color).trim() : (firstPoint[0].colour ? (firstPoint[0].colour).trim() : Draw.defaults.lineColor))) // both color and colour are valid
+      .attr('stroke', ([firstPoint]) => (firstPoint.color
+        ? (firstPoint.color).trim() : (firstPoint.colour
+          ? (firstPoint.colour).trim() : Draw.defaults.lineColor))) // both color and colour are valid
       .attr('stroke-opacity', ([{ opacity }]) => (opacity ? (opacity).trim() : 1))
       .attr('fill-opacity', '0') // So no inside fill shows up inside lines in Adobe Illustrator
       .attr('stroke-width', ([{ strokewidth }]) => (strokewidth || Draw.defaults.lineStrokewidth))
