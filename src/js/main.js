@@ -45,15 +45,25 @@ function clearAll() {
 function emptyCellRenderer(instance, td, row, col, prop, value) { // cellProperties
   Handsontable.renderers.TextRenderer.apply(this, arguments); //
 
-  if (value === null || value === '') {
-    td.style.background = '#efefef';
+  if (row > 0) {
+    if (value === null ||value === '') {
+      td.style.background = '#efefef';
+    }
   }
+}
+
+function firstRowRenderer(instance, td) { // row, col, prop, value, cellProperties
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
+  td.style.fontWeight = 'bold';
+  td.style.background = '#f0f8ff';
+  td.className = 'keep-blue';
 }
 
 const initialTableSize = (window.innerWidth > 500) ? 500 : window.innerWidth - 20;
 
 // maps function to lookup string
 Handsontable.renderers.registerRenderer('emptyCellRenderer', emptyCellRenderer);
+Handsontable.renderers.registerRenderer('firstRowRenderer', firstRowRenderer);
 
 function createHandsOnTable(ID, placeholder, HOTcolumns) {
   return new Handsontable(document.getElementById(ID), {
@@ -68,10 +78,15 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
     dropdownMenu: true,
     manualColumnResize: true,
     licenseKey: 'non-commercial-and-evaluation',
-    cells() { // row, col
+    cells(row) { // row, col
       const cellProperties = {};
       // const data = this.instance.getData();
-      cellProperties.renderer = 'emptyCellRenderer'; // uses lookup map
+      // console.log('cells, row', row);
+      if (row === 0) {
+        cellProperties.renderer = 'firstRowRenderer';
+      } else {
+        cellProperties.renderer = 'emptyCellRenderer'; // uses lookup map
+      }
       return cellProperties;
     },
     afterChange() {
@@ -80,7 +95,6 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
     },
   });
 }
-
 
 const pointColumns = [
   { type: 'numeric' },
@@ -398,7 +412,7 @@ clearAllButton.addEventListener('mouseover', () => {
     d3.selectAll('.ternary-line,.vertex-label,.ternary-area,.point')
       .attr('opacity', '1')
       .attr('text-decoration', 'none')
-      .attr('stroke-opacity', '1');
+    .attr('stroke-opacity', '1');
   }, timeOutTime);
 });
 

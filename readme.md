@@ -6,21 +6,18 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 
 ## To Do
 
-0. Button to generate legend from point, lines, areas, that have a title
+0. Download SVG button does not work for everyone apparantly
+1. Button to generate legend from point, lines, areas, that have a title
 1. Decrease bundle size
-    * Rewrite d3-ternary to d3 v5 and import only necessary d3 modules
+2. Rewrite d3-ternary to d3 v5 and import only necessary d3 modules
 1. Add a slider like [this Observable](https://observablehq.com/@yurivish/ternary-slider), and add said slider to explanation page
 2. Use HandsOnTable validators to validate input
 3. Show warning when top row is not entered correctly
-6. Don't make top row of numeric columns numeric type so cell won't turn red for column titles
 7. Better CSS, allow tables to become wider on very wide screens
-9. Don't use ID so many times to select buttons for eventlisteners.
-11. Use [d3 selection raise](https://github.com/d3/d3-selection#selection_raise) to bring points in front of areas on hover
-12. Lock columns titles and use columns properties in HandsOnTable
-13. Bring drawn points to front if areas are plotted over them https://codepen.io/osublake/pen/YXoEQe 
+11. Use [d3 selection raise](https://github.com/d3/d3-selection#selection_raise) to bring points in front of areas on hover or bring drawn points to front if areas are plotted over them [like this](https://codepen.io/osublake/pen/YXoEQe)
 15. Clean explain page code, maybe use MDX-slide?
+9. Don't use ID so many times to select buttons for eventlisteners.
 16. Make option to add rows
-
 
 ## Libraries used
 

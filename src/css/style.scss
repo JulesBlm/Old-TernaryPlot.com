@@ -68,7 +68,9 @@ tspan {
 }
 /* ------END Ternary ------ */
 
-::selection { background-color: #efa2a2; }
+::selection { 
+  background-color: #efa2a2;
+}
 
 :root {
   --red: #e56565;
@@ -114,14 +116,12 @@ html, body {
   }
 }
 
-
 code {
   padding: 2px 4px;
   font-size: 90%;
   background-color: #d9d9d9;
   border-radius: 3px;
 }
-
 
 .content {
   flex: 1 0 auto;
@@ -171,7 +171,6 @@ h1 {
 .underline {
   text-decoration: underline;
 }
-
 
 main > a {
   color: var(--red);
@@ -264,7 +263,6 @@ select {
   width: 100px;
   float: right;
 }
-
 
 .flex-item {
   min-height: 500px;
@@ -392,6 +390,11 @@ hr {
 tbody > tr:first-child > td {
   background-color: aliceblue !important;
 }
+
+.keep-blue {
+  background-color: aliceblue;
+}
+
 /* Donate Buttons */
 .donate-buttons {
   display: flex;
