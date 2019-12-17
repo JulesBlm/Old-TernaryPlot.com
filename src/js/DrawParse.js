@@ -49,7 +49,7 @@ function checkColumns(columnNames) {
     if (!labelsAdded) { addVertexLabels({ columns: columnNames }); labelsAdded = true; }
   } else if (JSON.stringify(columnNames.slice(0, 3)) !== JSON.stringify(columns)) {
     const labelsMessage = document.createElement('div');
-    labelsMessage.innerHTML = `The current labels are '${columns}' and you're now trying to plot data with columns '${columnNames.slice(0, 3)}'. Your data will still be plotted, but it might not appear the way you intended. <br> Try clicking the <input type="button" id="specialClearLabels" aria-label="Remove Labels" value="Remove Labels"> button and plotting again.`;
+    labelsMessage.innerHTML = `The current labels are <code>'${columns}'</code> and you're now trying to plot data with columns <code>'${columnNames.slice(0, 3)}'</code>. Your data will still be plotted, but it might not appear the way you intended. <br> Try clicking the <input type="button" id="specialClearLabels" aria-label="Remove Labels" value="Remove Labels"> button and plotting again.`;
     swal({
       title: 'Your columns names entered in the Points, Lines and Areas tables don\'t seem to match',
       content: labelsMessage,

@@ -14,6 +14,7 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 2. Use HandsOnTable validators to validate input
 3. Show warning when top row is not entered correctly
 7. Better CSS, allow tables to become wider on very wide screens
+8. Write tests
 11. Use [d3 selection raise](https://github.com/d3/d3-selection#selection_raise) to bring points in front of areas on hover or bring drawn points to front if areas are plotted over them [like this](https://codepen.io/osublake/pen/YXoEQe)
 15. Clean explain page code, maybe use MDX-slide?
 9. Don't use ID so many times to select buttons for eventlisteners.
