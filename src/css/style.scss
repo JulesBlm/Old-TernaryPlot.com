@@ -478,6 +478,13 @@ tbody > tr:first-child > td {
   color:#ffffff !important;
 }
 
+// Bit hacky
+@media screen and (max-width: 1200px) {
+  .margin-main {
+    max-width: 85%;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .margin-main {
     padding: 1.5em;
