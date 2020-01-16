@@ -1,119 +1,260 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-<head>
- 	<title>Ternary Plot Generator - How does a ternary plot work?</title>
-	<meta charset="utf-8">
-	<meta name="description" content="Easy and free online Ternary Plot maker! Find out how a ternary diagram works with this animated explanation of a ternary plot/diagram">	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  	<link rel="icon" type="image/png" href="favicon.png">
+  <head>
+    <title>Ternary Plot Generator - How does a ternary plot work?</title>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Easy and free online Ternary Plot maker! Find out how a ternary diagram works with this animated explanation of a ternary plot/diagram"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link rel="icon" type="image/png" href="favicon.png" />
 
-	<link rel="stylesheet" href="css/reveal.css">
-	<link rel="stylesheet" href="css/explain.css">
-  	<link rel="stylesheet" href="css/style.css">	
-    <link rel="stylesheet" href="css/custom-gc.css">
-	<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104492042-4"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag("js", new Date());
+    <link rel="stylesheet" href="css/reveal.css" />
+    <link rel="stylesheet" href="css/explain.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/custom-gc.css" />
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-104492042-4"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-	  gtag("config", "UA-104492042-4");
-		//<!-- Hotjar Tracking Code for www.ternaryplot.com -->
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:1255388,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      gtag("config", "UA-104492042-4");
+      //<!-- Hotjar Tracking Code for www.ternaryplot.com -->
+      (function(h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function() {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 1255388, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
         a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-	</script>
-	
-</head>
-<body>
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html">Ternary plot maker</a>
+        <a class="underline">What is a Ternary Plot?</a>
+        <a href="about.html">About</a>
+      </nav>
+    </header>
 
-<header>
-  <nav>
-    <a href="index.html">Ternary plot maker</a>
-    <a class="underline">What is a Ternary Plot?</a>
-    <a href="about.html">About</a>
-  </nav>
-</header>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h3>What is a ternary plot?</h3>
+          <div class="row no-margin-top">
+            <div class="col-40">
+              <p>
+                A ternary plot is a useful chart for vizualing three variables
+                which sum to a constant. This constant is usually 1.0 or 100%.
+              </p>
+              <p class="small">
+                (Press right arrow or space bar to navigate to next slide)
+              </p>
+            </div>
+            <div
+              class="col-60 fig-container no-margin-top"
+              data-file="explain/1.html"
+              id="one"
+            ></div>
+          </div>
+        </section>
 
-<div class="reveal">
-	<div class="slides">
+        <section>
+          <div class="row no-margin-top">
+            <div class="col-40">
+              <p>
+                Let's add some labels to our axes! Suppose we have a soil sample
+                that consists of three soil types:
+                <span class="fragment sand">sand,</span>
+                <span class="fragment silt">silt,</span>
+                <span class="fragment"
+                  >and <span class="clay">clay.</span></span
+                >
+              </p>
+              <p>
+                <span class="fragment"
+                  >These three together form 100% of our soil sample.</span
+                >
+              </p>
+            </div>
+            <div
+              class="col-60 fig-container no-margin-top"
+              data-file="explain/2.html"
+              id="two"
+            ></div>
+            <!-- data-file -->
+          </div>
+        </section>
 
-		<section>
-		    <h3>What is a ternary plot?</h3>
-		    <div class="row no-margin-top">
-		        <div class="col-40">
-		            <p>A ternary plot is a useful chart for vizualing three variables which sum to a constant. This constant is usually 1.0 or 100%.</p>
-		            <p class="small">(Press right arrow or space bar to navigate to next slide)</p>
-		        </div>
-		        <div class="col-60 fig-container no-margin-top" data-file="explain/1.html" id="one"></div>
-		  </div>
-		</section>
+        <section>
+          <div class="row no-margin-top">
+            <div class="col-40">
+              <p>
+                There are three axes, one for each component. In each "corner"
+                of the triangle we're at 100% of one of the elements. On the
+                axis opposite to the corner, the element is at 0%.
+              </p>
+              <p>
+                <span class="fragment">
+                  On this line, <span class="silt">silt is 0%</span>. Then our
+                  soil sample consists <em>only</em> of
+                  <span class="clay">clay</span> and
+                  <span class="sand">sand</span>.</span
+                >
+                <span class="fragment">
+                  On this line <span class="clay">clay is 0%</span></span
+                >.
+                <span class="fragment">
+                  And on this line <span class="sand">sand is 0%</span></span
+                >
+              </p>
+            </div>
+            <div
+              class="col-60 fig-container no-margin-top"
+              data-file="explain/3.html"
+              id="three"
+            ></div>
+          </div>
+        </section>
 
-		<section>
-			<div class="row no-margin-top">
-				<div class="col-40">
-					<p>Let's add some labels to our axes! Suppose we have a soil sample that consists of three soil types: <span class="fragment sand">sand,</span> <span class="fragment silt">silt,</span> <span class="fragment">and <span class="clay">clay.</span></span></p><p> <span class="fragment">These three together form 100% of our soil sample.</span></p>
-				</div>
-			    <div class="col-60 fig-container no-margin-top" data-file="explain/2.html" id="two">  <!-- data-file -->
-		    </div>
-		</section>
-  
-		<section>
-			<div class="row no-margin-top">
-				<div class="col-40">
-					<p>There are three axes, one for each component. In each "corner" of the triangle we're at 100% of one of the elements. On the axis opposite to the corner, the element is at 0%.</p><p> <span class="fragment"> On this line, <span class="silt">silt is 0%</span>. Then our soil sample consists <em>only</em> of <span class="clay">clay</span> and <span class="sand">sand</span>.</span> <span class="fragment"> On this line <span class="clay">clay is 0%</span></span>. <span class="fragment"> And on this line <span class="sand">sand is 0%</span></span></p>
-				</div>
-			    <div class="col-60 fig-container no-margin-top" data-file="explain/3.html" id="three"></div>			   
-		</section>
+        <section>
+          <div class="row no-margin-top">
+            <div class="col-40">
+              <p>
+                Now suppose a soil sample consists of
+                <span class="sand">20% sand</span> and
+                <span class="silt">80% silt</span>, and consequently;
+                <span class="clay">0% clay.</span>
+                <span class="fragment"
+                  >The point must be located on the axis opposite to clay,
+                  because there is <em>no clay in this sample</em></span
+                >.
+              </p>
+              <p>
+                <span class="fragment"
+                  >This is the <span class="silt">80% silt</span> line</span
+                >
+                <span class="fragment"
+                  >and this is the
+                  <span class="sand">20% sand</span> line.</span
+                >
+                <span class="fragment"
+                  >The point is at the intersection of these lines.</span
+                >
+              </p>
+            </div>
+            <div
+              class="col-60 fig-container no-margin-top"
+              data-file="explain/4.html"
+              id="four"
+            ></div>
+          </div>
+        </section>
 
-		<section>
-			<div class="row no-margin-top">
-				<div class="col-40">
-					<p>Now suppose a soil sample consists of <span class="sand">20% sand</span> and <span class="silt">80% silt</span>, and consequently; <span class="clay">0% clay.</span> <span class="fragment">The point must be located on the axis opposite to clay, because there is <em>no clay in this sample</em></span>.</p><p> <span class="fragment">This is the <span class="silt">80% silt</span> line</span> <span class="fragment">and this is the <span class="sand">20% sand</span> line.</span> <span class="fragment">The point is at the intersection of these lines.</span></p> 
-				</div>
-			    <div class="col-60 fig-container no-margin-top" data-file="explain/4.html" id="four"></div>
-		</section>
+        <section>
+          <div class="row no-margin-top">
+            <div class="col-50">
+              <p>
+                Let's do one more, this time with all three! This sample
+                consists of <span class="clay">30% clay</span>,
+                <span class="silt">40% silt</span> and
+                <span class="sand">30% sand</span>.
+              </p>
+              <p>
+                <span class="fragment"
+                  >This is the <span class="clay">30% clay</span> line,</span
+                >
+                <span class="fragment">
+                  this is the <span class="silt">40% silt</span> line,</span
+                >
+                <span class="fragment">
+                  and this here is the
+                  <span class="sand">30% sand</span> line.</span
+                >
+              </p>
+              <p>
+                <span class="fragment"
+                  >Once again the point follows from the intersection of the
+                  lines. Because the three proportions cannot vary
+                  independently, really only two lines are necessary to find the
+                  point.</span
+                >
+              </p>
+            </div>
+            <div
+              class="col-50 fig-container no-margin-top"
+              data-file="explain/5.html"
+              id="five"
+            ></div>
+          </div>
+        </section>
 
-		<section>
-			<div class="row no-margin-top">
-				<div class="col-50">
-					<p>Let's do one more, this time with all three! This sample consists of <span class="clay">30% clay</span>, <span class="silt">40% silt</span> and <span class="sand">30% sand</span></span>.</p><p> <span class="fragment">This is the <span class="clay">30% clay</span> line,</span> <span class="fragment"> this is the <span class="silt">40% silt</span> line,</span> <span class="fragment"> and this here is the <span class="sand">30% sand</span> line.</span></p><p> <span class="fragment">Once again the point follows from the intersection of the lines. Because the three proportions cannot vary independently, really only two lines are necessary to find the point.</span></p> 
-				</div>
-				<div class="col-50 fig-container no-margin-top" data-file="explain/5.html" id="five"></div>
-		</section>
+        <section>
+          <div class="row no-margin-top">
+            <p>
+              I hope you understand how a ternary plot works now! Now go ahead
+              and make a bunch of ternary plots and let your colleagues/friends
+              know about this site.
+            </p>
 
-		<section>
-			<div class="row no-margin-top">
-				<p>I hope you understand how a ternary plot works now! Now go ahead and make a bunch of ternary plots and let your colleagues/friends know about this site. </p>
+            Some helpful additional pages about ternary diagrams:
+            <ul>
+              <li>
+                <a
+                  href="http://mathworld.wolfram.com/TernaryDiagram.html"
+                  target="_blank"
+                >
+                  Wolfram Mathworld Ternary Diagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href="http://csmgeo.csm.jmu.edu/geollab/Fichter/SedRx/readternary.html"
+                  target="_blank"
+                >
+                  Reading a Ternary Diagram
+                </a>
+              </li>
+            </ul>
 
-				<p>
-				Some helpful additional pages about ternary diagrams:
-				<ul>
-					<li><a href="http://mathworld.wolfram.com/TernaryDiagram.html" target="_blank">Wolfram Mathworld Ternary Diagram</a></li>
-					<li><a href="http://csmgeo.csm.jmu.edu/geollab/Fichter/SedRx/readternary.html" target="_blank">Reading a Ternary Diagram</a></li>
-				</ul>
-				</p>
-
-				<p>
-					 If you have found this site to be useful, please consider a <a class="donate" href="https://paypal.me/BlomJ" target="_blank">donation</a> to support the development</p> 
-			</div>
-		</section>
-
-	</div>
-</div>
-<script src="js/head.min.js"></script>
-<script src="js/explain.bundle.js"></script>
-</body>
-
+            <p>
+              If you have found this site to be useful, please consider a
+              <a class="donate" href="https://paypal.me/BlomJ" target="_blank">
+                donation
+              </a>
+              to support the development
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="js/head.min.js"></script>
+    <script src="js/explain.bundle.js"></script>
+  </body>
 </html>

@@ -1,71 +1,163 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Ternary Plot generator - About</title>
-	<meta charset="utf-8">  
-	<meta name="description" content="Easy online Ternary Plot maker! Quickly create an easily customizable SVG ternary plot.">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-	<link rel="icon" type="image/png" href="favicon.png">
+  <head>
+    <title>Ternary Plot generator - About</title>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Easy online Ternary Plot maker! Quickly create an easily customizable SVG ternary plot."
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="icon" type="image/png" href="favicon.png" />
 
-	<link rel="stylesheet" href="css/style.css">	
-	<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104492042-4"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag("js", new Date());
-  
-		gtag("config", "UA-104492042-4");
-		  //<!-- Hotjar Tracking Code for www.ternaryplot.com -->
-	  (function(h,o,t,j,a,r){
-		  h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-		  h._hjSettings={hjid:1255388,hjsv:6};
-		  a=o.getElementsByTagName('head')[0];
-		  r=o.createElement('script');r.async=1;
-		  r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-		  a.appendChild(r);
-	  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-	  </script>
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+    <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-104492042-4"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-<header>
-  <nav>
-    <a href="/">Ternary Plot Maker</a>
-    <a href="explain.html">What is a Ternary Plot?</a>
-    <a class="underline">About</a>
-  </nav>
-</header>
+      gtag("config", "UA-104492042-4");
+      //<!-- Hotjar Tracking Code for www.ternaryplot.com -->
+      (function(h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function() {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 1255388, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Ternary Plot Maker</a>
+        <a href="explain.html">What is a Ternary Plot?</a>
+        <a class="underline">About</a>
+      </nav>
+    </header>
 
-<main class="margin-main">
+    <main class="margin-main">
+      <h1>About</h1>
+      <p>
+        <strong
+          >This site works best in the newest browsers! Tested in Chrome &
+          Firefox</strong
+        >
+      </p>
 
-<h1>About</h1>
-<p>
-<strong>This site works best in the newest browsers! Tested in Chrome & Firefox</strong>
-</p> 
+      <p>
+        Being frustrated with existing options for creating ternary plots, I
+        thought a better, quicker option should be available. After finding the
+        <a
+          href="https://github.com/davenquinn/d3-ternary"
+          rel="noopener"
+          target="_blank"
+          >d3-ternary library</a
+        >, I decided to hack together a small webpage for quickly making ternary
+        plots for some of my courses. Afterwards I decided to develop it into a
+        more user-friendly online tool available to anyone for free.
+      </p>
 
-<p>
-Being frustrated with existing options for creating ternary plots, I thought a better, quicker option should be available. After finding the <a href="https://github.com/davenquinn/d3-ternary" rel="noopener" target="_blank">d3-ternary library</a>, I decided to hack together a small webpage for quickly making ternary plots for some of my courses. Afterwards I decided to develop it into a more user-friendly online tool available to anyone for free.
-</p>
+      <p>
+        Thanks to Daven Quinn for developing the d3-ternary library. SVG
+        download option based on
+        <a
+          rel="noopener"
+          href="https://github.com/NYTimes/svg-crowbar/"
+          target="_blank"
+          >SVG Crowbar</a
+        >. Explanation slides made with
+        <a href="https://revealjs.com" rel="noopener" target="_blank"
+          >reveal.js</a
+        >
+        and
+        <a
+          rel="noopener"
+          href="https://github.com/gcalmettes/reveal.js-d3"
+          target="_blank"
+          >reveal-d3</a
+        >. The tables are
+        <a href="https://handsontable.com/" rel="noopener" target="_blank"
+          >HandsOnTables</a
+        >.
+      </p>
 
-<p>
-Thanks to Daven Quinn for developing the d3-ternary library. SVG download option based on <a rel="noopener" href="https://github.com/NYTimes/svg-crowbar/" target="_blank">SVG Crowbar</a>.
-Explanation slides made with <a href="https://revealjs.com" rel="noopener" target="_blank">reveal.js</a> and <a rel="noopener" href="https://github.com/gcalmettes/reveal.js-d3" target="_blank">reveal-d3</a>. The tables are <a href="https://handsontable.com/" rel="noopener" target="_blank">HandsOnTables</a>.
-</p>
+      <p>
+        Please note that this project is always under development. If you have
+        found any bugs/typos or have suggestions or feature requests than please
+        let me know by sending an e-mail to
+        &#106;&#117;&#108;&#101;&#115;&#098;&#108;&#111;&#109;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;.
+        The source code is available on
+        <a
+          href="https://github.com/JulesBlm/TernaryPlot.com"
+          rel="noopener"
+          target="_blank"
+          >Github</a
+        >, pull requests are very welcome! If you have found this site to be
+        useful, please consider a
+        <a
+          class="inline-donate"
+          href="https://paypal.me/BlomJ"
+          rel="noopener noreferrer"
+          target="_blank"
+          >donation</a
+        >
+        to support the development.
+      </p>
 
-<p>
-Please note that this project is always under development. If you have found any bugs/typos or have suggestions or feature requests than please let me know by sending an e-mail to &#106;&#117;&#108;&#101;&#115;&#098;&#108;&#111;&#109;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;. The source code is available on <a href="https://github.com/JulesBlm/TernaryPlot.com" rel="noopener" target="_blank">Github</a>, pull requests are very welcome! If you have found this site to be useful, please consider a <a class="inline-donate" href="https://paypal.me/BlomJ"  rel="noopener noreferrer" target="_blank">donation</a> to support the development.
-</p>
-
-<h2>More Ternary Plotting Software</h2>
-<p>If your ternary plotting needs are not met by this site and need something more advanced, I'd suggest to checkout out <a href="https://github.com/marcharper/python-ternary" target="_blank" rel="noopener">this Python library, 'python-ternary'</a>, <a href="http://www.ggtern.com/" target="_blank" rel="noopener">this R library</a>, or <a href="http://www.deltaplotware.com/" target="_blank" rel="noopener">this Windows program</a>.</p>
-
-</main>
-<footer>
-	<a href="https://github.com/JulesBlm/TernaryPlot.com" aria-label="github icon" target="_blank"><img id="gh" height="25" width="25" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> Copyright 2019 ©
-</footer>
-</body>
+      <h2>More Ternary Plotting Software</h2>
+      <p>
+        If your ternary plotting needs are not met by this site and need
+        something more advanced, I'd suggest to checkout out
+        <a
+          href="https://github.com/marcharper/python-ternary"
+          target="_blank"
+          rel="noopener"
+          >this Python library, 'python-ternary'</a
+        >,
+        <a href="http://www.ggtern.com/" target="_blank" rel="noopener"
+          >this R library</a
+        >, or
+        <a href="http://www.deltaplotware.com/" target="_blank" rel="noopener"
+          >this Windows program</a
+        >.
+      </p>
+    </main>
+    <footer>
+      <a
+        href="https://github.com/JulesBlm/TernaryPlot.com"
+        aria-label="github icon"
+        target="_blank"
+        ><img
+          id="gh"
+          height="25"
+          width="25"
+          src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg"
+      /></a>
+      Copyright
+      <script type="text/javascript">
+        document.write(new Date().getFullYear());
+      </script>
+      ©
+    </footer>
+  </body>
 </html>

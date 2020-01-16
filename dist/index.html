@@ -3,7 +3,7 @@
 <head>
   <title>Ternary Plot Generator - Quickly create ternary diagrams</title>
   <meta charset="utf-8">  
-  <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For fast creation of ternary phase diagrams.">
+  <meta name="description" content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For zero setup creation of ternary diagrams.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimal-ui">
   <link rel="stylesheet" href="css/style.css">
   <link rel="manifest" href="/manifest.webmanifest">
@@ -51,7 +51,7 @@
   <div>
   <h1>TernaryPlot.com</h1>
   <p>
-  This site lets you create a ternary plot freely and easily! Don’t know what ternary plot is? No problem, just check the <a href=“explain.html” about=“_blank”>explanation page</a>. <br> Some some sample data is loaded into the tables to show you it works. Try clicking all the “plot” buttons below for a quick example of a ternary plot. Check the <a href="#params">'How To Use' section</a> below for all the details on how to plot points, lines, and areas. If you find it useful consider <a class="inline-donate" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a> to support development! Happy ternary plotting! 
+  This site lets you create a ternary plot freely and easily! Don’t know what ternary plot is? No problem, just check the <a href=“explain.html” about=“_blank”>explanation page</a>. <br> Some some example data is loaded into the tables to show you it works. Try clicking all the “plot” buttons below for a quick example of a ternary plot. Check the <a href="#params">'How To Use' section</a> below for all the details on how to plot points, lines, and areas. If you find it useful consider <a class="inline-donate" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a> to support development! Happy ternary plotting! 
   </p>
   </div>
 </div>
@@ -183,7 +183,7 @@
   <h2>How To Use</h2>
   <h3>Input Parameters</h3>
   <p>The top row has to contain your column names. Your variable names <span class="underline">have to be the first three values of this first row</span>. These first three will be entered as axis labels in the ternary plot. <br>The axis labels are placed in counter-clockwise order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points, lines and areas. You will get a warning when the column names are not consistent between the points, lines, and areas tables.</p>
-  <p>Other parameters, like <var>color</var>, <var>opacity</var> or <var>shape</var> also have to be named to in the top row, but do not need to be in any specific order. If you are confused, try reloading the page and taking a good look at the sample data!</p>
+  <p>Other parameters, like <var>color</var>, <var>opacity</var> or <var>shape</var> also have to be named to in the top row, but do not need to be in any specific order. If you are confused, try reloading the page and taking a good look at the example data!</p>
   <p>For the values you can use either decimals <code>0.2</code>, <code>0.3</code>, <code>0.5</code> or percentages <code>20</code>, <code>30</code>, <code>50</code>. Mixing these formats between rows is possible. You can't mix formats in one row though! <span class="underline">Also do not enter the percentage symbol (%)!</span></p>
   <p>You <span class="underline">have to enter three values</span> for a point, line or area to be plotted, and the three can't sum to more than 1 (or 100%).</p>
   <p><span class="underline">Different lines and areas are seperated by <em>one</em> empty row.</span> Only the first row of a a line or area style parameters area read. The optional parameters on following rows won't be read.</p>
@@ -199,7 +199,7 @@
     </tr>
     <tr>
       <td class="tg-l711">Title</td>
-      <td class="tg-l711">Text (without commas and dashes). This will appended as an SVG title and will appear when hovering with your cursor over the point or line.</td>
+      <td class="tg-l711">Text (without commas and dashes). This will appended as an SVG title and will appear when hovering the cursor over the point or line.</td>
     </tr>
     <tr>
       <td class="tg-yw4l">Color (colour works too)</td>
@@ -227,7 +227,8 @@
     </tr>    
   </table>
   <h2>Donate!</h2>
-  <p>TernaryPlot.com is completely free to use and will remain that way! However, it has cost and still costs me time and effort to maintain and develop TernaryPlot.com. While I will continue improving this page from time to time, donating will reinforce my motivation for working on it. So if it has saved you time and effort, why not consider supporting it by a donation or buying me a coffee.
+  <p>
+    TernaryPlot.com is completely free to use and will remain that way! However, it has cost and still costs me time and effort to maintain and develop TernaryPlot.com. While I will continue improving this page from time to time, donating will reinforce my motivation for working on it. So if it has saved you time and effort, why not support me by a donation or buying me a coffee to keep me cafeinated?
     <div class="donate-buttons">
         <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate</a>
         <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI">
@@ -238,11 +239,13 @@
   </p>
 </div>
 
-</main>
 </div>
+</main>
 
 <footer>
-<a href="https://github.com/JulesBlm/TernaryPlot.com" aria-label="github icon" target="_blank" rel="noopener noreferrer"><img height="25" width="25" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> 2019 © <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate</a> <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>
+  <a href="https://github.com/JulesBlm/TernaryPlot.com" aria-label="github icon" target="_blank" rel="noopener noreferrer"><img height="25" width="25" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a> <script type="text/javascript">
+    document.write(new Date().getFullYear());
+  </script> © <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate</a> <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>
 </footer>
 <script src="js/app.bundle.js"></script>
 </body>

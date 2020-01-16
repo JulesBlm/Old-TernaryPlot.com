@@ -163,7 +163,7 @@ const areasColumns = [
   { type: 'numeric' },
   { type: 'numeric' },
   {},
-  { type: 'numeric' },
+  {},
   {},
 ];
 
@@ -176,7 +176,7 @@ Handsontable.dom.addEvent(submitAreasButton, 'submit', (e) => {
   Draw.Areas(parsedAreas);
 });
 
-/* Load sample or no data */
+/* Load example or no data */
 
 const loadDataToTables = (pointsData, linesData, areasData) => {
   pointsTable.loadData(pointsData);
@@ -246,7 +246,7 @@ if (localStorage.getItem('pointsTable')) {
     content: hereBeforeMessage,
     buttons: {
       sample: {
-        text: 'No, show sample data',
+        text: 'No, show example data',
         value: null,
         visible: true,
         className: 'show-sample',
@@ -288,7 +288,6 @@ if (localStorage.getItem('pointsTable')) {
   // First time here so load sample data
   loadSampleData();
 }
-
 
 const timeOutTime = 600;
 

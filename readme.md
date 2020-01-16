@@ -7,7 +7,7 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 ## To Do
 
 0. Download SVG button does not work for everyone apparantly
-4. Better sample data
+4. Better example data
 1. Button to generate legend from point, lines, areas, that have a title
 1. Decrease bundle size
     * Split bundle
