@@ -44,7 +44,7 @@
     "d3": "^3.5.17",
     "handsontable": "^7.4.0",
     "offline-plugin": "^5.0.7",
-    "reveal.js": "^3.8.0",
+    "reveal.js": "^3.9.2",
     "reveal_external": "^1.3.0",
     "reveald3": "^1.5.5",
     "sweetalert": "^2.1.2"
