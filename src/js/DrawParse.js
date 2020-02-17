@@ -156,6 +156,8 @@ const Parse = {
 
     // Loop over rows array
     // TODO: Use a more functional approach for this with .reduce(point => {}) or .map(point => {})
+    // rows
+    //   .filter(point => point.length > 0)
     for (const point of rows) {
       if (point.length !== 0) {
         drawLine.push(point); // Add to drawLine
@@ -165,6 +167,7 @@ const Parse = {
       }
     }
 
+    // TODO: Don't repeat the monster reducer!
     const objectsArray = linesToDraw.map((line) => {
       const lineObjects = line.map((p) => {
         const point = columnsArray.reduce((result, column, i) => {
