@@ -522,3 +522,11 @@ tbody > tr:first-child > td {
   }
 }
 
+.no-underline {
+  text-decoration: none;
+}
+
+.no-underline:focus path,
+.no-underline:hover path {
+  fill: coral;
+}

@@ -1,6 +1,6 @@
 {
   "name": "ternaryplot.com",
-  "version": "1.1.7",
+  "version": "1.1.9",
   "description": "The source code for my side project: [TernaryPlot.com](http://www.ternaryplot.com). A single purpose website to quickly and freely genreate ternary plots. A ternary plot is a somewhat obscure diagram often used in geology, soil sciences, metallurgy and chemical engineering. The quickest option available for making ternary plots was with Excel templates, which in my opinion are inflexible and produce ugly plots. Some R and Python libraries exist for this purpose but these are harder to use and require installing R and Python (of course). That's why I made this tool for personal use, and later decided to develop into something slicker and with more options.",
   "main": "./src/js/main.js",
   "homepage": "https://github.com/JulesBlm/TernaryPlot.com#readme",
@@ -31,7 +31,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "mini-css-extract-plugin": "^0.8.2",
+    "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
