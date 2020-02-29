@@ -114,7 +114,6 @@
               .data(gratAxes)
               .enter().append("g")
                 .attr("class", "graticule")
-                // .attr("clip-path", "url(#axesClip)")
                 .each(axisGraticule);
     };
 
@@ -437,9 +436,9 @@
         s.range([0, width]);
       }
       _plotBounds.call(defs.node(), T);
-      if (shouldClip) {
-        plot.attr({'clip-path': "url(#axesClip)"});
-      }
+      // if (shouldClip) {
+      //   plot.attr({'clip-path': "url(#axesClip)"});
+      // }
       return events.resize();
     };
 
@@ -448,7 +447,7 @@
       defs = svg.append('defs');
       axes = svg.append('g').attr('id', 'axes');
       plot = svg.append('g').attr('id', 'plot')
-        .attr('clip-path', "url(#axesClip)");      
+        // .attr('clip-path', "url(#axesClip)");      
       ;
       rescaleView();
       defs.append('clipPath')

@@ -2,7 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OfflinePlugin = require('offline-plugin');
-// const CompressionPlugin = require("compression-webpack-plugin");
+// const CompressionPlugin = require('compression-webpack-plugin');
+require('dotenv').config();
 
 module.exports = {
   entry: {
@@ -47,6 +48,9 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.DefinePlugin({
+      SENTRY: JSON.stringify(process.env.SENTRY),
+    }),
     // Make Reveal a global variable
     new webpack.ProvidePlugin({
       Reveal: 'reveal.js',

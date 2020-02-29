@@ -8,13 +8,13 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 
 0. Download SVG button does not work for everyone apparantly
 4. Better example data
+2. Templates for common Ternary Plots
 1. Button to generate legend from point, lines, areas, that have a title
 1. Decrease bundle size
     * Split bundle
     * Lazy loading
     * Update d3!
 2. Rewrite d3-ternary to d3 v5 and import only necessary d3 modules
-1. Add a slider like [this Observable](https://observablehq.com/@yurivish/ternary-slider), and add said slider to explanation page
 2. Use HandsOnTable validators to validate input
 3. Title texts for points and lines
 3. Show warning when top row is not entered correctly
@@ -22,9 +22,16 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 8. Write tests
 10. Accessibility!
 11. Use [d3 selection raise](https://github.com/d3/d3-selection#selection_raise) to bring points in front of areas on hover or bring drawn points to front if areas are plotted over them [like this](https://codepen.io/osublake/pen/YXoEQe)
-15. Clean explain page code, maybe use MDX-slide?
 9. Don't use ID so many times to select buttons for eventlisteners.
 16. Make option to add rows
+
+## Someday
+
+1. Write my own (clean and idiomatic) d3-ternary-plot d3 plugin
+1. Rewrite with ReactJS and Tailwind CSS
+1. Clean explain page code, maybe use MDX-slide?
+1. Add a slider like [this Observable](https://observablehq.com/@yurivish/ternary-slider), and add said slider to explanation page
+
 
 ## Libraries used
 

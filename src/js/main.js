@@ -5,17 +5,20 @@
 /* eslint-disable no-console */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-sparse-arrays */
-// when updated to d3 v5 only import d3.svg, d3.select, d3.scale, d3.dispatch, d3.sum is all we need
+// when updated to d3 v5 only import d3.svg, d3.select, d3.scale, d3.dispatch, d3.sum will be all we need
 import d3 from 'd3';
 import Handsontable from 'handsontable';
 import swal from 'sweetalert';
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
-// import './ternary.v3';
+import * as Sentry from '@sentry/browser';
 import { Draw, Parse, clearLabels } from './DrawParse';
 
 import '../css/style.scss';
 import 'handsontable/dist/handsontable.full.min.css';
 
+Sentry.init({ dsn: SENTRY });
+
+// Not sure this even works?
 OfflinePluginRuntime.install();
 
 // Don't show intro popup within 2 days of a visit
@@ -46,7 +49,7 @@ function emptyCellRenderer(instance, td, row, col, prop, value) { // cellPropert
   Handsontable.renderers.TextRenderer.apply(this, arguments); //
 
   if (row > 0) {
-    if (value === null ||value === '') {
+    if (value === null || value === '') {
       td.style.background = '#efefef';
     }
   }
@@ -330,7 +333,7 @@ Draw.setListeners();
 
   legend.selectAll("text")
     .data(legendItems)
-    .enter().append("text") 
+    .enter().append("text")
     .attr("transform", (_d, index) => {console.log(_d, index); return `translate(0,${(index + 1) * legendSpacingY})`})
     .text((d) => d.title)
     .attr("font-size", "1em");
@@ -411,7 +414,7 @@ clearAllButton.addEventListener('mouseover', () => {
     d3.selectAll('.ternary-line,.vertex-label,.ternary-area,.point')
       .attr('opacity', '1')
       .attr('text-decoration', 'none')
-    .attr('stroke-opacity', '1');
+      .attr('stroke-opacity', '1');
   }, timeOutTime);
 });
 
