@@ -288,7 +288,7 @@
       sel.enter().append("text").text(function(d) { return d.label;})
         .attr("dy", ".35em")
         .attr("text-anchor", "middle")
-        .attr("class", function(d) { return "vertex-label " + d.label.toLowerCase();} );
+        .attr("class", (d) =>  `vertex-label${String(d.label).toLowerCase()}` );
 
       draw = function() {
         return sel.attr({

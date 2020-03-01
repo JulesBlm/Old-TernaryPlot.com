@@ -61,7 +61,7 @@ function checkColumns(columnNames) {
   }
   // Check for reserved keywords in column names
   columns
-    .filter((key) => reserved.includes(key.toLowerCase()))
+    .filter((key) => reserved.includes(String(key).toLowerCase()))
     .some(() => { return swal('Reserved column name', `You can't use any of the following names as your columns names (i.e. the first three columns): ${reserved.join(', ')}`, 'error'); });
 }
 
@@ -130,7 +130,8 @@ const Parse = {
     const objectsArray = rows.map((line) => {
       const point = columnsArray.reduce((result, column, i) => {
         const pointValue = result;
-        pointValue[column.toString().toLowerCase()] = line[i];
+        const columnString = String(column).toLowerCase();
+        pointValue[columnString] = line[i];
         return pointValue;
       }, {});
       return point;
@@ -172,7 +173,8 @@ const Parse = {
       const lineObjects = line.map((p) => {
         const point = columnsArray.reduce((result, column, i) => {
           const linePointValue = result;
-          linePointValue[column.toLowerCase()] = p[i];
+          const columnString = String(column).toLowerCase();
+          linePointValue[columnString] = p[i]
           return linePointValue;
         }, {});
         return point;

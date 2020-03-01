@@ -16,7 +16,10 @@ import { Draw, Parse, clearLabels } from './DrawParse';
 import '../css/style.scss';
 import 'handsontable/dist/handsontable.full.min.css';
 
-Sentry.init({ dsn: SENTRY });
+Sentry.init({
+  dsn: SENTRY,
+  release: `ternaryplot.com${process.env.npm_package_version}`,
+});
 
 // Not sure this even works?
 OfflinePluginRuntime.install();

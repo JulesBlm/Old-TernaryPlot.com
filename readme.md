@@ -8,7 +8,7 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 
 0. Download SVG button does not work for everyone apparantly
 4. Better example data
-2. Templates for common Ternary Plots
+2. Templates for common Ternary Plots (QFR diagram etc)
 1. Button to generate legend from point, lines, areas, that have a title
 1. Decrease bundle size
     * Split bundle
@@ -28,7 +28,7 @@ Feel free to contact me if you have any questions or comments. Pull requests are
 ## Someday
 
 1. Write my own (clean and idiomatic) d3-ternary-plot d3 plugin
-1. Rewrite with ReactJS and Tailwind CSS
+1. Complete rewrite with ReactJS, react-table and Tailwind CSS (probably best)
 1. Clean explain page code, maybe use MDX-slide?
 1. Add a slider like [this Observable](https://observablehq.com/@yurivish/ternary-slider), and add said slider to explanation page
 
