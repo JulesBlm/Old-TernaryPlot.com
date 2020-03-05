@@ -74,7 +74,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   function getSources(doc, emptySvgDeclarationComputed) {
     const svgInfo = [],
-        svg = doc.querySelector("svg"); //svgs = doc.querySelectorAll("svg");
+        svg = doc.getElementById("ternary-plot");
 
     // [].forEach.call(svgs, function (svg) {
 
