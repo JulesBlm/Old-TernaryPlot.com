@@ -174,7 +174,7 @@ const Parse = {
         const point = columnsArray.reduce((result, column, i) => {
           const linePointValue = result;
           const columnString = String(column).toLowerCase();
-          linePointValue[columnString] = p[i]
+          linePointValue[columnString] = p[i];
           return linePointValue;
         }, {});
         return point;
@@ -237,9 +237,14 @@ const Draw = {
       .on('mouseout', () => { d3.selectAll('.help-line').remove(); })
       .append('title')
         .text((point) => {
-          const [a, b, c] = Object.entries(point);
-          const valuesString = `${a.join(': ')}\n${b.join(': ')}\n${c.join(': ')}`;
-          return point.title ? `${capitalize(point.title.trim())}\n${valuesString}` : valuesString;
+          const [valueA, valueB, valueC] = Object.values(point);
+          if (!valueA && !valueB && !valueC) {
+            return '';
+          }
+          const [a, b, c] = Object.entries(point); // Just get the points coords
+
+          const valuesString = `${a.join(': ')}\n${b.join(': ')}\n${c.join(': ')}`; // ehh sure why not
+          return point && point.title ? `${capitalize(point.title.trim())}\n${valuesString}` : valuesString;
         });
   },
 

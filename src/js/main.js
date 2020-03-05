@@ -9,7 +9,6 @@
 import d3 from 'd3';
 import Handsontable from 'handsontable';
 import swal from 'sweetalert';
-import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import * as Sentry from '@sentry/browser';
 import { Draw, Parse, clearLabels } from './DrawParse';
 
@@ -20,9 +19,6 @@ Sentry.init({
   dsn: SENTRY,
   release: `ternaryplot.com${process.env.npm_package_version}`,
 });
-
-// Not sure this even works?
-OfflinePluginRuntime.install();
 
 // Don't show intro popup within 2 days of a visit
 if (document.cookie.split(';').filter((item) => item.includes('visited=true')).length) {
