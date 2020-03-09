@@ -13,7 +13,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --keep-fnames -p --progress --display-error-details",
+    "build": "npm rebuild && webpack --keep-fnames -p --progress --display-error-details",
     "watch": "webpack --progress --watch",
     "dev": "webpack-dev-server --port 4004",
     "start": "npm run dev"
