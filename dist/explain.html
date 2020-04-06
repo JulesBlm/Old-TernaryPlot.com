@@ -39,10 +39,10 @@
 
       gtag("config", "UA-104492042-4");
       //<!-- Hotjar Tracking Code for www.ternaryplot.com -->
-      (function(h, o, t, j, a, r) {
+      (function (h, o, t, j, a, r) {
         h.hj =
           h.hj ||
-          function() {
+          function () {
             (h.hj.q = h.hj.q || []).push(arguments);
           };
         h._hjSettings = { hjid: 1255388, hjsv: 6 };
@@ -71,7 +71,8 @@
             <div class="col-40">
               <p>
                 A ternary plot is a useful chart for vizualing three variables
-                which sum to a constant. This constant is usually 1.0 or 100%.
+                which (almost always) sum to a constant. This constant is
+                usually 1.0 or 100%.
               </p>
               <p class="small">
                 (Press right arrow or space bar to navigate to next slide)
@@ -89,8 +90,8 @@
           <div class="row no-margin-top">
             <div class="col-40">
               <p>
-                Let's add some labels to our axes! Suppose we have a soil sample
-                that consists of three soil types:
+                First, let's add some labels to our axes! Suppose we have a soil
+                sample that consists of three soil types:
                 <span class="fragment sand">sand,</span>
                 <span class="fragment silt">silt,</span>
                 <span class="fragment"
@@ -117,18 +118,20 @@
             <div class="col-40">
               <p>
                 There are three axes, one for each component. In each "corner"
-                of the triangle we're at 100% of one of the elements. On the
-                axis opposite to the corner, the element is at 0%.
+                of the triangle we're at 100% of one of the soil types. On the
+                axis opposite to the corner, the soil type is at 0% — ie there's
+                none of it in the sample.
               </p>
               <p>
                 <span class="fragment">
-                  On this line, <span class="silt">silt is 0%</span>. Then our
-                  soil sample consists <em>only</em> of
+                  On this line, soil type <span class="silt">silt is 0%</span>.
+                  Then our soil sample consists <em>only</em> of
                   <span class="clay">clay</span> and
                   <span class="sand">sand</span>.</span
                 >
                 <span class="fragment">
-                  On this line <span class="clay">clay is 0%</span></span
+                  Likewise, on this line
+                  <span class="clay">clay is 0%</span></span
                 >.
                 <span class="fragment">
                   And on this line <span class="sand">sand is 0%</span></span
@@ -150,7 +153,8 @@
                 Now suppose a soil sample consists of
                 <span class="sand">20% sand</span> and
                 <span class="silt">80% silt</span>, and consequently;
-                <span class="clay">0% clay.</span>
+                <span class="clay">0% clay.</span>, because it has to sum to
+                100%.
                 <span class="fragment"
                   >The point must be located on the axis opposite to clay,
                   because there is <em>no clay in this sample</em></span
@@ -181,8 +185,8 @@
           <div class="row no-margin-top">
             <div class="col-50">
               <p>
-                Let's do one more, this time with all three! This sample
-                consists of <span class="clay">30% clay</span>,
+                Let's do one more, this time with all three soil types! This
+                sample consists of <span class="clay">30% clay</span>,
                 <span class="silt">40% silt</span> and
                 <span class="sand">30% sand</span>.
               </p>
@@ -223,7 +227,9 @@
               know about this site.
             </p>
 
-            Some helpful additional pages about ternary diagrams:
+            <p>
+              Other helpful pages about ternary diagrams:
+            </p>
             <ul>
               <li>
                 <a
@@ -245,8 +251,27 @@
 
             <p>
               If you have found this site to be useful, please consider a
-              <a class="donate" href="https://paypal.me/BlomJ" target="_blank">
+              <a
+                class="donate"
+                role="button"
+                href="https://paypal.me/BlomJ"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 donation
+              </a>
+              or
+              <a
+                class="bmc-button"
+                rel="noopener"
+                target="_blank"
+                href="https://www.buymeacoffee.com/OfU1nAuiI"
+              >
+                <img
+                  src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg"
+                  alt="Buy me a coffee"
+                />
+                <span style="margin-left: 5px;">Buy me a coffee</span>
               </a>
               to support the development
             </p>
