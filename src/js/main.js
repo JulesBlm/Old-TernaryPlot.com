@@ -73,7 +73,7 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
     columns: HOTcolumns,
     fixedRowsTop: 1,
     rowHeaders: true,
-    minRows: 60,
+    minRows: 100,
     height: 330,
     width: initialTableSize,
     manualRowMove: true,
