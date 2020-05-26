@@ -4,11 +4,14 @@
 
 The source code for my side project: [TernaryPlot.com](http://www.ternaryplot.com). A single purpose website to quickly and freely generate ternary plots. A ternary plot is a somewhat obscure diagram often used in geology, soil sciences, metallurgy, biology and chemical engineering. The quickest option available for makint ternary plots was with Excel templates, which in my opinion are inflexible and produce ugly plots. Some R and Python libraries exist for this purpose but these are harder to use and require installing R and Python (of course). That's why I made a tool for personal use, and later decided to develop into something slicker and with more options.
 
+I'm thinking of doing a complete rewrite to React with xstate, and writing my own d3-ternary-plot d3 plugin. Someday...
+
 Feel free to contact me if you have any questions or comments. Pull requests are very welcome!
 
 ## To Do
 
 0. Download SVG button does not work for everyone apparantly
+1. PNG Download button
 4. Better example data
 2. Templates for common Ternary Plots (QFR diagram etc)
 1. Button to generate legend from point, lines, areas, that have a title
