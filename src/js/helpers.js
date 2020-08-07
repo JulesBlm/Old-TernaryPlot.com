@@ -11,7 +11,8 @@ function resize(t) {
 }
 
 function removeTrailingElements(line) {
-  while (line[line.length - 1] === null || line[line.length - 1] === '') { // While the last element is a null or empty string
+  const lineLength = line.length - 1;
+  while (line[lineLength] === null || line[lineLength] === '') { // While the last element is a null or empty string
     line.pop(); // Remove that last element
   }
   return line;
