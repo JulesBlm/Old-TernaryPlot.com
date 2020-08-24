@@ -25,7 +25,7 @@
     "url": "https://github.com/JulesBlm/TernaryPlot.com/issues"
   },
   "devDependencies": {
-    "compression-webpack-plugin": "^4.0.0",
+    "compression-webpack-plugin": "^5.0.1",
     "css-loader": "^4.2.1",
     "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
