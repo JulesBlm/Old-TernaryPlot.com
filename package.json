@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@sentry/browser": "^5.20.1",
-    "d3": "^3.5.17",
+    "d3": "^6.1.0",
     "dotenv": "^8.2.0",
     "handsontable": "^7.4.2",
     "reveal.js": "^3.9.2",
