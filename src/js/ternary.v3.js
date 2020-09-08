@@ -113,7 +113,6 @@
           .attr("stroke-width", "2px");
 
         draw = function () {
-          // console.log("plot.rule(i)", plot.rule(i));
           axis.scale(plot.scales[i]);
           selA.attr("d", plot.rule(i));
 
@@ -162,7 +161,6 @@
       opts = {};
     }
 
-    // console.log("Calling scalebar");
     var plot = null;
     var labels = opts.labels || null;
 
@@ -247,11 +245,8 @@
         .text(d);
     };
 
-    // console.info("formatLabel", formatLabel);
-
     var scalebar = function (p) {
       var b_axes, draw;
-      // console.log("Adding scalebar to plot");
       plot = p;
       b_axes = plot
         .axes()

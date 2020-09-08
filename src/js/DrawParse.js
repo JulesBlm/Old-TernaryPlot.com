@@ -17,8 +17,6 @@ const graticule = d3.ternary.graticule().majorInterval(0.2).minorInterval(0.05);
 const initialPlotSize =
   window.innerWidth > 500 ? [500, 500] : [window.innerWidth, window.innerWidth];
 
-// console.log({initialPlotSize})
-
 const ternary = d3.ternary
   .plot()
   .call(resize, initialPlotSize)
@@ -169,34 +167,21 @@ const Parse = {
     const linesToDraw = [];
     {
       let drawLine = [];
-
-      // TODO: Use a more functional approach for this with .reduce(point => {}) 
-      // rows.reduce((linesToDraw, row) => {
-        // }, [])
       
       // Loop over rows array
       for (const point of rows) {
-        console.group("Row");
-        console.log({ point });
 
         if (!isNullArray(point)) {
           drawLine.push(point); // Add to drawLine
-          console.log("push to drawline", { drawLine });
         } else if (isNullArray(point)) {
           // When an empty row is encountered, use it as a separator. clear drawLine array to start new one
           if (drawLine.length !== 0) {
             linesToDraw.push(drawLine);
-            console.log("drawline not empty, push to drawline", { drawLine });
           }
           drawLine = []; // Reset drawLine
-          console.log("reset drawline", drawLine);
         }
-        console.groupEnd();
       }
 
-      console.log("final", { drawLine });
-
-      console.log("final", { linesToDraw });
     }
 
     // TODO: Don't repeat the monster reducer!
@@ -212,8 +197,6 @@ const Parse = {
       });
       return lineObjects;
     });
-
-    console.log({ objectsArray });
 
     return objectsArray;
   },

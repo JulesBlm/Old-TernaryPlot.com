@@ -10,7 +10,7 @@ import d3 from "d3";
 import Handsontable from "handsontable";
 import swal from "sweetalert";
 import * as Sentry from "@sentry/browser";
-import downloadSvg, { downloadPng } from 'svg-crowbar';
+import downloadSvg, { downloadPng } from "svg-crowbar";
 import { Draw, Parse, clearLabels } from "./DrawParse";
 
 import "../css/style.scss";
@@ -90,7 +90,6 @@ function createHandsOnTable(ID, placeholder, HOTcolumns) {
       // row, col
       const cellProperties = {};
       // const data = this.instance.getData();
-      // console.log('cells, row', row);
       if (row === 0) {
         cellProperties.renderer = "firstRowRenderer";
       } else {
@@ -140,15 +139,13 @@ const pointsTable = createHandsOnTable(
   pointsLabels,
   pointColumns
 );
-const submitPointsButton = document.enterPoints;
+const plotPointsButton = document.getElementById("plotPoints");
 
-Handsontable.dom.addEvent(submitPointsButton, "submit", (e) => {
+Handsontable.dom.addEvent(plotPointsButton, "click", (e) => {
   e.preventDefault();
   clear(".point");
 
   const parsedPoints = Parse.Points(pointsTable.getData());
-
-  console.log;
 
   Draw.Points(parsedPoints);
 });
@@ -187,16 +184,13 @@ const linesColumns = [
 ];
 
 const linesTable = createHandsOnTable("linesTable", linesLabels, linesColumns);
-const submitLinesButton = document.enterLines;
-Handsontable.dom.addEvent(submitLinesButton, "submit", (e) => {
+const plotLinesButton = document.getElementById("plotLines");
+Handsontable.dom.addEvent(plotLinesButton, "click", (e) => {
   e.preventDefault();
   clear(".ternary-line");
 
   const linesTableData = linesTable.getData();
-  console.log({ linesTableData });
   const parsedLines = Parse.LinesAreas(linesTableData);
-
-  console.log({ parsedLines });
 
   Draw.Lines(parsedLines);
 });
@@ -223,10 +217,9 @@ const areasColumns = [
 ];
 
 const areasTable = createHandsOnTable("areasTable", areaLabels, areasColumns);
-const submitAreasButton = document.enterAreas;
-Handsontable.dom.addEvent(submitAreasButton, "submit", (e) => {
+const plotAreasButton = document.getElementById("plotAreas");
+Handsontable.dom.addEvent(plotAreasButton, "click", (e) => {
   e.preventDefault();
-  console.log(e);
   clear(".ternary-area");
   const parsedAreas = Parse.LinesAreas(areasTable.getData());
   Draw.Areas(parsedAreas);
@@ -532,30 +525,48 @@ clearAreasTablesButton.addEventListener("click", () => {
   warnEmptyTable([areasTable], "the areas table.");
 });
 
-const downloadSVGButton = document.getElementById("downloadSVG")
-downloadSVGButton.addEventListener("click", () => 
-  downloadSvg(document.querySelector('#ternary-plot'), "TernaryPlot.com", { css: "none" })
-)
+const downloadDonatePrompt = () => {
+  const donatePromptMessage = document.createElement("div");
 
-const downloadPNGButton = document.getElementById("downloadPNG")
-downloadPNGButton.addEventListener("click", () => 
-  downloadPng(document.querySelector('#ternary-plot'), "TernaryPlot.com", { css: "none" })
-)
+  donatePromptMessage.innerHTML = `
+  <p>Was it easy to make it? I hope so! I regularly improve this site to make sure it's easy to use, this costs me time and effort. So if this tool has saved you the frustration of having to work with
+  shoddy Excel templates or other dingy software, then please <strong>donate</strong> or <strong>buy be me coffee</strong> to support development and keep this site ad-free.</p>
+  <div class='donate-buttons'>
+  <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate</a>
+  <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI">
+  <img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buying me a coffee">
+  <span style="margin-left:5px">Buy me a coffee</span>
+  </a>
+  </div>
+  <hr>
+  `;
 
-/* TODO: ADD VALIDATOR THAT CHECKS IF VALUES SUM TO 100 or 1.0 and between 0 to 1.0 for opacity */
-// Handsontable.validators.registerValidator('check100', check100);
+  const donatePrompt = swal({
+    title: "Here's your ternary plot",
+    content: donatePromptMessage,
+    buttons: {
+      cancel: {
+        text: "No, thank you",
+        value: null,
+        visible: true,
+        closeModal: true,
+      },
+    },
+  });
+};
 
-// (function(Handsontable) {
-//   function check100(values, callback) {
-//     // ...your custom logic of the validator
-//     if (va) {
-//       callback(true);
-//     } else {
-//       callback(false);
-//     }
-//   }
+const downloadSVGButton = document.getElementById("downloadSVG");
+downloadSVGButton.addEventListener("click", () => {
+  downloadSvg(document.querySelector("#ternary-plot"), "TernaryPlot.com", {
+    css: "none",
+  });
+  downloadDonatePrompt();
+});
 
-//   // Register an alias
-//   Handsontable.validators.registerValidator('my.custom', customValidator);
-
-// }(Handsontable));
+const downloadPNGButton = document.getElementById("downloadPNG");
+downloadPNGButton.addEventListener("click", () => {
+  downloadPng(document.querySelector("#ternary-plot"), "TernaryPlot.com", {
+    css: "none",
+  });
+  downloadDonatePrompt();
+});
