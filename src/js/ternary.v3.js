@@ -8,70 +8,47 @@
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 (function () {
-  var _plotBounds;
-  var angles;
-  var cos30;
-  var line;
-  var path;
-  var randomid;
-
-  path = void 0;
+  var path = void 0;
 
   d3.ternary = {};
 
-  cos30 = Math.sqrt(3) / 2;
+  var cos30 = Math.sqrt(3) / 2;
 
   tickValues = [0.2, 0.4, 0.6, 0.8, 1];
 
-  randomid = function () {
-    var i, j, pos, possible, text;
-    text = "";
-    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    for (i = j = 0; j <= 3; i = ++j) {
-      pos = Math.floor(Math.random() * possible.length);
-      text += possible.charAt(pos);
-    }
-    return text;
-  };
-
-  line = function (interpolator) {
+  var line = function (interpolator) {
     if (!interpolator) {
       interpolator = "linear";
     }
-    return (path = d3.svg
+    return path = d3.svg
       .line()
-      .x(function (d) {
-        return d[0];
-      })
-      .y(function (d) {
-        return d[1];
-      })
-      .interpolate(interpolator));
+      .x((d) => d[0])
+      .y((d) => d[1])
+      .interpolate(interpolator);
   };
 
-  angles = [0, 120, 240];
+  var angles = [0, 120, 240];
 
   /* ----- Graticules ----- */
   d3.ternary.graticule = function () {
-    var graticule, majorInterval, majorTicks, minorInterval, minorTicks;
+    var majorInterval = 0.1; //Stepsize for lines
+    var minorInterval = null;
 
-    majorInterval = 0.1; //Stepsize for lines
-    minorInterval = null;
+    var majorTicks = () => {
+      // var ticks = [];
+      // var int = majorInterval;
+      // var start = int;
+      // while (start < 1) {
+      //   ticks.push(start);
+      //   start += int;
+      // }
 
-    majorTicks = function () {
-      var int, start, ticks;
-      ticks = [];
-      int = majorInterval;
-      start = int;
-      while (start < 1) {
-        ticks.push(start);
-        start += int;
-      }
+      const ticks = d3.range(0, 1, 0.1); //.concat(1)
 
       return ticks;
     };
 
-    minorTicks = function () {
+    var minorTicks = () => {
       var start, ticks;
       ticks = [];
       if (minorInterval == null) {
@@ -87,23 +64,20 @@
       return ticks;
     };
 
-    graticule = function (plot) {
+    var graticule = (plot) => {
       var axisGraticule, gratAxes;
-      gratAxes = [0, 1, 2].map(function () {
-        return d3.svg.axis().tickValues(majorTicks());
-      });
-      axisGraticule = function (axis, i) {
-        var container, draw, selA, selB;
-        container = d3.select(this);
+      gratAxes = [0, 1, 2].map(() => d3.svg.axis().tickValues(majorTicks()));
+      axisGraticule = function(axis, i) {
+        var container = d3.select(this);
 
-        selA = container.selectAll("path.minor").data(minorTicks());
+        var selA = container.selectAll("path.minor").data(minorTicks());
         selA
           .enter()
           .append("path")
           .attr("stroke", "#fefefe")
           .attr("class", `minor axis-${i}`);
 
-        selB = container.selectAll("path.major").data(majorTicks());
+        var selB = container.selectAll("path.major").data(majorTicks());
 
         selB
           .enter()
@@ -112,14 +86,14 @@
           .attr("stroke", "#e9e9e9")
           .attr("stroke-width", "2px");
 
-        draw = function () {
+        draw = () => {
           axis.scale(plot.scales[i]);
           selA.attr("d", plot.rule(i));
 
           return selB.attr("d", plot.rule(i));
         };
 
-        plot.on("resize." + randomid(), draw);
+        plot.on("resize.", draw);
         return draw();
       };
 
@@ -133,11 +107,11 @@
         .each(axisGraticule);
     };
 
-    graticule.axes = function () {
+    graticule.axes = () => {
       return gratAxes;
     };
 
-    graticule.majorInterval = function (d) {
+    graticule.majorInterval = (d) => {
       if (!d) {
         return majorInterval;
       }
@@ -145,7 +119,7 @@
       return graticule;
     };
 
-    graticule.minorInterval = function (d) {
+    graticule.minorInterval = (d) => {
       if (!d) {
         return minorInterval;
       }
@@ -156,7 +130,7 @@
   };
 
   /* ----- Scalebars ----- */
-  d3.ternary.scalebars = function (opts) {
+  d3.ternary.scalebars = (opts) => {
     if (opts == null) {
       opts = {};
     }
@@ -164,14 +138,14 @@
     var plot = null;
     var labels = opts.labels || null;
 
-    var axes = [0, 1, 2].map(function (i) {
-      return d3.svg
+    var axes = [0, 1, 2].map((i) =>
+      d3.svg
         .axis()
         .tickSize(10)
         .tickFormat(d3.format("%"))
         .tickValues(tickValues)
-        .orient("top");
-    });
+        .orient("top")
+    );
 
     var adjustText = function (d, i) {
       // Set left axis ticklabels straight
@@ -182,7 +156,7 @@
             .selectAll("text")
             .attr("transform", function (d) {
               const y = d3.select(this).attr("y");
-              return "translate(22 " + -y + ") rotate(60 0 " + 4.5 * y + ")"; //-180
+              return `translate(22 ${-y}) rotate(60 0 ${4.5 * y})`; //-180
             })
             .attr(
               "font-family",
@@ -194,7 +168,7 @@
             .selectAll("line")
             .attr("transform", function (d) {
               const y = d3.select(this).attr("y");
-              return "translate(0 " + -y + ") rotate(-30 0 " + 1 * y + ")"; //-180
+              return `translate(0 ${-y}) rotate(-30 0 ${1 * y})`; //-180
             })
         );
       }
@@ -205,7 +179,7 @@
           .selectAll("text")
           .attr("transform", function (d) {
             const y = d3.select(this).attr("y");
-            return "translate(-27 " + -y + ") rotate(-120 0 " + 2.5 * y + ")"; //-180
+            return `translate(-27 ${-y}) rotate(-120 0 ${2.5 * y})`; //-180
           })
           .attr(
             "font-family",
@@ -217,20 +191,21 @@
           .selectAll("line")
           .attr("transform", function (d) {
             const y = d3.select(this).attr("y");
-            return "translate(0 " + -y + ") rotate(-30 0 " + 1 * y + ")"; //-180
+            return `translate(0 ${-y}) rotate(-30 0 ${1 * y})`; //-180
           })
       );
     };
 
     var formatLabel = function (d, i) {
-      var dy, t, width;
-      width = plot.width();
-      dy = -30;
-      t = "translate(" + width / 2 + ")";
+      var width = plot.width();
+      var dy = -30;
+      var t = "translate(" + width / 2 + ")";
+
       if (i === 2) {
         dy = 42;
-        t = " rotate(-180 0 0) translate(" + -width / 2 + ")";
+        t = `rotate(-180 0 0) translate(${-width / 2})`;
       }
+
       return d3
         .select(this)
         .attr("class", "label")
@@ -254,7 +229,7 @@
         .data(angles)
         .enter()
         .append("g")
-        .attr("class", function (d, i) {
+        .attr("class", (d, i) => {
           d = "bary-axis";
           if (i === 2) {
             d += " bottom";
@@ -299,20 +274,9 @@
             return axes[i](el);
           })
           .attr("transform", function (d, i) {
-            const x = offs[0];
-            const y = offs[1];
+            const [x, y] = offs;
 
-            return (
-              "rotate(" +
-              (-60 + i * 120) +
-              " " +
-              x +
-              " " +
-              y +
-              ") translate(0 " +
-              r / 2 +
-              ")"
-            ); //"rotate(" + (-60 + i * 120) + " " + x + " " + y + ") translate(0 " + (r / 2) + ")";
+            return `rotate(${-60 + i * 120} ${x} ${y}) translate(0,${r / 2})`;
           })
           .each(adjustText);
 
@@ -323,7 +287,7 @@
             .data(labels)
             .each(formatLabel));
       };
-      plot.on("resize." + randomid(), draw);
+      plot.on("resize", draw);
       return draw();
     };
 
@@ -347,19 +311,16 @@
     var L = function (plot) {
       var data, draw, verts;
       verts = plot.vertices(pad);
-      data = labels.map(function (l, i) {
-        return {
-          label: l,
-          vertex: verts[i],
-        };
-      });
+      data = labels.map((l, i) => ({
+        label: l,
+        vertex: verts[i],
+      }));
+
       sel = plot.axes().selectAll(".vertex-label").data(data);
       sel
         .enter()
         .append("text")
-        .text(function (d) {
-          return d.label;
-        })
+        .text((d) => d.label)
         .attr("dy", ".35em")
         .attr("text-anchor", "middle")
         .attr("class", (d) => `vertex-label ${String(d.label).toLowerCase()}`)
@@ -372,14 +333,14 @@
       draw = function () {
         return sel.attr({
           transform: function (d, i) {
-            var ref, x, y;
-            (ref = d.vertex), (x = ref[0]), (y = ref[1]);
-            return "translate(" + x + "," + y + ")rotate(" + rotate[i] + ")";
+            var ref = d.vertex;
+            const [x, y] = ref;
+            return `translate(${x},${y})rotate(${rotate[i]})`;
           },
         });
       };
 
-      plot.on("resize." + randomid(), draw);
+      plot.on("resize.", draw);
       draw();
       return sel;
     };
@@ -391,18 +352,17 @@
   d3.ternary.neatline = function () {
     var neatline;
     neatline = function (plot) {
-      var el;
-      return (el = plot
+      return plot
         .node()
         .append("use")
         .attr("class", "neatline")
-        .attr("xlink:href", "#bounds"));
+        .attr("xlink:href", "#bounds");
     };
 
     return neatline;
   };
 
-  _plotBounds = function (plot) {
+  var _plotBounds = function (plot) {
     var _, a, domains, draw, el, i, j, points, v;
     domains = plot.scales.map((s) => s.domain());
 
@@ -432,16 +392,15 @@
     draw = function () {
       return el.attr({
         points: function (d) {
-          var di;
-          di = d.map(function (c) {
-            i = plot.rawPoint(c);
+          var di = d.map((c) => {
+            i = plot.rawPoint(c); // what is i?
             return i.join(",");
           });
           return di.join(" ");
         },
       });
     };
-    plot.on("resize." + randomid(), draw);
+    plot.on("resize.", draw);
     return draw();
   };
 
@@ -451,43 +410,36 @@
       callOnCreate,
       defs,
       events,
-      height,
       innerHeight,
       innerWidth,
-      margin,
-      outerHeight,
-      outerWidth,
       plot,
-      radius,
       rescaleView,
       scales,
-      shouldClip,
-      svg,
-      width;
+      shouldClip;
+    // svg;
 
     // Dimensions
-    outerWidth = 500;
-    outerHeight = 500;
-    margin = {
-      top: 50,
-      bottom: 50,
-      left: 50,
-      right: 50,
-    };
-    radius = null;
-    height = null;
-    width = null;
+    const margin = {
+        top: 50,
+        bottom: 50,
+        left: 50,
+        right: 50,
+      };
+    let outerWidth = 500,
+        outerHeight = 500,
+        radius = null,
+        height = null,
+        width = null;
+        svg = null;
+        axes = null;
+        plot = null;
+        defs = null;
+        shouldClip = false;
+        callOnCreate = [];
 
-    svg = null;
-    axes = null;
-    plot = null;
-    defs = null;
-    shouldClip = false;
-    callOnCreate = [];
-
-    scales = [0, 1, 2].map(function () {
-      return d3.scale.linear().domain([0, 1]).range([0, 1]);
-    });
+    scales = [0, 1, 2].map(() =>
+      d3.scale.linear().domain([0, 1]).range([0, 1])
+    );
     events = d3.dispatch("resize");
 
     innerWidth = function (w) {
@@ -514,7 +466,7 @@
         return;
       }
       svg.attr({
-        transform: "translate(" + margin.left + "," + margin.top + ")",
+        transform: `translate(${margin.left},${margin.top})`,
         width: width,
         height: height,
       });
@@ -548,9 +500,7 @@
         .attr({ "xlink:href": "#bounds" });
 
       if (callOnCreate) {
-        callOnCreate.forEach(function (f) {
-          return f(T);
-        });
+        callOnCreate.forEach((f) => f(T));
       }
       return (callOnCreate = []);
     };
@@ -617,51 +567,44 @@
     };
 
     T.point = function (coords) {
-      var sum;
-      sum = d3.sum(coords);
+      var sum = d3.sum(coords);
       if (sum !== 0) {
-        coords = coords.map(function (d) {
-          return d / sum;
-        });
+        coords = coords.map((d) => d / sum);
       }
       return T.rawPoint(coords);
     };
 
     T.rawPoint = function (d) {
-      var A, B, C, a, b, c, x, y;
       if (d3.sum(d) === 0) {
         return [0, 0];
       }
-      (A = scales[0]), (B = scales[1]), (C = scales[2]);
-      (a = d[0]), (b = d[1]), (c = d[2]);
-      x = A(a) / 2 + B(b);
-      y = B((1 - a) * cos30);
+      const [A, B, C] = scales;
+      const [a, b, c] = d;
+
+      const x = A(a) / 2 + B(b);
+      const y = B((1 - a) * cos30);
+
       return [x, y];
     };
 
-    T.value = function (arg) {
-      var A, B, C, a, b, c, x, y;
-      (x = arg[0]), (y = arg[1]);
-      (A = scales[0]), (B = scales[1]), (C = scales[2]);
-      a = 1 - B.invert(y) / cos30;
-      b = B.invert(x - A(a) / 2);
-      c = 1 - a - b;
+    T.value = function (point) {
+      const [x, y] = point;
+      const [A, B, C] = scales;
+      const a = 1 - B.invert(y) / cos30;
+      const b = B.invert(x - A(a) / 2);
+      const c = 1 - a - b;
       return [a, b, c];
     };
 
     T.path = (function (_this) {
-      return function (coordsList, accessor, interpolator) {
+      return function (coordsList, accessor = (d) => d, interpolator) {
         var positions;
         line(interpolator);
         if (!accessor) {
-          accessor = function (d) {
-            return d;
-          };
+          accessor = (d) => d;
         }
 
-        positions = coordsList.map(function (d) {
-          return T.point(accessor(d));
-        });
+        positions = coordsList.map((d) => T.point(accessor(d)));
 
         return path(positions);
       };
@@ -677,9 +620,7 @@
           };
         }
 
-        positions = coordsList.map(function (d) {
-          return T.point(accessor(d));
-        });
+        positions = coordsList.map((d) => T.point(accessor(d)));
 
         return path(positions) + "Z"; // closes the path
       };
@@ -718,10 +659,9 @@
       }
       rotate = [0, -120, 120];
       return rotate.map(function (d) {
-        var a, x, y;
-        a = (d * Math.PI) / 180;
-        x = width / 2 + Math.sin(a) * (radius + pad);
-        y = radius - Math.cos(a) * (radius + pad);
+        const a = (d * Math.PI) / 180;
+        const x = width / 2 + Math.sin(a) * (radius + pad);
+        const y = radius - Math.cos(a) * (radius + pad);
         return [x, y];
       });
     };
