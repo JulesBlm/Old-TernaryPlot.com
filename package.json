@@ -39,7 +39,7 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
-    "@sentry/browser": "^5.22.3",
+    "@sentry/browser": "^5.23.0",
     "d3": "^3.5.17",
     "dotenv": "^8.2.0",
     "handsontable": "^8.0.0",
