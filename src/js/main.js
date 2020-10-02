@@ -568,7 +568,7 @@ downloadSVGButton.addEventListener("click", () => {
   }
 
   // Invoke the function by making a request.
-  fetch(`/.netlify/functions/register-hit?type=svg`)
+  fetch(`/.netlify/functions/register-hit?format=svg`)
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -589,7 +589,7 @@ downloadPNGButton.addEventListener("click", () => {
 
   // Invoke the function by making a request.
   // Update the URL to match the format of your platform.
-  fetch(`/.netlify/functions/register-hit?type=png`)
+  fetch(`/.netlify/functions/register-hit?format=png`)
     .then((res) => res.json())
     .then((json) => console.log(json));
 });

@@ -5,32 +5,31 @@ exports.handler = async (event) => {
   const client = new faunadb.Client({
     secret: process.env.FAUNA_SECRET_KEY,
   });
-
-  const { type } = event.queryStringParameters;
-  if (!type) {
+  const { format } = event.queryStringParameters;
+  if (!format) {
     return {
       statusCode: 400,
       body: JSON.stringify({
-        message: "Download type not provided",
+        message: "Download format not provided",
       }),
     };
   }
 
   // Check and see if the doc exists.
   const doesDocExist = await client.query(
-    q.Exists(q.Match(q.Index("downloads_by_type"), type))
+    q.Exists(q.Match(q.Index("downloads_by_format"), format))
   );
   if (!doesDocExist) {
     await client.query(
       q.Create(q.Collection("downloads"), {
-        data: { type: type, downloads: 0 },
+        data: { format: format, downloads: 0 },
       })
     );
   }
 
   // Fetch the document for-real
   const document = await client.query(
-    q.Get(q.Match(q.Index("downloads_by_type"), type))
+    q.Get(q.Match(q.Index('downloads_by_format'), format))
   );
 
   await client.query(
