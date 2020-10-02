@@ -17,7 +17,6 @@ The codebase is a mess. I'm thinking of doing a complete rewrite to React with x
 1. Decrease bundle size
     * Split bundle
     * Lazy loading
-    * Update d3!
 2. Rewrite d3-ternary to d3 v5 and import only necessary d3 modules
 2. Use HandsOnTable validators to validate input
 3. Title texts for points and lines
@@ -26,13 +25,12 @@ The codebase is a mess. I'm thinking of doing a complete rewrite to React with x
 8. Write tests
 10. Accessibility!
 11. Use [d3 selection raise](https://github.com/d3/d3-selection#selection_raise) to bring points in front of areas on hover or bring drawn points to front if areas are plotted over them [like this](https://codepen.io/osublake/pen/YXoEQe)
-9. Don't use ID so many times to select buttons for eventlisteners.
-16. Make option to add rows
+16. Option to add rows
 
 ## Someday
 
 1. Write my own (clean and idiomatic) d3-ternary-plot d3 plugin
-1. Complete rewrite with ReactJS, react-table and Tailwind CSS (probably best)
+1. Complete rewrite with ReactJS
 1. Clean explain page code, maybe use MDX-slide?
 1. Add a slider like [this Observable](https://observablehq.com/@yurivish/ternary-slider), and add said slider to explanation page
 

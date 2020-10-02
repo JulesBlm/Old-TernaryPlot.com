@@ -560,7 +560,19 @@ downloadSVGButton.addEventListener("click", () => {
   downloadSvg(document.querySelector("#ternary-plot"), "TernaryPlot.com", {
     css: "none",
   });
+
   downloadDonatePrompt();
+
+  if (process.env.NODE_ENV !== "production") {
+    return;
+  }
+
+  // Invoke the function by making a request.
+  fetch(`/.netlify/functions/register-hit?type=svg`)
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+    });
 });
 
 const downloadPNGButton = document.getElementById("downloadPNG");
@@ -568,5 +580,16 @@ downloadPNGButton.addEventListener("click", () => {
   downloadPng(document.querySelector("#ternary-plot"), "TernaryPlot.com", {
     css: "none",
   });
+
   downloadDonatePrompt();
+
+  if (process.env.NODE_ENV !== "production") {
+    return;
+  }
+
+  // Invoke the function by making a request.
+  // Update the URL to match the format of your platform.
+  fetch(`/.netlify/functions/register-hit?type=png`)
+    .then((res) => res.json())
+    .then((json) => console.log(json));
 });
