@@ -39,7 +39,7 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
-    "@sentry/browser": "^5.25.0",
+    "@sentry/browser": "^5.27.2",
     "d3": "^3.5.17",
     "dotenv": "^8.2.0",
     "faunadb": "^3.0.1",
