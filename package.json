@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@sentry/browser": "^5.28.0",
-    "d3": "^3.5.17",
+    "d3": "^6.3.0",
     "dotenv": "^8.2.0",
     "faunadb": "^3.0.1",
     "handsontable": "^8.1.0",
