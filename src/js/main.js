@@ -16,10 +16,10 @@ import { Draw, Parse, clearLabels } from "./DrawParse";
 import "../css/style.scss";
 import "handsontable/dist/handsontable.full.min.css";
 
-Sentry.init({
-  dsn: SENTRY,
-  release: `ternaryplot.com/${process.env.npm_package_version}`,
-});
+// Sentry.init({
+//   dsn: SENTRY,
+//   release: `ternaryplot.com/${process.env.npm_package_version}`,
+// });
 
 // Don't show intro popup within 2 days of a visit
 if (
