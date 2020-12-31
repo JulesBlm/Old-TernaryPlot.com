@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const CompressionPlugin = require('compression-webpack-plugin');
 require('dotenv').config();
 
 module.exports = {
@@ -16,7 +15,7 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    hot: true,
+    liveReload: true,
     contentBase: path.resolve(__dirname, 'dist'),
     watchContentBase: true,
     port: 4000,
@@ -32,7 +31,7 @@ module.exports = {
               // you can specify a publicPath here
               // by default it uses publicPath in webpackOptions.output
               publicPath: '../',
-              hmr: process.env.NODE_ENV === 'development',
+              // hmr: process.env.NODE_ENV === 'development',
             },
           },
           'css-loader',

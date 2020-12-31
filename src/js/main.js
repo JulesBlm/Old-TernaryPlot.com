@@ -74,13 +74,14 @@ Handsontable.renderers.registerRenderer("emptyCellRenderer", emptyCellRenderer);
 Handsontable.renderers.registerRenderer("firstRowRenderer", firstRowRenderer);
 
 function createHandsOnTable(ID, placeholder, HOTcolumns) {
-  return new Handsontable(document.getElementById(ID), {
+  const tableContainer = document.getElementById(ID)
+  return new Handsontable(tableContainer, {
     colHeaders: placeholder,
     columns: HOTcolumns,
     fixedRowsTop: 1,
     rowHeaders: true,
-    minRows: 100,
-    height: 330,
+    minRows: 125,
+    height: 350,
     width: initialTableSize,
     manualRowMove: true,
     dropdownMenu: true,
@@ -563,9 +564,9 @@ downloadSVGButton.addEventListener("click", () => {
 
   downloadDonatePrompt();
 
-  if (process.env.NODE_ENV !== "production") {
-    return;
-  }
+  // if (process.env.NODE_ENV !== "production") {
+  //   return;
+  // }
 
   // Invoke the function by making a request.
   fetch(`/.netlify/functions/register-hit?format=svg`)
@@ -583,9 +584,9 @@ downloadPNGButton.addEventListener("click", () => {
 
   downloadDonatePrompt();
 
-  if (process.env.NODE_ENV !== "production") {
-    return;
-  }
+  // if (process.env.NODE_ENV !== "production") {
+  //   return;
+  // }
 
   // Invoke the function by making a request.
   // Update the URL to match the format of your platform.

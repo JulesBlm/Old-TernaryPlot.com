@@ -1,6 +1,6 @@
 {
   "name": "ternaryplot.com",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "The source code for my side project: [TernaryPlot.com](http://www.ternaryplot.com). A single purpose website to quickly and freely genreate ternary plots. A ternary plot is a somewhat obscure diagram often used in geology, soil sciences, metallurgy and chemical engineering. The quickest option available for making ternary plots was with Excel templates, which in my opinion are inflexible and produce ugly plots. Some R and Python libraries exist for this purpose but these are harder to use and require installing R and Python (of course). That's why I made this tool for personal use, and later decided to develop into something slicker and with more options.",
   "main": "./src/js/main.js",
   "homepage": "https://github.com/JulesBlm/TernaryPlot.com#readme",
@@ -13,9 +13,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --keep-fnames -p --progress --display-error-details",
+    "build": "webpack --progress",
     "watch": "webpack --progress --watch",
-    "dev": "webpack-dev-server --port 4004",
+    "dev": "webpack serve --port 4004",
     "start": "npm run dev"
   },
   "keywords": [],
@@ -25,29 +25,28 @@
     "url": "https://github.com/JulesBlm/TernaryPlot.com/issues"
   },
   "devDependencies": {
-    "compression-webpack-plugin": "^5.0.2",
-    "css-loader": "^4.3.0",
-    "eslint": "^7.10.0",
+    "css-loader": "^5.0.1",
+    "eslint": "^7.15.0",
     "eslint-plugin-import": "^2.22.1",
-    "mini-css-extract-plugin": "^0.11.3",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^10.0.2",
-    "style-loader": "^1.3.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
+    "mini-css-extract-plugin": "^1.3.3",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0",
+    "webpack-dev-server": "^3.11.1",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
-    "@sentry/browser": "^5.25.0",
+    "@sentry/browser": "^5.29.0",
     "d3": "^3.5.17",
     "dotenv": "^8.2.0",
     "faunadb": "^3.0.1",
-    "handsontable": "^8.1.0",
-    "reveal.js": "^3.9.2",
+    "handsontable": "^8.2.0",
     "reveal_external": "^1.3.0",
+    "reveal.js": "^3.9.2",
     "reveald3": "^1.5.5",
-    "svg-crowbar": "^0.6.1",
+    "svg-crowbar": "^0.6.4",
     "sweetalert": "^2.1.2"
   }
 }
