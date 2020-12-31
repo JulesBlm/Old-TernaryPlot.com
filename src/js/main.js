@@ -297,7 +297,7 @@ if (localStorage.getItem("pointsTable")) {
     <div class='donate-buttons'>
       <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a>
       <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI">
-        <img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buying me a coffee">
+        <img src="coffee.svg" alt="Buying me a coffee">
         <span style="margin-left:5px">Buy me a coffee</span>
       </a>
     </div>
@@ -535,7 +535,7 @@ const downloadDonatePrompt = () => {
   <div class='donate-buttons'>
   <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate</a>
   <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI">
-  <img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buying me a coffee">
+  <img src="coffee.svg" alt="Buying me a coffee">
   <span style="margin-left:5px">Buy me a coffee</span>
   </a>
   </div>

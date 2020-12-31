@@ -251,22 +251,22 @@
 
   <h2>How To Use</h2>
   <h3>Input Parameters</h3>
-  <p>The top row has to contain your column names. Your variable names <span class="underline">have to be the first three values of this first row</span>. These first three will be entered as axis labels in the ternary plot. <br>The axis labels are placed in counter-clockwise order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points, lines and areas. You will get a warning when the column names are not consistent between the points, lines, and areas tables.</p>
-  <p>
+  <p class="prose">The top row has to contain your column names. Your variable names <span class="underline">have to be the first three values of this first row</span>. These first three will be entered as axis labels in the ternary plot. <br>The axis labels are placed in counter-clockwise order: First column: top, second column: left, third column: right. Note that you have to keep the order of the your three column names consistent between points, lines and areas. You will get a warning when the column names are not consistent between different tables.</p>
+  <p class="prose">
     Other parameters, like <var>color</var>, <var>opacity</var> or <var>shape</var> also have to be named to in the top row, but do not need to be in any specific order. If you are confused, try reloading the page and taking a good look at the example data!
   </p>
-  <p>
+  <p class="prose">
     Enter the values directly and the proportion of each value will calculated. Note that a dot <code>.</code> is used as a decimal separator. <span class="underline">Also do not enter the percentage symbol (%)!</span>
   </p>
   <p>
     You <span class="underline">have to enter three values</span> for a point, line or area to be plotted.
   </p>
-  <p>
+  <p class="prose">
     <span class="underline">Different lines and areas are seperated by <em>one</em> empty row.</span> Only the first row of a line's or area's style parameters are read. The optional parameters on following rows won't be read.
   </p>
 
   <h3>Save data for next time</h3>
-  <p>Your entered values are saved automatically in your browsers storage. So when you come back to this page later, you'll be asked whether you want to reload these values. This tool runs completely on the client-side using JavaScript, so your data never leaves your computer. Put another way, your entered values are not transmitted to any server and are only stored locally on your machine.</p>
+  <p class="prose">Values entered in the tables are saved automatically in your browsers storage. So when you come back to this page later, you'll be asked whether you want to load these values. <br/> This tool runs completely on the client-side using JavaScript, so your data never leaves your computer. Put another way, your entered values are not transmitted to any server and are only stored locally on your machine.</p>
   
   <h3>Optional Keywords</h3>
   <table class="tg">
@@ -279,8 +279,8 @@
       <td class="tg-l711">Text (without commas and dashes). This will appended as an SVG title and will appear when hovering the cursor over the point or line.</td>
     </tr>
     <tr>
-      <td class="tg-yw4l">Color (colour works too)</td>
-      <td class="tg-yw4l">A hexadecimal color value like <code>#dcedff</code>, or a <a href="https://htmlcolorcodes.com/color-names/" target="_blank" rel="noopener noreferrer">named color</a> like <code>blue</code> or <code>orangered</code>.
+      <td class="tg-yw4l">Color (or colour)</td>
+      <td class="tg-yw4l">A hexadecimal color value like <code>#dcedff</code>, or a <a href="https://htmlcolorcodes.com/color-names/" rel="noopener noreferrer">named color</a> like <code>blue</code> or <code>orangered</code>.
     </tr>
     <tr>
       <td class="tg-yw4l">Opacity</td>
@@ -304,12 +304,12 @@
     </tr>    
   </table>
   <h2>Donate!</h2>
-  <p>
-    TernaryPlot.com is completely free to use and will remain that way! However, it has cost and still costs me time and effort to maintain and develop TernaryPlot.com. While I will continue improving this page from time to time, donating will reinforce my motivation for working on it. So if it has saved you time and effort, why not support me by a donation or buying me a coffee to keep me cafeinated?
+  <p class="prose">
+    TernaryPlot.com is completely <strong>free to use</strong> and <strong>without advertising! </strong>. I rely on donations to keep it like that. Maintaining and developing TernaryPlot.com has cost and still takes time and effort. Donations also reinforce my motivation to improve this page. So if it has saved you time and effort, why not support me by a donation or buying me a coffee to keep me caffeinated?
     <div class="donate-buttons">
-        <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate</a>
+        <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate via PayPal</a>
         <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI">
-          <img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buy me a coffee">
+          <img src="coffee.svg" alt="Buy me a coffee">
           <span style="margin-left:5px">Buy me a coffee</span>
         </a>
     </div>
