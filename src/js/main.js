@@ -530,7 +530,7 @@ const downloadDonatePrompt = () => {
   const donatePromptMessage = document.createElement("div");
 
   donatePromptMessage.innerHTML = `
-  <p>Was it easy to make it? I hope so! I regularly improve this site to make sure it's easy to use, this costs me time and effort. So if this tool has saved you the frustration of having to work with
+  <p>Was it easy to make it? I hope so! I regularly improve this site to make sure it's easy to use, this takes up time and effort. So if this tool has saved you the frustration of having to work with
   shoddy Excel templates or other dingy software, then please <strong>donate</strong> or <strong>buy be me coffee</strong> to support development and keep this site ad-free.</p>
   <div class='donate-buttons'>
   <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">Donate</a>
