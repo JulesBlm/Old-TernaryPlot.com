@@ -501,3 +501,9 @@ tbody > tr:first-child > td {
 .no-underline:hover path {
   fill: coral;
 }
+
+#feedback-form {
+  border: 1px solid lightcoral;
+  padding: 1em 2em;
+  border-radius: 2em;
+}
