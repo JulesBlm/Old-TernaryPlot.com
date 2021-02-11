@@ -117,7 +117,7 @@ function showHelpLines(e) {
     .attr("z-index", "-1");
 }
 
-const isNullArray = (arr) => arr.every(d => d === null)
+const isNullArray = (arr) => arr.every((d) => d === null);
 
 const Parse = {
   Points(data) {
@@ -167,10 +167,9 @@ const Parse = {
     const linesToDraw = [];
     {
       let drawLine = [];
-      
+
       // Loop over rows array
       for (const point of rows) {
-
         if (!isNullArray(point)) {
           drawLine.push(point); // Add to drawLine
         } else if (isNullArray(point)) {
@@ -181,7 +180,6 @@ const Parse = {
           drawLine = []; // Reset drawLine
         }
       }
-
     }
 
     // TODO: Don't repeat the monster reducer!
@@ -372,7 +370,16 @@ const Draw = {
   },
 };
 
-d3.select("#ternary-plot").call(ternary);
+const ternaryPlotElement = d3.select("#ternary-plot");
+
+// append white background for png download
+ternaryPlotElement
+  .append("rect")
+  .attr("fill", "white")
+  .attr("width", initialPlotSize[0])
+  .attr("height", initialPlotSize[1]);
+
+ternaryPlotElement.call(ternary);
 window.addEventListener("resize", resize(ternary));
 
 export { Parse, Draw, clearLabels };

@@ -20,11 +20,11 @@
     if (!interpolator) {
       interpolator = "linear";
     }
-    return path = d3.svg
+    return (path = d3.svg
       .line()
       .x((d) => d[0])
       .y((d) => d[1])
-      .interpolate(interpolator);
+      .interpolate(interpolator));
   };
 
   var angles = [0, 120, 240];
@@ -67,7 +67,7 @@
     var graticule = (plot) => {
       var axisGraticule, gratAxes;
       gratAxes = [0, 1, 2].map(() => d3.svg.axis().tickValues(majorTicks()));
-      axisGraticule = function(axis, i) {
+      axisGraticule = function (axis, i) {
         var container = d3.select(this);
 
         var selA = container.selectAll("path.minor").data(minorTicks());
@@ -93,7 +93,7 @@
           return selB.attr("d", plot.rule(i));
         };
 
-        plot.on("resize.", draw);
+        plot.on("resize", draw);
         return draw();
       };
 
@@ -340,7 +340,7 @@
         });
       };
 
-      plot.on("resize.", draw);
+      plot.on("resize", draw);
       draw();
       return sel;
     };
@@ -400,7 +400,7 @@
         },
       });
     };
-    plot.on("resize.", draw);
+    plot.on("resize", draw);
     return draw();
   };
 
@@ -420,22 +420,23 @@
 
     // Dimensions
     const margin = {
-        top: 50,
-        bottom: 50,
-        left: 50,
-        right: 50,
-      };
+      top: 50,
+      bottom: 50,
+      left: 50,
+      right: 50,
+    };
     let outerWidth = 500,
-        outerHeight = 500,
-        radius = null,
-        height = null,
-        width = null;
-        svg = null;
-        axes = null;
-        plot = null;
-        defs = null;
-        shouldClip = false;
-        callOnCreate = [];
+      outerHeight = 500,
+      radius = null,
+      height = null,
+      width = null;
+    svg = null;
+    rect = null;
+    axes = null;
+    plot = null;
+    defs = null;
+    shouldClip = false;
+    callOnCreate = [];
 
     scales = [0, 1, 2].map(() =>
       d3.scale.linear().domain([0, 1]).range([0, 1])
@@ -470,6 +471,10 @@
         width: width,
         height: height,
       });
+      rect.attr({
+        width: width,
+        height: height,
+      });
       d3.select(svg.node().parentElement).attr({
         width: outerWidth,
         height: outerHeight,
@@ -488,6 +493,7 @@
 
     T = function (el) {
       svg = el.append("g");
+      rect = svg.append("rect").attr("fill", "white");
       defs = svg.append("defs");
       axes = svg.append("g").attr("id", "axes");
       plot = svg.append("g").attr("id", "plot");

@@ -2,45 +2,10 @@
 <html lang="en">
   <head>
     <title>Ternary Plot Generator - Quickly create ternary diagrams</title>
-    <!-- RightMessage -->
-    <script type="text/javascript">
-      (function (p, a, n, d, o, b, c) {
-        o = n.createElement("script");
-        o.type = "text/javascript";
-        o.async = true;
-        o.src = "https://tb.rightmessage.com/" + p + ".js";
-        b = n.getElementsByTagName("script")[0];
-        d = function (h, u, i) {
-          var c = n.createElement("style");
-          c.id = "rmcloak" + i;
-          c.type = "text/css";
-          c.appendChild(
-            n.createTextNode(
-              ".rmcloak" +
-                h +
-                "{visibility:hidden}.rmcloak" +
-                u +
-                "{display:none}"
-            )
-          );
-          b.parentNode.insertBefore(c, b);
-          return c;
-        };
-        c = d("", "-hidden", "");
-        d("-stay-invisible", "-stay-hidden", "-stay");
-        setTimeout(
-          (o.onerror = function () {
-            c.parentNode && c.parentNode.removeChild(c);
-          }),
-          a
-        );
-        b.parentNode.insertBefore(o, b);
-      })("1188050082", 20000, document);
-    </script>
     <meta charset="utf-8" />
     <meta
       name="description"
-      content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For zero setup creation of ternary diagrams."
+      content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free, for zero-setup creation of ternary diagrams."
     />
     <meta
       name="viewport"
@@ -389,6 +354,7 @@
                 <div>
                   <input
                     type="radio"
+                    required
                     name="feature"
                     id="legend"
                     value="legend"
@@ -433,6 +399,7 @@
                   <input
                     type="radio"
                     name="user"
+                    required
                     id=" academic-pro"
                     value="academic-pro"
                   /><label for="academic-pro">Academic (professional)</label>
@@ -465,6 +432,7 @@
                 <div>
                   <input
                     type="radio"
+                    required
                     name="frequency"
                     id="once"
                     value="once"
@@ -503,6 +471,7 @@
                 <div>
                   <input
                     type="radio"
+                    required
                     name="chart-types"
                     id="boxplot"
                     value="boxplot"
