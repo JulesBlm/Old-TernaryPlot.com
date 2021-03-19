@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta
       name="description"
-      content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free, for zero-setup creation of ternary diagrams."
+      content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable ternary diagram for free, for zero-setup creation of ternary diagrams."
     />
     <meta
       name="viewport"
@@ -26,8 +26,6 @@
       property="og:description"
       content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For zero setup creation of ternary diagrams."
     />
-    <!-- <meta property="og:image" content="http://graphics8.nytimes.com/images/2011/12/08/technology/bits-newtwitter/bits-newtwitter-tmagArticle.jpg" /> -->
-
     <!--[if lt IE 9]>
       <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
@@ -71,6 +69,14 @@
     </header>
 
     <main>
+      <div id="promo" style="text-align: center">
+        <h3 class="underline">
+          <a href="https://ternaryplot2.netlify.app/"
+            >Try out the new beta version of TernaryPlot.com! And please leave
+            feedback after checking it out.</a
+          >
+        </h3>
+      </div>
       <div class="content">
         <div id="intro">
           <span id="closeIntro">X</span>
@@ -79,7 +85,7 @@
             <p>
               This site lets you create a ternary plot freely and easily! Don’t
               know what ternary plot is? No problem, just check the
-              <a href="/explain" about="_blank">explanation page</a>. <br />
+              <a href="/explain">explanation page</a>. <br />
               Some example data is loaded into the tables to show you how it
               works. Try clicking all the ' + Plot' buttons below for a quick
               demo. Check the <a href="#params">'How To Use' section</a> below
@@ -89,7 +95,6 @@
                 class="inline-donate"
                 href="https://paypal.me/BlomJ"
                 rel="noopener noreferrer"
-                target="_blank"
                 >donate</a
               >
               to support development! Happy ternary plotting!
@@ -344,10 +349,14 @@
               id="feedback-form"
             >
               <p>
-                <label>Your Name (optional): <input type="text" name="name" /></label>
+                <label
+                  >Your Name (optional): <input type="text" name="name"
+                /></label>
               </p>
               <p>
-                <label>Your Email (optional): <input type="email" name="email" /></label>
+                <label
+                  >Your Email (optional): <input type="email" name="email"
+                /></label>
               </p>
               <fieldset>
                 <legend>What feature do you miss most?:</legend>
@@ -423,7 +432,9 @@
                 </div>
                 <div>
                   <input type="radio" name="user" id="other" value="other" />
-                  <label for="other">Other, please enter in the text below</label>
+                  <label for="other"
+                    >Other, please enter in the text below</label
+                  >
                 </div>
               </fieldset>
 
@@ -575,8 +586,8 @@
               Values entered in the tables are saved automatically in your
               browsers storage. So when you come back to this page later, you'll
               be asked whether you want to load these values. <br />
-              This web app runs completely on the client-side using JavaScript, so
-              your data never leaves your computer. Put another way, your
+              This web app runs completely on the client-side using JavaScript,
+              so your data never leaves your computer. Put another way, your
               entered values are not transmitted to any server and are only
               stored locally on your machine.
             </p>
@@ -658,13 +669,11 @@
                 role="button"
                 href="https://paypal.me/BlomJ"
                 rel="noopener noreferrer"
-                target="_blank"
                 >Donate via PayPal</a
               >
               <a
                 class="bmc-button"
                 rel="noopener"
-                target="_blank"
                 href="https://www.buymeacoffee.com/OfU1nAuiI"
               >
                 <img src="coffee.svg" alt="Buy me a coffee" />
@@ -689,7 +698,6 @@
           class="no-underline"
           href="https://twitter.com/Mega_Jules"
           aria-label="Twitter icon"
-          target="_blank"
           rel="noopener noreferrer"
         >
           By Mega Jules
@@ -714,7 +722,6 @@
           class="no-underline"
           href="https://github.com/JulesBlm/TernaryPlot.com"
           aria-label="GitHub icon"
-          target="_blank"
           rel="noopener noreferrer"
         >
           <svg
@@ -737,7 +744,6 @@
           class="no-underline"
           title="Make wind rose diagram easily"
           href="https://www.windrose.xyz"
-          target="_blank"
           rel="noopener"
         >
           WindRose.xyz: Make wind rose charts online

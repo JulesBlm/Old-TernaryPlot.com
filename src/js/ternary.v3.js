@@ -493,7 +493,7 @@
 
     T = function (el) {
       svg = el.append("g");
-      rect = svg.append("rect").attr("fill", "white");
+      rect = svg.append("rect").attr("fill", "white").attr("id", "white-background");
       defs = svg.append("defs");
       axes = svg.append("g").attr("id", "axes");
       plot = svg.append("g").attr("id", "plot");
