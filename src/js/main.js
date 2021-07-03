@@ -9,17 +9,11 @@
 import d3 from "d3";
 import Handsontable from "handsontable";
 import swal from "sweetalert";
-import * as Sentry from "@sentry/browser";
 import downloadSvg, { downloadPng } from "svg-crowbar";
 import { Draw, Parse, clearLabels } from "./DrawParse";
 
 import "../css/style.scss";
 import "handsontable/dist/handsontable.full.min.css";
-
-// Sentry.init({
-//   dsn: SENTRY,
-//   release: `ternaryplot.com/${process.env.npm_package_version}`,
-// });
 
 // Don't show intro popup within 2 days of a visit
 if (
