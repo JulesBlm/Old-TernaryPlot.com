@@ -129,11 +129,11 @@ const pointsPlaceholder = [
 ];
 const pointsLabels = pointsPlaceholder.slice(0, 3);
 
-const pointsTable = createHandsOnTable(
-  "pointsTable",
-  pointsLabels,
-  pointColumns
-);
+// const pointsTable = createHandsOnTable(
+//   "pointsTable",
+//   pointsLabels,
+//   pointColumns
+// );
 const plotPointsButton = document.getElementById("plotPoints");
 
 Handsontable.dom.addEvent(plotPointsButton, "click", (e) => {
@@ -178,17 +178,17 @@ const linesColumns = [
   {},
 ];
 
-const linesTable = createHandsOnTable("linesTable", linesLabels, linesColumns);
+// const linesTable = createHandsOnTable("linesTable", linesLabels, linesColumns);
 const plotLinesButton = document.getElementById("plotLines");
-Handsontable.dom.addEvent(plotLinesButton, "click", (e) => {
-  e.preventDefault();
-  clear(".ternary-line");
+// Handsontable.dom.addEvent(plotLinesButton, "click", (e) => {
+//   e.preventDefault();
+//   clear(".ternary-line");
 
-  const linesTableData = linesTable.getData();
-  const parsedLines = Parse.LinesAreas(linesTableData);
+//   const linesTableData = linesTable.getData();
+//   const parsedLines = Parse.LinesAreas(linesTableData);
 
-  Draw.Lines(parsedLines);
-});
+//   Draw.Lines(parsedLines);
+// });
 
 /* Lines Table */
 
@@ -211,22 +211,22 @@ const areasColumns = [
   {},
 ];
 
-const areasTable = createHandsOnTable("areasTable", areaLabels, areasColumns);
+// const areasTable = createHandsOnTable("areasTable", areaLabels, areasColumns);
 const plotAreasButton = document.getElementById("plotAreas");
-Handsontable.dom.addEvent(plotAreasButton, "click", (e) => {
-  e.preventDefault();
-  clear(".ternary-area");
-  const parsedAreas = Parse.LinesAreas(areasTable.getData());
-  Draw.Areas(parsedAreas);
-});
+// Handsontable.dom.addEvent(plotAreasButton, "click", (e) => {
+//   e.preventDefault();
+//   clear(".ternary-area");
+//   const parsedAreas = Parse.LinesAreas(areasTable.getData());
+//   Draw.Areas(parsedAreas);
+// });
 
 /* Load example or no data */
 
-const loadDataToTables = (pointsData, linesData, areasData) => {
-  pointsTable.loadData(pointsData);
-  linesTable.loadData(linesData);
-  areasTable.loadData(areasData);
-};
+// const loadDataToTables = (pointsData, linesData, areasData) => {
+//   pointsTable.loadData(pointsData);
+//   linesTable.loadData(linesData);
+//   areasTable.loadData(areasData);
+// };
 
 const loadSampleData = () => {
   const pointsData = [

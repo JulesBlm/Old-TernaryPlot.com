@@ -26,37 +26,7 @@
       property="og:description"
       content="Easy online Ternary Plot generator! Quickly create an easily customizable and downloadable SVG ternary diagram for free. For zero setup creation of ternary diagrams."
     />
-    <!--[if lt IE 9]>
-      <script src="lib/js/html5shiv.js"></script>
-    <![endif]-->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-104492042-4"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
 
-      gtag("config", "UA-104492042-4");
-      //<!-- Hotjar Tracking Code for www.ternaryplot.com -->
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 1255388, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-    </script>
     <link rel="icon" type="image/png" href="favicon.png" />
   </head>
   <body>
@@ -69,36 +39,13 @@
     </header>
 
     <main>
-      <div id="promo" style="text-align: center">
-        <h3 class="underline">
-          <a href="https://ternaryplot2.netlify.app/"
-            >Try out the new beta version of TernaryPlot.com! And please leave
-            feedback after checking it out.</a
-          >
-        </h3>
-      </div>
       <div class="content">
         <div id="intro">
           <span id="closeIntro">X</span>
           <div>
-            <h1>TernaryPlot.com</h1>
+            <h1>Old TernaryPlot Generator</h1>
             <p>
-              This site lets you create a ternary plot freely and easily! Don’t
-              know what ternary plot is? No problem, just check the
-              <a href="/explain">explanation page</a>. <br />
-              Some example data is loaded into the tables to show you how it
-              works. Try clicking all the ' + Plot' buttons below for a quick
-              demo. Check the <a href="#params">'How To Use' section</a> below
-              for all the details on how to plot points, lines, and areas. If
-              you have found this tool to be useful, then please
-              <a
-                class="inline-donate"
-                href="https://paypal.me/BlomJ"
-                rel="noopener noreferrer"
-                >donate</a
-              >
-              to support development! Happy ternary plotting!
-            </p>
+              This site has been replaced by a new version of. See <a href="https://ternaryplot.com">TernaryPlot.com</a>
           </div>
         </div>
 
@@ -149,7 +96,6 @@
                 Remove Labels
               </button>
 
-              <!-- Someday! <button id="makeLegend" aria-label="Make legend" value="Make Legend"> -->
             </div>
             <div class="buttons">
               <button
@@ -199,14 +145,6 @@
                   max="1000"
                   value="70"
                 />
-                <!-- <datalist id="pointticks">
-            <option value="3" label="0%">
-            <option value="10">
-            <option value="70" label="70">
-            <option value="120">
-            <option value="500">
-            <option value="1000" label="1000">
-          </datalist> -->
               </label>
             </div>
 
@@ -334,354 +272,6 @@
             </div>
           </div>
         </div>
-
-        <div id="params" class="margin-main">
-          <section>
-            <h2>Feedback</h2>
-            <p>
-              Help me learn more about you and your use cases so I can improve
-              TernaryPlot.com!
-            </p>
-            <form
-              name="improve"
-              method="POST"
-              data-netlify="true"
-              id="feedback-form"
-            >
-              <p>
-                <label
-                  >Your Name (optional): <input type="text" name="name"
-                /></label>
-              </p>
-              <p>
-                <label
-                  >Your Email (optional): <input type="email" name="email"
-                /></label>
-              </p>
-              <fieldset>
-                <legend>What feature do you miss most?:</legend>
-                <div>
-                  <input
-                    type="radio"
-                    required
-                    name="feature"
-                    id="legend"
-                    value="legend"
-                  /><label for="legend">Generating a legend</label>
-                </div>
-                <div>
-                  <input type="radio" name="feature" id="csv" value="csv" />
-                  <label for="csv">Uploading a CSV file</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="feature"
-                    id="custom-domain"
-                    value="custom-domain"
-                  /><label for="custom-domain">Custom plot domain ranges</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="feature"
-                    id="Interactivity"
-                    value="Interactivity"
-                  /><label for="Interactivity">Interactivity</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="feature"
-                    id=" advanced-plotting"
-                    value="advanced-plotting"
-                  /><label for="advanced-plotting"
-                    >More advanced plotting features (contours, gradients
-                    etc.)</label
-                  >
-                </div>
-              </fieldset>
-
-              <fieldset>
-                <legend>Which of the following best describes you?</legend>
-                <div>
-                  <input
-                    type="radio"
-                    name="user"
-                    required
-                    id=" academic-pro"
-                    value="academic-pro"
-                  /><label for="academic-pro">Academic (professional)</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="user"
-                    id="student"
-                    value="student"
-                  /><label for="student">Student</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="user"
-                    id="professional"
-                    value="professional"
-                  />
-                  <label for="professional">Professional</label>
-                </div>
-                <div>
-                  <input type="radio" name="user" id="other" value="other" />
-                  <label for="other"
-                    >Other, please enter in the text below</label
-                  >
-                </div>
-              </fieldset>
-
-              <fieldset>
-                <legend>How often do you use TernaryPlot.com?</legend>
-                <div>
-                  <input
-                    type="radio"
-                    required
-                    name="frequency"
-                    id="once"
-                    value="once"
-                  /><label for="once">Just this one time</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="frequency"
-                    id="yearly"
-                    value="yearly"
-                  /><label for="yearly">A few times per year</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="frequency"
-                    id="monthly"
-                    value="monthly"
-                  /><label for="monthly">A few times per month</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="frequency"
-                    id="weekly"
-                    value="weekly"
-                  /><label for="weekly">A few times per week</label>
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend>
-                  What other chart types would you like to have a web app like
-                  TernaryPlot.com for?
-                </legend>
-                <div>
-                  <input
-                    type="radio"
-                    required
-                    name="chart-types"
-                    id="boxplot"
-                    value="boxplot"
-                  /><label for="boxplot">Box plots</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="chart-types"
-                    id="violincharts"
-                    value="violincharts"
-                  /><label for="violincharts">Violin charts</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="chart-types"
-                    id="violincharts"
-                    value="violincharts"
-                  /><label for="violincharts">Radar charts / polar plots</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="chart-types"
-                    id="barcharts"
-                    value="barcharts"
-                  /><label for="barcharts">Bar charts</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="chart-types"
-                    id="other-chart"
-                    value="other-chart"
-                  /><label for="other-chart"
-                    >Other, please enter in the text below</label
-                  >
-                </div>
-              </fieldset>
-
-              <fieldset>
-                <legend>Comments</legend>
-                <textarea
-                  rows="6"
-                  cols="40"
-                  name="comments"
-                  placeholder="For example: other features you're missing, a bug you've encountered, other chart types that you find difficult to make or just a compliment"
-                ></textarea>
-              </fieldset>
-
-              <p>
-                <button type="submit">Send</button>
-              </p>
-            </form>
-          </section>
-
-          <section>
-            <h2>How To Use</h2>
-            <h3>Input Parameters</h3>
-            <p class="prose">
-              The top row has to contain your column names. Your variable names
-              <span class="underline"
-                >have to be the first three values of this first row</span
-              >. These first three will be entered as axis labels in the ternary
-              plot. <br />The axis labels are placed in counter-clockwise order:
-              First column: top, second column: left, third column: right. Note
-              that you have to keep the order of the your three column names
-              consistent between points, lines and areas. You will get a warning
-              when the column names are not consistent between different tables.
-            </p>
-            <p class="prose">
-              Other parameters, like <var>color</var>, <var>opacity</var> or
-              <var>shape</var> also have to be named to in the top row, but do
-              not need to be in any specific order. If you are confused, try
-              reloading the page and taking a good look at the example data!
-            </p>
-            <p class="prose">
-              Enter the values directly and the proportion of each value will
-              calculated. Note that a dot <code>.</code> is used as a decimal
-              separator.
-              <span class="underline"
-                >Also do not enter the percentage symbol (%)!</span
-              >
-            </p>
-            <p>
-              You <span class="underline">have to enter three values</span> for
-              a point, line or area to be plotted.
-            </p>
-            <p class="prose">
-              <span class="underline"
-                >Different lines and areas are seperated by <em>one</em> empty
-                row.</span
-              >
-              Only the first row of a line's or area's style parameters are
-              read. The optional parameters on following rows won't be read.
-            </p>
-
-            <h3>Save data for next time</h3>
-            <p class="prose">
-              Values entered in the tables are saved automatically in your
-              browsers storage. So when you come back to this page later, you'll
-              be asked whether you want to load these values. <br />
-              This web app runs completely on the client-side using JavaScript,
-              so your data never leaves your computer. Put another way, your
-              entered values are not transmitted to any server and are only
-              stored locally on your machine.
-            </p>
-
-            <h3>Optional Keywords</h3>
-            <table class="tg">
-              <tr>
-                <th class="tg-l711">Keyword</th>
-                <th class="tg-l711">Values</th>
-              </tr>
-              <tr>
-                <td class="tg-l711">Title</td>
-                <td class="tg-l711">
-                  Text (without commas and dashes). This will appended as an SVG
-                  title and will appear when hovering the cursor over the point
-                  or line.
-                </td>
-              </tr>
-              <tr>
-                <td class="tg-yw4l">Color (or colour)</td>
-                <td class="tg-yw4l">
-                  A hexadecimal color value like <code>#dcedff</code>, or a
-                  <a
-                    href="https://htmlcolorcodes.com/color-names/"
-                    rel="noopener noreferrer"
-                    >named color</a
-                  >
-                  like <code>blue</code> or <code>orangered</code>.
-                </td>
-              </tr>
-
-              <tr>
-                <td class="tg-yw4l">Opacity</td>
-                <td class="tg-yw4l">Value between 1 and 0</td>
-              </tr>
-              <tr class="point-only">
-                <td class="tg-yw4l">Point only: Shape</td>
-                <td class="tg-yw4l">
-                  Circle, cross, diamond, triangle-down, or triangle-up. Double
-                  click on a cell to show a dropdown menu.
-                </td>
-              </tr>
-              <tr class="point-only">
-                <td class="tg-yw4l">Point only: Size</td>
-                <td class="tg-yw4l">Integer. Default is 70.</td>
-              </tr>
-              <tr class="line-only">
-                <td class="tg-yw4l">Line only: Linestyle</td>
-                <td class="tg-yw4l">
-                  Dotted, dot-dash, dot-dot-dash, short-dashed, medium-dashed,
-                  long-dashed. Double click on a cell to show a dropdown menu.
-                </td>
-              </tr>
-              <tr class="line-only">
-                <td class="tg-yw4l">Line only: Strokewidth</td>
-                <td class="tg-yw4l">
-                  The width of the line in pixels. Be warned; anything above
-                  <code>7 px</code> will look too chunky. Default is
-                  <code>4 px</code>.
-                </td>
-              </tr>
-            </table>
-          </section>
-
-          <section>
-            <h2>Donate!</h2>
-            <p class="prose">
-              TernaryPlot.com is completely <strong>free to use</strong> and
-              <strong>without advertising!</strong>. I rely on donations to keep
-              it like that. Maintaining and developing TernaryPlot.com has cost
-              and still takes time and effort. Donations also reinforce my
-              motivation to improve this page. So if it has saved you time and
-              effort, why not support me by a donation or buying me a coffee to
-              keep me caffeinated?
-            </p>
-            <div class="donate-buttons">
-              <a
-                class="donate"
-                role="button"
-                href="https://paypal.me/BlomJ"
-                rel="noopener noreferrer"
-                >Donate via PayPal</a
-              >
-              <a
-                class="bmc-button"
-                rel="noopener"
-                href="https://www.buymeacoffee.com/OfU1nAuiI"
-              >
-                <img src="coffee.svg" alt="Buy me a coffee" />
-                <span style="margin-left: 5px">Buy me a coffee</span>
-              </a>
-            </div>
-          </section>
-        </div>
       </div>
     </main>
 
@@ -700,7 +290,7 @@
           aria-label="Twitter icon"
           rel="noopener noreferrer"
         >
-          By Mega Jules
+          By Jules
 
           <svg
             role="img"
