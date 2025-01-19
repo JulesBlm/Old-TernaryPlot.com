@@ -284,70 +284,70 @@ const loadSampleData = () => {
 };
 
 // Check if there is something in localStorage
-if (localStorage.getItem("pointsTable")) {
-  const hereBeforeMessage = document.createElement("div");
-  hereBeforeMessage.innerHTML = `
-    <p>If you have found this site to be useful consider</p>
-    <div class='donate-buttons'>
-      <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a>
-      <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI">
-        <img src="coffee.svg" alt="Buying me a coffee">
-        <span style="margin-left:5px">Buy me a coffee</span>
-      </a>
-    </div>
-    <hr>
-    <p>
-      <strong>Do you wan't to load your previously entered data into the tables?</strong>
-    </p>
-  `;
+// if (localStorage.getItem("pointsTable")) {
+//   const hereBeforeMessage = document.createElement("div");
+//   hereBeforeMessage.innerHTML = `
+//     <p>If you have found this site to be useful consider</p>
+//     <div class='donate-buttons'>
+//       <a class="donate" role="button" href="https://paypal.me/BlomJ" rel="noopener noreferrer" target="_blank">donating</a>
+//       <a class="bmc-button" rel="noopener" target="_blank" href="https://www.buymeacoffee.com/OfU1nAuiI">
+//         <img src="coffee.svg" alt="Buying me a coffee">
+//         <span style="margin-left:5px">Buy me a coffee</span>
+//       </a>
+//     </div>
+//     <hr>
+//     <p>
+//       <strong>Do you wan't to load your previously entered data into the tables?</strong>
+//     </p>
+//   `;
 
-  const storagePrompt = swal({
-    title: "You've been here before!",
-    content: hereBeforeMessage,
-    buttons: {
-      sample: {
-        text: "No, show example data",
-        value: null,
-        visible: true,
-        className: "show-sample",
-        closeModal: true,
-      },
-      empty: {
-        text: "No, empty the tables",
-        value: "empty",
-        visible: true,
-        className: "show-empty",
-        closeModal: true,
-      },
-      load: {
-        text: "Yes, load previous data",
-        value: "ok",
-        visible: true,
-        className: "load-old",
-        closeModal: true,
-      },
-    },
-  });
-  // Ask wether to load localStorage data or to load sample data
-  storagePrompt.then((result) => {
-    if (result === "ok") {
-      const pointsData = JSON.parse(localStorage.getItem("pointsTable"));
-      const linesData = JSON.parse(localStorage.getItem("linesTable"));
-      const areasData = JSON.parse(localStorage.getItem("areasTable"));
-      loadDataToTables(pointsData, linesData, areasData);
-    } else if (result === "empty") {
-      const pointsData = [pointsPlaceholder];
-      const linesData = [linesPlaceholder];
-      const areasData = [areasPlaceholder];
-      loadDataToTables(pointsData, linesData, areasData);
-    } else if (!result) {
-      loadSampleData();
-    }
-  });
-} else {
-  // First time here so load sample data
-  loadSampleData();
-}
+//   const storagePrompt = swal({
+//     title: "You've been here before!",
+//     content: hereBeforeMessage,
+//     buttons: {
+//       sample: {
+//         text: "No, show example data",
+//         value: null,
+//         visible: true,
+//         className: "show-sample",
+//         closeModal: true,
+//       },
+//       empty: {
+//         text: "No, empty the tables",
+//         value: "empty",
+//         visible: true,
+//         className: "show-empty",
+//         closeModal: true,
+//       },
+//       load: {
+//         text: "Yes, load previous data",
+//         value: "ok",
+//         visible: true,
+//         className: "load-old",
+//         closeModal: true,
+//       },
+//     },
+//   });
+//   // Ask wether to load localStorage data or to load sample data
+//   storagePrompt.then((result) => {
+//     if (result === "ok") {
+//       const pointsData = JSON.parse(localStorage.getItem("pointsTable"));
+//       const linesData = JSON.parse(localStorage.getItem("linesTable"));
+//       const areasData = JSON.parse(localStorage.getItem("areasTable"));
+//       loadDataToTables(pointsData, linesData, areasData);
+//     } else if (result === "empty") {
+//       const pointsData = [pointsPlaceholder];
+//       const linesData = [linesPlaceholder];
+//       const areasData = [areasPlaceholder];
+//       loadDataToTables(pointsData, linesData, areasData);
+//     } else if (!result) {
+//       loadSampleData();
+//     }
+//   });
+// } else {
+//   // First time here so load sample data
+//   loadSampleData();
+// }
 
 const timeOutTime = 375; //ms
 

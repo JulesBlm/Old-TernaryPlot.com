@@ -370,16 +370,16 @@ const Draw = {
   },
 };
 
-const ternaryPlotElement = d3.select("#ternary-plot");
+// const ternaryPlotElement = d3.select("#ternary-plot");
 
-// append white background for png download
-ternaryPlotElement
-  .append("rect")
-  .attr("fill", "white")
-  .attr("width", initialPlotSize[0])
-  .attr("height", initialPlotSize[1]);
+// // append white background for png download
+// ternaryPlotElement
+//   .append("rect")
+//   .attr("fill", "white")
+//   .attr("width", initialPlotSize[0])
+//   .attr("height", initialPlotSize[1]);
 
-ternaryPlotElement.call(ternary);
-window.addEventListener("resize", resize(ternary));
+// ternaryPlotElement.call(ternary);
+// window.addEventListener("resize", resize(ternary));
 
 export { Parse, Draw, clearLabels };
